@@ -30,7 +30,10 @@
       "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com add components/CredentialBar.tsx app/page.tsx)",
       "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add infinite scrolling CredentialBar\")",
       "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com add components/ServiceBlock.tsx)",
-      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add ServiceBlock with scroll-triggered Framer Motion animations\")"
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add ServiceBlock with scroll-triggered Framer Motion animations\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\longevity\\\\[slug]\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\systems\\\\[slug]\")",
+      "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\neuroperformance\\\\[slug]\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\fujitsu\\Desktop\\temp-kebat"
