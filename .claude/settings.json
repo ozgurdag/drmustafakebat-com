@@ -22,7 +22,15 @@
       "Bash(node -e \"const pkg = require\\('./package.json'\\); console.log\\(JSON.stringify\\(pkg.dependencies, null, 2\\)\\); console.log\\(JSON.stringify\\(pkg.devDependencies, null, 2\\)\\);\")",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); tw=d.get\\('packages',{}\\).get\\('node_modules/tailwindcss',{}\\); print\\('tailwindcss resolved:', tw.get\\('version','?'\\)\\); atw=d.get\\('packages',{}\\).get\\('node_modules/@tailwindcss/postcss',{}\\); print\\('@tailwindcss/postcss resolved:', atw.get\\('version','?'\\)\\)\")",
       "Bash(python3 -c ' *)",
-      "Bash(npm uninstall *)"
+      "Bash(npm uninstall *)",
+      "Bash(git commit *)",
+      "Bash(npm list *)",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com add components/Hero.tsx app/page.tsx)",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add animated Hero section with Framer Motion stagger\")",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com add components/CredentialBar.tsx app/page.tsx)",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add infinite scrolling CredentialBar\")",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com add components/ServiceBlock.tsx)",
+      "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add ServiceBlock with scroll-triggered Framer Motion animations\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\fujitsu\\Desktop\\temp-kebat"

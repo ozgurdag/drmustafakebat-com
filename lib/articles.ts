@@ -22,7 +22,7 @@ export function getArticleBySlug(category: ArticleCategory, slug: string): Artic
     slug,
     title: data.title ?? '',
     category: data.category ?? category,
-    altBaslik1: data.altBaslik1 ?? '',
+    altBaslik1: data.altBaslik1,
     altBaslik2: data.altBaslik2 ?? '',
     date: data.date ?? '',
     excerpt: data.excerpt ?? '',
@@ -56,7 +56,7 @@ export function getArticlesBySubtopic(category: ArticleCategory, altBaslik1: str
 
 export function getSubtopics(category: ArticleCategory): string[] {
   const articles = getArticlesByCategory(category)
-  return [...new Set(articles.map(a => a.altBaslik1).filter(Boolean))]
+  return [...new Set(articles.map(a => a.altBaslik1).filter((v): v is string => Boolean(v)))]
 }
 
 export function getRecentArticles(count = 6): ArticleMeta[] {

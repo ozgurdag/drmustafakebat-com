@@ -3,7 +3,7 @@ export type ArticleCategory = 'longevity' | 'systems' | 'neuroperformance'
 export interface ArticleFrontmatter {
   title: string
   category: ArticleCategory
-  altBaslik1: string
+  altBaslik1?: string
   altBaslik2?: string
   date: string
   excerpt: string
@@ -31,7 +31,7 @@ export const CATEGORY_DESCRIPTIONS: Record<ArticleCategory, string> = {
 }
 
 export const CATEGORY_COLORS: Record<ArticleCategory, string> = {
-  longevity: '#2d5a3d',
-  systems: '#1a3a6a',
-  neuroperformance: '#2d1a50',
+  longevity: 'bg-emerald-700',
+  systems: 'bg-blue-700',
+  neuroperformance: 'bg-purple-700',
 }
