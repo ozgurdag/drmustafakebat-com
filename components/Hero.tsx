@@ -49,7 +49,7 @@ export default function Hero() {
               variants={wordVariant}
               className="inline-block mr-[0.25em] last:mr-0"
             >
-              {i === 1 ? <em className="not-italic text-gold">{word}</em> : word}
+              {i === 1 ? <span className="text-gold">{word}</span> : word}
             </motion.span>
           ))}
         </motion.h1>
