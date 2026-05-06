@@ -1,3 +1,4 @@
+import React from 'react'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getArticleBySlug, getArticlesBySubtopic } from '@/lib/articles'
 import { ArticleCategory, CATEGORY_LABELS, CATEGORY_COLORS } from '@/lib/types'
@@ -26,7 +27,6 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
 
   return (
     <>
-      {/* Article Hero */}
       <div className="bg-navy py-12 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
           <Breadcrumb
@@ -70,7 +70,23 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
           {/* Article Content */}
           <article className="lg:col-span-3 min-w-0">
             <div className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-navy prose-a:text-gold prose-a:no-underline hover:prose-a:underline">
-              <MDXRemote source={article.content} />
+              <MDXRemote
+                source={article.content}
+                components={{
+                  a: ({ href, children, ...props }: React.ComponentProps<'a'>) => {
+                    const isExternal = href?.startsWith('http')
+                    return (
+                      <a
+                        href={href}
+                        {...props}
+                        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {children}
+                      </a>
+                    )
+                  }
+                }}
+              />
             </div>
           </article>
         </div>
