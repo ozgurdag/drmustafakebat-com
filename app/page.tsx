@@ -1,6 +1,9 @@
-import { getRecentArticles } from '@/lib/articles'
+import Hero from '@/components/Hero'
 
 export default function Home() {
-  const articles = getRecentArticles()
-  return <main><h1>Articles: {articles.length}</h1></main>
+  return (
+    <>
+      <Hero />
+    </>
+  )
 }
