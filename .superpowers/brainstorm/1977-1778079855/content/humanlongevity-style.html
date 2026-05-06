@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Mustafa Kebat — Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif; background: #f5f3ee; color: #1a1a1a; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px; background: #f5f3ee; border-bottom: 1px solid #e0ddd6;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo { font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 28px; font-size: 13px; color: #444; }
+  .nav-links span { cursor: pointer; }
+  .nav-links span:hover { color: #000; }
+  .nav-cta {
+    background: #1a1a1a; color: #fff; padding: 9px 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px;
+    border: none; cursor: pointer;
+  }
+
+  .hero {
+    padding: 60px 40px 40px;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .hero-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+  .hero-title { font-size: 42px; font-weight: 300; line-height: 1.2; max-width: 600px; margin-bottom: 16px; }
+  .hero-sub { font-size: 14px; color: #555; max-width: 420px; line-height: 1.7; }
+
+  .cards-section { max-width: 1200px; margin: 0 auto; padding: 0 40px 60px; }
+  .cards-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+  .service-card {
+    background: #fff; overflow: hidden; cursor: pointer;
+    transition: transform 0.2s; border: 1px solid #e8e5de;
+  }
+  .service-card:hover { transform: translateY(-3px); }
+  .card-img {
+    height: 220px; width: 100%; object-fit: cover;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; position: relative; overflow: hidden;
+  }
+  .card-img-longevity {
+    background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 50%, #6b9e7a 100%);
+  }
+  .card-img-systems {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2d5a8a 50%, #4a7fb5 100%);
+  }
+  .card-img-neuro {
+    background: linear-gradient(135deg, #3d2a5a 0%, #5a3d7a 50%, #7a5a9e 100%);
+  }
+  .card-num {
+    position: absolute; top: 14px; left: 14px;
+    font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 1px;
+  }
+  .card-icon { font-size: 52px; opacity: 0.9; }
+  .card-body { padding: 20px; }
+  .card-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .card-desc { font-size: 12px; color: #888; line-height: 1.6; margin-bottom: 12px; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 10px; color: #666; background: #f0ede6;
+    padding: 3px 8px; border-radius: 2px;
+  }
+  .card-link { font-size: 11px; color: #1a1a1a; font-weight: 600; letter-spacing: 1px; margin-top: 14px; display: block; }
+
+  .articles-section { background: #fff; border-top: 1px solid #e0ddd6; padding: 50px 40px; }
+  .articles-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 8px; }
+  .section-title { font-size: 28px; font-weight: 300; margin-bottom: 30px; }
+  .articles-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .article-item { border-bottom: 1px solid #e8e5de; padding-bottom: 16px; }
+  .article-cat { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+  .article-title { font-size: 14px; font-weight: 500; line-height: 1.5; margin-bottom: 6px; }
+  .article-date { font-size: 11px; color: #aaa; }
+
+  .footer-bar {
+    background: #1a1a1a; color: #fff; padding: 16px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: #888;
+  }
+  .footer-bar strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Dr. Mustafa Kebat</div>
+  <div class="nav-links">
+    <span>Longevity</span>
+    <span>Systems</span>
+    <span>NeuroPerformance</span>
+    <span>Makaleler</span>
+    <span>Hakkımda</span>
+  </div>
+  <button class="nav-cta">İletişim →</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-label">Hekim · İSG Uzmanı · Araştırmacı</div>
+  <h1 class="hero-title">Sağlığı sistematik<br>düşünmek.</h1>
+  <p class="hero-sub">Bireyden kuruma; biyolojik yaşlanmadan iş güvenliğine kadar uzanan üç uzmanlık alanında 1.000'den fazla makale ve danışmanlık deneyimi.</p>
+</section>
+
+<!-- 3 SERVICE CARDS -->
+<section class="cards-section">
+  <div class="cards-grid">
+
+    <div class="service-card">
+      <div class="card-img card-img-longevity">
+        <span class="card-num">01</span>
+        <span class="card-icon">🌿</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Longevity</div>
+        <div class="card-desc">Bireysel sağlık ve yaşlanma yönetimi. Biyolojik yaş optimizasyonu, beslenme ve yaşam kalitesi.</div>
+        <div class="card-tags">
+          <span class="tag">Yaşlanma</span>
+          <span class="tag">Beslenme</span>
+          <span class="tag">Bağışıklık</span>
+          <span class="tag">Takviyeler</span>
+        </div>
+        <a class="card-link">Makaleleri Keşfet →</a>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="card-img card-img-systems">
+        <span class="card-num">02</span>
+        <span class="card-icon">⚙️</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Systems</div>
+        <div class="card-desc">Kurumsal sağlık sistemleri kurulumu. İSG mevzuatı, risk yönetimi ve eğitim programları.</div>
+        <div class="card-tags">
+          <span class="tag">İSG</span>
+          <span class="tag">Risk Analizi</span>
+          <span class="tag">Eğitim</span>
+          <span class="tag">Mevzuat</span>
+        </div>
+        <a class="card-link">Makaleleri Keşfet →</a>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <div class="card-img card-img-neuro">
+        <span class="card-num">03</span>
+        <span class="card-icon">🧠</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">NeuroPerformance</div>
+        <div class="card-desc">Zihin ve hareket optimizasyon eğitimleri. Nöroergonomi, stres yönetimi ve performans koçluğu.</div>
+        <div class="card-tags">
+          <span class="tag">Nöroergonomi</span>
+          <span class="tag">Hareket</span>
+          <span class="tag">Stres</span>
+          <span class="tag">Performans</span>
+        </div>
+        <a class="card-link">Makaleleri Keşfet →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RECENT ARTICLES -->
+<section class="articles-section">
+  <div class="articles-inner">
+    <div class="section-label">Son Yayınlar</div>
+    <h2 class="section-title">Düşünceler ve Makaleler</h2>
+    <div class="articles-grid">
+      <div class="article-item">
+        <div class="article-cat">Longevity · Beslenme</div>
+        <div class="article-title">Omega-3'ün Kardiyovasküler Sağlığa Etkileri</div>
+        <div class="article-date">Mart 2025</div>
+      </div>
+      <div class="article-item">
+        <div class="article-cat">Systems · İSG</div>
+        <div class="article-title">İşyerinde Yangın Güvenliği Eğitimi Rehberi</div>
+        <div class="article-date">Şubat 2025</div>
+      </div>
+      <div class="article-item">
+        <div class="article-cat">NeuroPerformance</div>
+        <div class="article-title">Zihinsel Yorgunluk ve İş Verimliliği İlişkisi</div>
+        <div class="article-date">Ocak 2025</div>
+      </div>
+      <div class="article-item">
+        <div class="article-cat">Longevity · Vitamin</div>
+        <div class="article-title">D Vitamini Eksikliğinin Bağışıklık Üzerine Etkisi</div>
+        <div class="article-date">Ocak 2025</div>
+      </div>
+      <div class="article-item">
+        <div class="article-cat">Systems · Risk</div>
+        <div class="article-title">Deprem Tatbikatı Planlama ve Uygulama Kılavuzu</div>
+        <div class="article-date">Aralık 2024</div>
+      </div>
+      <div class="article-item">
+        <div class="article-cat">NeuroPerformance · Ergonomi</div>
+        <div class="article-title">Ofis Ergonomisi: Bel ve Boyun Sağlığı</div>
+        <div class="article-date">Aralık 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-bar">
+  <strong>Dr. Mustafa Kebat</strong>
+  <span>drmustafakebat.com · Hekim · İSG Uzmanı</span>
+  <span>© 2025</span>
+</div>
+
+</body>
+</html>

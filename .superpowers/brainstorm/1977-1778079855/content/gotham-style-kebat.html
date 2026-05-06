@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Mustafa Kebat — Gotham Style Mockup</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Georgia, 'Times New Roman', serif; background: #fff; color: #1a1a1a; }
+
+/* NAV */
+nav {
+  background: #111; display: flex; align-items: center;
+  justify-content: space-between; padding: 0 32px; height: 72px;
+  position: sticky; top: 0; z-index: 100;
+}
+.nav-left { display: flex; flex-direction: column; }
+.nav-location { color: #999; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif; }
+.nav-cta { color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; font-family: sans-serif; }
+.nav-cta span { color: #c9a84c; }
+.nav-logo { text-align: center; }
+.nav-logo-name { color: #fff; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-family: sans-serif; }
+.nav-logo-title { color: #c9a84c; font-size: 9px; letter-spacing: 2px; font-family: sans-serif; }
+.nav-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.nav-phone { color: #fff; font-size: 12px; font-family: sans-serif; letter-spacing: 1px; }
+.nav-menu { color: #fff; font-size: 11px; font-family: sans-serif; letter-spacing: 2px; display: flex; align-items: center; gap: 6px; }
+
+/* HERO */
+.hero {
+  position: relative; height: 90vh; min-height: 600px;
+  background: linear-gradient(135deg, #0a1220 0%, #1a2840 40%, #0d1a2e 100%);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; font-size: 200px; font-weight: 900;
+  color: rgba(255,255,255,0.03); letter-spacing: -10px;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  white-space: nowrap; font-family: sans-serif;
+}
+.hero-content { position: relative; z-index: 2; text-align: center; padding: 0 20px; }
+.hero-eyebrow { color: #c9a84c; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-family: sans-serif; margin-bottom: 16px; }
+.hero-title { color: #fff; font-size: clamp(48px, 8vw, 96px); font-weight: 400; line-height: 1.0; margin-bottom: 12px; }
+.hero-title em { font-style: italic; color: #c9a84c; }
+.hero-sub { color: rgba(255,255,255,0.5); font-size: 14px; font-family: sans-serif; letter-spacing: 1px; margin-bottom: 28px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid #c9a84c; padding: 8px 20px;
+  color: #c9a84c; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif;
+}
+
+/* LOGOS BAR */
+.logos-bar { background: #f5f3ee; padding: 20px 32px; border-bottom: 1px solid #e0ddd6; overflow: hidden; }
+.logos-track { display: flex; gap: 48px; align-items: center; }
+.logo-item { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #aaa; font-family: sans-serif; white-space: nowrap; }
+
+/* ABOUT STRIP */
+.about-strip { background: #fff; padding: 60px 32px; max-width: 1100px; margin: 0 auto; }
+.about-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; font-family: sans-serif; margin-bottom: 10px; }
+.about-title { font-size: clamp(32px, 4vw, 52px); line-height: 1.15; margin-bottom: 20px; color: #111; }
+.about-body { font-size: 15px; line-height: 1.8; color: #555; font-family: sans-serif; max-width: 720px; }
+
+/* SERVICES */
+.service-block { display: flex; min-height: 480px; }
+.service-block.reverse { flex-direction: row-reverse; }
+.service-img {
+  flex: 0 0 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 80px; position: relative;
+}
+.service-img-longevity { background: linear-gradient(135deg, #1a3a28, #2d5a3d, #4a7c59); }
+.service-img-systems { background: linear-gradient(135deg, #0d1f3a, #1a3a6a, #2d5a8a); }
+.service-img-neuro { background: linear-gradient(135deg, #1a1030, #2d1a50, #4a2d7a); }
+.service-num { position: absolute; top: 24px; left: 28px; font-size: 80px; font-weight: 900; color: rgba(255,255,255,0.06); font-family: sans-serif; line-height: 1; }
+.service-content { flex: 0 0 50%; padding: 60px 48px; display: flex; flex-direction: column; justify-content: center; }
+.service-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; font-family: sans-serif; margin-bottom: 14px; }
+.service-title { font-size: 36px; line-height: 1.2; margin-bottom: 16px; color: #111; }
+.service-desc { font-size: 14px; line-height: 1.7; color: #666; font-family: sans-serif; margin-bottom: 24px; }
+.service-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.service-list li { font-size: 13px; font-family: sans-serif; color: #333; display: flex; align-items: center; gap: 10px; }
+.service-list li::before { content: ''; width: 20px; height: 1px; background: #c9a84c; flex-shrink: 0; }
+.service-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-family: sans-serif; font-weight: 700; color: #111; border-bottom: 2px solid #c9a84c; padding-bottom: 3px; }
+
+/* DOCTOR SECTION */
+.doctor-section { background: #111; display: flex; min-height: 500px; }
+.doctor-img { flex: 0 0 45%; background: linear-gradient(160deg, #1a2a1a, #2a3a2a, #3d5a3d); display: flex; align-items: center; justify-content: center; font-size: 60px; }
+.doctor-content { flex: 1; padding: 60px 48px; display: flex; flex-direction: column; justify-content: center; }
+.doctor-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; font-family: sans-serif; margin-bottom: 14px; }
+.doctor-title { font-size: 40px; color: #fff; line-height: 1.2; margin-bottom: 20px; }
+.doctor-body { font-size: 14px; line-height: 1.8; color: #aaa; font-family: sans-serif; margin-bottom: 28px; }
+.cred-list { display: flex; flex-wrap: wrap; gap: 12px; }
+.cred { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); color: #c9a84c; font-size: 10px; letter-spacing: 1px; padding: 6px 12px; font-family: sans-serif; }
+
+/* ARTICLES */
+.articles-section { padding: 70px 32px; max-width: 1100px; margin: 0 auto; }
+.section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; border-bottom: 1px solid #e0ddd6; padding-bottom: 16px; }
+.section-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c9a84c; font-family: sans-serif; }
+.section-title { font-size: 32px; color: #111; margin-top: 6px; }
+.see-all { font-size: 11px; letter-spacing: 1px; font-family: sans-serif; color: #c9a84c; text-decoration: none; }
+.articles-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.article-card { border-bottom: 2px solid #111; padding-bottom: 20px; }
+.article-cat { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #c9a84c; font-family: sans-serif; margin-bottom: 10px; }
+.article-title { font-size: 16px; line-height: 1.4; color: #111; margin-bottom: 10px; }
+.article-excerpt { font-size: 12px; line-height: 1.6; color: #888; font-family: sans-serif; }
+.article-date { font-size: 10px; color: #bbb; font-family: sans-serif; margin-top: 12px; }
+
+/* FOOTER */
+footer { background: #111; padding: 32px; display: flex; justify-content: space-between; align-items: center; }
+.footer-name { color: #fff; font-size: 13px; letter-spacing: 2px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: #666; font-size: 11px; font-family: sans-serif; letter-spacing: 1px; }
+.footer-copy { color: #444; font-size: 10px; font-family: sans-serif; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <span class="nav-location">İstanbul, Türkiye</span>
+    <span class="nav-cta">İLETİŞİM <span>→</span></span>
+  </div>
+  <div class="nav-logo">
+    <div class="nav-logo-name">Dr. Mustafa Kebat</div>
+    <div class="nav-logo-title">Hekim · İSG Uzmanı · Araştırmacı</div>
+  </div>
+  <div class="nav-right">
+    <span class="nav-phone">Longevity · Systems · NeuroPerformance</span>
+    <span class="nav-menu">≡ MENÜ</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">SAĞLIK</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Hekim · İSG Uzmanı · Araştırmacı</div>
+    <h1 class="hero-title">Sağlığı<br><em>Sistematik</em><br>Düşünmek.</h1>
+    <p class="hero-sub">Longevity · Systems · NeuroPerformance</p>
+    <div class="hero-badge">★ &nbsp; 1.000+ Makale · 20 Yıl Deneyim</div>
+  </div>
+</section>
+
+<!-- LOGOS / CREDENTIALS BAR -->
+<div class="logos-bar">
+  <div class="logos-track">
+    <span class="logo-item">İSG Uzmanı</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">İş Güvenliği Uzmanı (A Sınıfı)</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">İşyeri Hekimi</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">1.000+ Makale</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">tetkik.com.tr</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">Longevity Danışmanı</span>
+    <span class="logo-item">·</span>
+    <span class="logo-item">Nöroergonomi Eğitmeni</span>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-label">Yaklaşım</div>
+  <h2 class="about-title">Bireyden kuruma.<br>Biyolojiden sisteme.</h2>
+  <p class="about-body">
+    Dr. Mustafa Kebat, bireysel sağlık yönetiminden kurumsal iş güvenliği sistemlerine uzanan bütünleşik bir uzmanlık anlayışı geliştirmiştir. 1.000'den fazla makale ve yıllarca süren klinik ve saha deneyimiyle; yaşlanma yönetimi, zihinsel performans ve iş güvenliği sistemleri konularında danışmanlık ve eğitim hizmetleri sunmaktadır.
+  </p>
+</div>
+
+<!-- SERVICE 1: LONGEVITY -->
+<div class="service-block">
+  <div class="service-img service-img-longevity">
+    <div class="service-num">01</div>
+    <span>🌿</span>
+  </div>
+  <div class="service-content">
+    <div class="service-eyebrow">Uzmanlık Alanı 01</div>
+    <h2 class="service-title">Longevity</h2>
+    <p class="service-desc">Bireysel sağlık ve yaşlanma yönetimi. Biyolojik yaş optimizasyonu, metabolik sağlık ve yaşam kalitesi için kanıta dayalı protokoller.</p>
+    <ul class="service-list">
+      <li>Biyolojik Yaş Değerlendirmesi</li>
+      <li>Beslenme ve Takviye Stratejileri</li>
+      <li>Kardiyovasküler Sağlık Optimizasyonu</li>
+      <li>Bağışıklık Sistemi Güçlendirme</li>
+      <li>Hormonal Denge ve Yaşlanma</li>
+    </ul>
+    <a class="service-link">Makaleleri Keşfet →</a>
+  </div>
+</div>
+
+<!-- SERVICE 2: SYSTEMS -->
+<div class="service-block reverse">
+  <div class="service-img service-img-systems">
+    <div class="service-num">02</div>
+    <span>⚙️</span>
+  </div>
+  <div class="service-content">
+    <div class="service-eyebrow">Uzmanlık Alanı 02</div>
+    <h2 class="service-title">Systems</h2>
+    <p class="service-desc">Kurumsal sağlık sistemleri kurulumu. İSG mevzuatı uyumundan risk yönetimine, eğitim tasarımından sertifikasyona kadar tam kapsamlı danışmanlık.</p>
+    <ul class="service-list">
+      <li>İSG Risk Analizi ve Değerlendirmesi</li>
+      <li>Yangın ve Deprem Acil Durum Planları</li>
+      <li>Çalışan Sağlığı İzleme Sistemleri</li>
+      <li>ISG Eğitim Programı Tasarımı</li>
+      <li>Mevzuat Uyumluluk Denetimleri</li>
+    </ul>
+    <a class="service-link">Makaleleri Keşfet →</a>
+  </div>
+</div>
+
+<!-- SERVICE 3: NEUROPERFORMANCE -->
+<div class="service-block">
+  <div class="service-img service-img-neuro">
+    <div class="service-num">03</div>
+    <span>🧠</span>
+  </div>
+  <div class="service-content">
+    <div class="service-eyebrow">Uzmanlık Alanı 03</div>
+    <h2 class="service-title">NeuroPerformance</h2>
+    <p class="service-desc">Zihin ve hareket optimizasyon eğitimleri. Nöroergonomi, bilişsel performans ve stres yönetimi üzerine kurumsal ve bireysel eğitim programları.</p>
+    <ul class="service-list">
+      <li>Nöroergonomi ve İş Tasarımı</li>
+      <li>Bilişsel Yük ve Karar Verme</li>
+      <li>Stres Yönetimi Eğitimleri</li>
+      <li>Hareket ve Postür Analizi</li>
+      <li>Zihinsel Dayanıklılık Programları</li>
+    </ul>
+    <a class="service-link">Makaleleri Keşfet →</a>
+  </div>
+</div>
+
+<!-- DOCTOR SECTION -->
+<div class="doctor-section">
+  <div class="doctor-img">👨‍⚕️</div>
+  <div class="doctor-content">
+    <div class="doctor-eyebrow">Hakkımda</div>
+    <h2 class="doctor-title">Dr. Mustafa Kebat</h2>
+    <p class="doctor-body">
+      Tıp doktoru ve A sınıfı iş güvenliği uzmanı. Klinik tıp, iş sağlığı ve güvenliği ile insan performansı alanlarını bütünleştiren özgün bir uzmanlık profili. tetkik.com.tr platformunda 1.000'den fazla makale yayımlamış; kurumsal sağlık sistemleri ve bireysel danışmanlık alanlarında aktif olarak hizmet vermektedir.
+    </p>
+    <div class="cred-list">
+      <span class="cred">Tıp Doktoru (MD)</span>
+      <span class="cred">A Sınıfı İSG Uzmanı</span>
+      <span class="cred">İşyeri Hekimi</span>
+      <span class="cred">Longevity Danışmanı</span>
+      <span class="cred">1.000+ Makale</span>
+    </div>
+  </div>
+</div>
+
+<!-- ARTICLES -->
+<div class="articles-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Son Yayınlar</div>
+      <h2 class="section-title">Düşünceler ve Makaleler</h2>
+    </div>
+    <a class="see-all">Tüm Makaleler →</a>
+  </div>
+  <div class="articles-grid">
+    <div class="article-card">
+      <div class="article-cat">Longevity · Kardiyovasküler</div>
+      <h3 class="article-title">Omega-3'ün Kalp Sağlığına Kanıta Dayalı Etkileri</h3>
+      <p class="article-excerpt">Kardiyovasküler mortalite üzerine yapılan meta-analizler ve klinik protokollere yansımaları.</p>
+      <div class="article-date">Mart 2025</div>
+    </div>
+    <div class="article-card">
+      <div class="article-cat">Systems · Acil Durum</div>
+      <h3 class="article-title">Yangın Güvenliği Eğitimi: Kapsamlı Planlama Rehberi</h3>
+      <p class="article-excerpt">İşyeri yangın tatbikatlarının tasarımı, uygulaması ve mevzuat uyumluluğu.</p>
+      <div class="article-date">Şubat 2025</div>
+    </div>
+    <div class="article-card">
+      <div class="article-cat">NeuroPerformance · Bilişsel Sağlık</div>
+      <h3 class="article-title">Zihinsel Yorgunluk ve Karar Verme Kalitesi</h3>
+      <p class="article-excerpt">Kronik bilişsel yükün iş kararları üzerindeki nörobiyolojik mekanizmaları.</p>
+      <div class="article-date">Ocak 2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Dr. Mustafa Kebat</span>
+  <div class="footer-links">
+    <a>Longevity</a>
+    <a>Systems</a>
+    <a>NeuroPerformance</a>
+    <a>Makaleler</a>
+    <a>İletişim</a>
+  </div>
+  <span class="footer-copy">© 2025 drmustafakebat.com</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -l \"WEB SAYFA EKRANI.docx\")",
+      "Bash(unzip -p \"WEB SAYFA EKRANI.docx\" word/document.xml)",
+      "Bash(sed 's/<[^>]*>//g')",
+      "Bash(grep -v '^[[:space:]]*$')",
+      "Read(//c/Users/fujitsu/.claude/plugins/cache/claude-plugins-official/superpowers/5.0.7/skills/brainstorming/**)",
+      "Read(//c/Users/fujitsu/.claude/plugins/**)",
+      "Bash(bash \"C:\\\\Users\\\\fujitsu\\\\.claude\\\\plugins\\\\cache\\\\claude-plugins-official\\\\superpowers\\\\5.0.7\\\\skills\\\\brainstorming\\\\scripts\\\\start-server.sh\" --project-dir \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\")",
+      "Read(//c/Users/fujitsu/**)",
+      "Bash(npm --version)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npx create-next-app@latest temp-kebat --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --yes)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git config *)",
+      "Bash(git -C \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\" show --stat f9377a9)",
+      "Bash(node -e \"const pkg = require\\('./package.json'\\); console.log\\(JSON.stringify\\(pkg.dependencies, null, 2\\)\\); console.log\\(JSON.stringify\\(pkg.devDependencies, null, 2\\)\\);\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); tw=d.get\\('packages',{}\\).get\\('node_modules/tailwindcss',{}\\); print\\('tailwindcss resolved:', tw.get\\('version','?'\\)\\); atw=d.get\\('packages',{}\\).get\\('node_modules/@tailwindcss/postcss',{}\\); print\\('@tailwindcss/postcss resolved:', atw.get\\('version','?'\\)\\)\")",
+      "Bash(python3 -c ' *)",
+      "Bash(npm uninstall *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\fujitsu\\Desktop\\temp-kebat"
+    ]
+  }
+}
