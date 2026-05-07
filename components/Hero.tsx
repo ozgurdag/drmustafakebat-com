@@ -2,8 +2,6 @@
 
 import { motion } from 'framer-motion'
 
-const words = ['Sağlığı', 'Sistematik', 'Düşünmek.']
-
 const container = {
   hidden: {},
   visible: {
@@ -18,8 +16,8 @@ const wordVariant = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-navy">
-      {/* Video arka plan */}
+    <section className="relative flex items-center justify-center overflow-hidden" style={{ height: '90vh', minHeight: '600px', background: 'linear-gradient(135deg, #0a1220 0%, #1a2840 40%, #0d1a2e 100%)' }}>
+      {/* Video background */}
       <video
         autoPlay
         muted
@@ -30,16 +28,23 @@ export default function Hero() {
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
-      {/* Koyu overlay — videonun üstüne */}
+      {/* Dark overlay */}
       <div className="absolute inset-0 bg-navy/70" />
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      {/* Decorative SAĞLIK text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span className="text-[200px] font-black text-white/[0.03] font-sans leading-none whitespace-nowrap" style={{ letterSpacing: '-10px' }}>
+          SAĞLIK
+        </span>
+      </div>
+
+      <div className="relative z-10 text-center px-5 max-w-4xl mx-auto">
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-gold text-[10px] tracking-[4px] uppercase font-sans mb-5"
+          className="text-gold text-[10px] tracking-[4px] uppercase font-sans mb-4"
         >
           Hekim · İSG Uzmanı · Araştırmacı
         </motion.p>
@@ -48,25 +53,26 @@ export default function Hero() {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="font-serif font-normal leading-[1.05] text-white mb-5"
+          className="font-serif font-normal leading-[1.0] text-white mb-5"
           style={{ fontSize: 'clamp(48px, 8vw, 96px)' }}
         >
-          {words.map((word, i) => (
-            <motion.span
-              key={i}
-              variants={wordVariant}
-              className="inline-block mr-[0.25em] last:mr-0"
-            >
-              {i === 1 ? <span className="text-gold">{word}</span> : word}
-            </motion.span>
-          ))}
+          <motion.span variants={wordVariant} className="block">
+            Sağlığı
+          </motion.span>
+          <motion.span variants={wordVariant} className="block">
+            <em className="not-italic text-gold" style={{ fontStyle: 'italic' }}>Sistematik</em>
+          </motion.span>
+          <motion.span variants={wordVariant} className="block">
+            Düşünmek.
+          </motion.span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
-          className="text-gray-400 text-sm font-sans tracking-wider mb-8"
+          className="font-sans tracking-[1px] mb-7"
+          style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}
         >
           Longevity · Systems · NeuroPerformance
         </motion.p>
@@ -75,21 +81,12 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1.1, duration: 0.4 }}
-          className="inline-flex items-center gap-2 border border-gold px-6 py-2.5 text-gold text-[10px] tracking-[2px] uppercase font-sans"
+          className="inline-flex items-center gap-2 border border-gold text-gold font-sans uppercase font-sans"
+          style={{ padding: '8px 20px', fontSize: '10px', letterSpacing: '2px' }}
         >
           ★ &nbsp; 1.000+ Makale · 20 Yıl Deneyim
         </motion.div>
       </div>
-
-      {/* Aşağı ok */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold/50 text-2xl animate-bounce"
-      >
-        ↓
-      </motion.div>
     </section>
   )
 }

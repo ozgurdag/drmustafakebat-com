@@ -1,113 +1,62 @@
 'use client'
-
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const links = [
-  { href: '/longevity', label: 'Longevity' },
-  { href: '/systems', label: 'Systems' },
-  { href: '/neuroperformance', label: 'NeuroPerformance' },
-  { href: '/makaleler', label: 'Makaleler' },
-  { href: '/hakkimda', label: 'Hakkımda' },
-]
+import { useState } from 'react'
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <>
       <motion.nav
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 bg-navy transition-shadow duration-300 ${
-          scrolled ? 'shadow-lg' : ''
-        }`}
+        initial={{ y: -80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+        className="fixed top-0 left-0 right-0 z-50 bg-navy h-[72px] flex items-center justify-between px-8"
       >
-        <div className="flex items-center justify-between px-6 md:px-10 h-[68px]">
-          {/* Sol */}
-          <div className="flex flex-col">
-            <span className="text-gray-500 text-[9px] tracking-[3px] uppercase font-sans">
-              İstanbul, Türkiye
-            </span>
-            <Link
-              href="/iletisim"
-              className="text-white text-[11px] font-bold tracking-wider font-sans hover:text-gold transition-colors"
-            >
-              İLETİŞİM <span className="text-gold">→</span>
-            </Link>
-          </div>
-
-          {/* Orta: Logo */}
-          <Link href="/" className="text-center absolute left-1/2 -translate-x-1/2">
-            <div className="text-white text-[13px] tracking-[3px] uppercase font-sans font-bold">
-              Dr. Mustafa Kebat
-            </div>
-            <div className="text-gold text-[9px] tracking-[2px] uppercase font-sans">
-              Hekim · İSG Uzmanı · Araştırmacı
-            </div>
+        {/* Left */}
+        <div className="hidden lg:flex flex-col">
+          <span className="text-[#999] text-[9px] tracking-[2px] uppercase font-sans">İstanbul, Türkiye</span>
+          <Link href="/iletisim" className="text-white text-[11px] font-bold tracking-[1px] font-sans hover:text-gold transition-colors">
+            İLETİŞİM <span className="text-gold">→</span>
           </Link>
-
-          {/* Sağ: desktop linkler + hamburger */}
-          <div className="flex items-center gap-6">
-            <div className="hidden lg:flex items-center gap-5">
-              {links.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-gray-300 text-[11px] tracking-wider uppercase font-sans hover:text-white transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden text-white text-[11px] tracking-[2px] uppercase font-sans flex items-center gap-2"
-              aria-label="Menü"
-            >
-              {menuOpen ? '✕' : '≡'} MENÜ
-            </button>
-          </div>
         </div>
+
+        {/* Center logo */}
+        <div className="text-center">
+          <Link href="/">
+            <div className="text-white text-[13px] tracking-[3px] uppercase font-sans">Dr. Mustafa Kebat</div>
+            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim · İSG Uzmanı · Araştırmacı</div>
+          </Link>
+        </div>
+
+        {/* Right */}
+        <div className="hidden lg:flex flex-col items-end gap-0.5">
+          <div className="flex gap-5 text-white text-[11px] font-sans tracking-[1px]">
+            {([['Longevity','/longevity'],['Systems','/systems'],['NeuroPerformance','/neuroperformance'],['Makaleler','/makaleler'],['Hakkımda','/hakkimda']] as [string, string][]).map(([label, href]) => (
+              <Link key={href} href={href} className="hover:text-gold transition-colors">{label}</Link>
+            ))}
+          </div>
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-[11px] font-sans tracking-[2px] self-end hover:text-gold transition-colors">
+            ≡ MENÜ
+          </button>
+        </div>
+
+        {/* Mobile hamburger */}
+        <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden text-white text-2xl">≡</button>
       </motion.nav>
 
-      {/* Mobil Menü */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-[68px] left-0 right-0 z-40 bg-navy border-t border-gray-800"
+            className="fixed top-[72px] left-0 right-0 z-40 bg-navy border-t border-white/10 py-6 px-8 flex flex-col gap-4"
           >
-            <div className="flex flex-col py-4">
-              {links.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="px-8 py-3 text-gray-300 text-[13px] tracking-wider uppercase font-sans hover:text-gold hover:bg-gray-900 transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/iletisim"
-                onClick={() => setMenuOpen(false)}
-                className="mx-6 mt-4 py-3 text-center bg-gold text-navy text-[11px] font-bold tracking-wider uppercase"
-              >
-                İLETİŞİM →
-              </Link>
-            </div>
+            {([['Longevity','/longevity'],['Systems','/systems'],['NeuroPerformance','/neuroperformance'],['Makaleler','/makaleler'],['Hakkımda','/hakkimda'],['İletişim','/iletisim']] as [string, string][]).map(([label, href]) => (
+              <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="text-white text-sm font-sans tracking-[2px] uppercase hover:text-gold transition-colors">{label}</Link>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

@@ -16,20 +16,21 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.08 }}
       whileHover={{ y: -4 }}
-      className="border-b-2 border-navy pb-5 cursor-pointer group"
+      className="cursor-pointer group"
+      style={{ borderBottom: '2px solid #111', paddingBottom: '20px' }}
     >
       <Link href={`/${article.category}/${article.slug}`}>
-        <p className="text-[9px] tracking-[2px] uppercase text-gold font-sans mb-2.5">
+        <p className="font-sans uppercase mb-2.5" style={{ fontSize: '9px', color: '#c9a84c', letterSpacing: '2px' }}>
           {CATEGORY_LABELS[article.category]}
           {article.altBaslik1 && ` · ${article.altBaslik1}`}
         </p>
-        <h3 className="font-serif text-[17px] leading-snug text-navy mb-2.5 group-hover:text-gold transition-colors">
+        <h3 className="font-serif mb-2.5 group-hover:text-gold transition-colors" style={{ fontSize: '16px', color: '#111', lineHeight: '1.4' }}>
           {article.title}
         </h3>
-        <p className="text-[12px] text-gray-500 leading-relaxed font-sans line-clamp-2">
+        <p className="font-sans leading-relaxed line-clamp-2" style={{ fontSize: '12px', color: '#888' }}>
           {article.excerpt}
         </p>
-        <p className="text-[10px] text-gray-400 font-sans mt-3">
+        <p className="font-sans mt-3" style={{ fontSize: '10px', color: '#bbb' }}>
           {new Date(article.date).toLocaleDateString('tr-TR', {
             year: 'numeric', month: 'long', day: 'numeric'
           })}

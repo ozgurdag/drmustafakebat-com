@@ -5,32 +5,30 @@ const footerLinks = [
   { href: '/systems', label: 'Systems' },
   { href: '/neuroperformance', label: 'NeuroPerformance' },
   { href: '/makaleler', label: 'Makaleler' },
-  { href: '/hakkimda', label: 'Hakkımda' },
   { href: '/iletisim', label: 'İletişim' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-gray-500 py-8 px-6 md:px-10">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <span className="text-white text-[13px] tracking-[2px] uppercase font-sans">
-          Dr. Mustafa Kebat
-        </span>
-        <div className="flex flex-wrap justify-center gap-5">
-          {footerLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[10px] tracking-[1px] uppercase font-sans hover:text-gold transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-        <span className="text-[10px] font-sans">
-          © {new Date().getFullYear()} drmustafakebat.com
-        </span>
+    <footer style={{ background: '#111', padding: '32px' }} className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <span className="font-serif text-white" style={{ fontSize: '13px', letterSpacing: '2px' }}>
+        Dr. Mustafa Kebat
+      </span>
+      <div className="flex flex-wrap justify-center" style={{ gap: '24px' }}>
+        {footerLinks.map(link => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="font-sans hover:text-gold transition-colors"
+            style={{ color: '#666', fontSize: '11px', letterSpacing: '1px' }}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
+      <span className="font-sans" style={{ color: '#444', fontSize: '10px' }}>
+        © 2025 drmustafakebat.com
+      </span>
     </footer>
   )
 }
