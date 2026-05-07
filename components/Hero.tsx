@@ -19,14 +19,22 @@ const wordVariant = {
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-navy">
-      {/* Arka plan dekoratif metin */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <span className="text-[clamp(80px,20vw,240px)] font-black text-white/[0.03] font-serif leading-none tracking-tighter">
-          SAĞLIK
-        </span>
-      </div>
+      {/* Video arka plan */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+
+      {/* Koyu overlay — videonun üstüne */}
+      <div className="absolute inset-0 bg-navy/70" />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
