@@ -3,6 +3,7 @@ import CredentialBar from '@/components/CredentialBar'
 import ServiceBlock from '@/components/ServiceBlock'
 import DoctorSection from '@/components/DoctorSection'
 import ArticleGrid from '@/components/ArticleGrid'
+import BiyolojikAnalizor from '@/components/BiyolojikAnalizor'
 import { getRecentArticles } from '@/lib/articles'
 
 export default function Home() {
@@ -81,6 +82,20 @@ export default function Home() {
         icon="🧠"
         photo="/photo-neuro.jpg"
       />
+
+      {/* Biyolojik Yaş Analizörü */}
+      <section className="py-20 px-6" style={{ background: 'linear-gradient(180deg, #0d1117 0%, #090A0C 100%)' }}>
+        <div className="max-w-3xl mx-auto text-center mb-10">
+          <p className="text-[10px] text-[#C5A880] tracking-[3px] uppercase font-sans mb-3">Longevity Modülü</p>
+          <h2 className="font-serif text-3xl md:text-4xl font-normal text-white mb-4">
+            Biyolojik Yaşınızı Keşfedin
+          </h2>
+          <p className="text-gray-400 text-sm font-sans leading-relaxed">
+            Hücresel parametrelerinizi girin, Dr. Kebat&apos;ın bilimsel protokollerine dayalı kişisel Longevity raporunuzu alın.
+          </p>
+        </div>
+        <BiyolojikAnalizor />
+      </section>
 
       <DoctorSection />
 

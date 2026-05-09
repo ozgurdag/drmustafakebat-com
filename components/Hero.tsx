@@ -1,6 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { LongevityCanvasBackground } from './LongevityCanvasBackground'
+
+const canvasConfig = {
+  preset: 'dna_helix' as const,
+  speed: 0.7,
+  complexity: 40,
+  glowColor: '#C5A880',
+  particleSize: 2.5,
+  lineWidth: 1.2,
+  bloomEffect: true,
+}
 
 const container = {
   hidden: {},
@@ -28,8 +39,11 @@ export default function Hero() {
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
 
+      {/* Canvas DNA animasyonu — videonun üstünde, içeriğin altında */}
+      <LongevityCanvasBackground config={canvasConfig} className="absolute inset-0 w-full h-full pointer-events-none z-[1]" />
+
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-navy/70" />
+      <div className="absolute inset-0 bg-navy/60 z-[2]" />
 
       {/* Decorative SAĞLIK text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -38,7 +52,7 @@ export default function Hero() {
         </span>
       </div>
 
-      <div className="relative z-10 text-center px-5 max-w-4xl mx-auto">
+      <div className="relative z-[3] text-center px-5 max-w-4xl mx-auto">
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
