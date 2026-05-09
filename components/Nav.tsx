@@ -15,7 +15,7 @@ export default function Nav() {
       >
         {/* Left */}
         <div className="hidden lg:flex flex-col">
-          <span className="text-[#999] text-[9px] tracking-[2px] uppercase font-sans">İstanbul, Türkiye</span>
+          <span className="text-[#999] text-[9px] tracking-[2px] uppercase font-sans">Karşıyaka / İzmir</span>
           <Link href="/iletisim" className="text-white text-[11px] font-bold tracking-[1px] font-sans hover:text-gold transition-colors">
             İLETİŞİM <span className="text-gold">→</span>
           </Link>
@@ -25,7 +25,7 @@ export default function Nav() {
         <div className="text-center">
           <Link href="/">
             <div className="text-white text-[13px] tracking-[3px] uppercase font-sans">Dr. Mustafa Kebat</div>
-            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim · İSG Uzmanı · Araştırmacı</div>
+            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim · Longevity Danışmanı · Araştırmacı</div>
           </Link>
         </div>
 

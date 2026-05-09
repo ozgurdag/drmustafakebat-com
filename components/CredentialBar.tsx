@@ -4,13 +4,13 @@ import { motion } from 'framer-motion'
 
 const credentials = [
   'Tıp Doktoru (MD)',
-  'A Sınıfı İSG Uzmanı',
-  'İşyeri Hekimi',
   'Longevity Danışmanı',
+  'Kurumsal Sağlık Danışmanlığı',
   '1.000+ Makale',
   'Nöroergonomi Eğitmeni',
-  'tetkik.com.tr',
-  'Risk Analisti',
+  'Bireysel & Kurumsal Danışmanlık',
+  'Karşıyaka / İzmir',
+  'Biyolojik Yaş Optimizasyonu',
 ]
 
 export default function CredentialBar() {

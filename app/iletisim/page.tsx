@@ -45,7 +45,7 @@ export default function IletisimPage() {
                     <span className="text-2xl mt-0.5">📍</span>
                     <div>
                       <p className="font-semibold text-navy text-xs uppercase tracking-wider mb-1">Adres</p>
-                      <p>Bağcılar Mah. Sağlık Cad. No: 14<br />Bağcılar / İstanbul</p>
+                      <p>Karşıyaka / İzmir</p>
                     </div>
                   </div>
 

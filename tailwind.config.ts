@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         gold: '#c9a84c',
-        navy: '#111111',
+        navy: '#1e2128',
         cream: '#f5f3ee',
       },
       fontFamily: {

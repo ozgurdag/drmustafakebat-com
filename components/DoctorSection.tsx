@@ -5,9 +5,9 @@ import { useRef } from 'react'
 
 const credentials = [
   'Tıp Doktoru (MD)',
-  'A Sınıfı İSG Uzmanı',
-  'İşyeri Hekimi',
   'Longevity Danışmanı',
+  'Kurumsal Sağlık Danışmanlığı',
+  'Biyolojik Yaş Optimizasyonu',
   '1.000+ Makale',
 ]
 
@@ -16,7 +16,7 @@ export default function DoctorSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#111', minHeight: '500px' }}>
+    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#1e2128', minHeight: '500px' }}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
@@ -38,9 +38,9 @@ export default function DoctorSection() {
         <p className="font-sans uppercase mb-3" style={{ color: '#c9a84c', fontSize: '10px', letterSpacing: '3px' }}>Hakkımda</p>
         <h2 className="font-serif font-normal text-white mb-5" style={{ fontSize: '40px' }}>Dr. Mustafa Kebat</h2>
         <p className="font-sans mb-6 max-w-xl" style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.8' }}>
-          Tıp doktoru ve A sınıfı iş güvenliği uzmanı. Klinik tıp, iş sağlığı ve güvenliği ile
-          insan performansı alanlarını bütünleştiren özgün bir uzmanlık profili. 1.000&apos;den fazla
-          makale ve kurumsal danışmanlık deneyimiyle bireylere ve kurumlara hizmet vermektedir.
+          Tıp doktoru ve Longevity danışmanı. Bireysel sağlık optimizasyonundan kurumsal sağlık
+          yönetimine uzanan bütünleşik bir uzmanlık anlayışı. 1.000&apos;den fazla makale ve
+          kapsamlı danışmanlık deneyimiyle bireylere ve kurumlara özel protokoller sunmaktadır.
         </p>
         <div className="flex flex-wrap gap-2.5">
           {credentials.map((cred, i) => (

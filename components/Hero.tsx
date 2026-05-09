@@ -60,7 +60,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="text-gold text-[10px] tracking-[4px] uppercase font-sans mb-4"
         >
-          Hekim · İSG Uzmanı · Araştırmacı
+          Hekim · Longevity Danışmanı · Araştırmacı
         </motion.p>
 
         <motion.h1
