@@ -26,6 +26,7 @@ export function getArticleBySlug(category: ArticleCategory, slug: string): Artic
     altBaslik2: data.altBaslik2 ?? '',
     date: data.date ?? '',
     excerpt: data.excerpt ?? '',
+    image: data.image ?? '',
     content,
   }
 }

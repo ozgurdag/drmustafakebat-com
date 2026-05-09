@@ -7,6 +7,7 @@ export interface ArticleFrontmatter {
   altBaslik2?: string
   date: string
   excerpt: string
+  image?: string
 }
 
 export interface Article extends ArticleFrontmatter {

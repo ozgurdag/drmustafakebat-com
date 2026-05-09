@@ -56,6 +56,18 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
         </div>
       </div>
 
+      {/* Featured image */}
+      {article.image && (
+        <div className="w-full max-h-[420px] overflow-hidden bg-navy/30">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={article.image}
+            alt={article.title}
+            className="w-full object-cover max-h-[420px]"
+          />
+        </div>
+      )}
+
       {/* Two-column content area */}
       <div className="max-w-6xl mx-auto px-6 lg:px-12 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
