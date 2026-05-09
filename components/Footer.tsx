@@ -10,7 +10,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1e2128', padding: '32px' }} className="flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer style={{ background: '#2d3142', padding: '32px' }} className="flex flex-col md:flex-row items-center justify-between gap-4">
       <span className="font-serif text-white" style={{ fontSize: '13px', letterSpacing: '2px' }}>
         Dr. Mustafa Kebat
       </span>

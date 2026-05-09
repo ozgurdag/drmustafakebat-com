@@ -16,7 +16,7 @@ export default function DoctorSection() {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#1e2128', minHeight: '500px' }}>
+    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#2d3142', minHeight: '500px' }}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
