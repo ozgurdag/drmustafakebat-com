@@ -68,19 +68,10 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
         </div>
       )}
 
-      {/* Two-column content area */}
-      <div className="max-w-6xl mx-auto px-6 lg:px-12 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
-          {/* TOC Sidebar */}
-          <aside className="hidden lg:block lg:col-span-1">
-            <div className="sticky top-24 bg-white rounded border border-navy/10 p-4">
-              <p className="text-[9px] tracking-[2px] uppercase text-gold font-sans">İçindekiler</p>
-              <p className="text-sm text-navy/40 mt-2">Dinamik içindekiler tablosu yakında</p>
-            </div>
-          </aside>
-
+      {/* Content area */}
+      <div className="max-w-4xl mx-auto px-6 lg:px-12 py-12">
           {/* Article Content */}
-          <article className="lg:col-span-3 min-w-0">
+          <article className="min-w-0">
             <div className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-navy prose-a:text-gold prose-a:no-underline hover:prose-a:underline">
               <MDXRemote
                 source={article.content}
@@ -100,11 +91,10 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
                 }}
               />
             </div>
-          </article>
-        </div>
+      </article>
 
-        {/* Related Articles */}
-        <RelatedArticles articles={related} />
+      {/* Related Articles */}
+      <RelatedArticles articles={related} />
       </div>
     </>
   )
