@@ -43,3 +43,13 @@ next-env.d.ts
 *.csv
 *.xlsx
 *.docx
+
+# Local Netlify folder
+.netlify
+
+# Article images (too large for git — deploy via netlify-deploy-parallel.js)
+/public/images/articles/
+
+# Fetch logs
+scripts/fetch-log.txt
+scripts/fetch-log-live.txt
