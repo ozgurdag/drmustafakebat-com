@@ -4,6 +4,8 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import BiyolojikAnalizor from './BiyolojikAnalizor'
 import Link from 'next/link'
+import ArticleGrid from './ArticleGrid'
+import { ArticleMeta } from '@/lib/types'
 
 const instruments = [
   {
@@ -44,7 +46,29 @@ const stats = [
   { value: '3000+', label: 'Kişiselleştirilmiş Reçete' },
 ]
 
-export default function LongevityPageContent() {
+const serviceCards = [
+  {
+    icon: '🔬',
+    title: 'Biyolojik Yaş Analizi',
+    desc: 'Telomer uzunluğu ve DNA metilasyon profillemesiyle gerçek hücresel yaşınızı ölçün. Kronolojik yaşınızla biyolojik yaşınız arasındaki farkı kapatmak için kişiselleştirilmiş müdahale protokolü.',
+  },
+  {
+    icon: '⚡',
+    title: 'Hormonal ve Metabolik Optimizasyon',
+    desc: 'Testosteron, östrojen, kortizol ve büyüme hormonunu fizyolojik sınırlar içinde optimize edin. İnsülin duyarlılığı ve tiroid fonksiyonu dahil tam metabolik panel ile müdahale.',
+  },
+  {
+    icon: '💊',
+    title: 'Kişiselleştirilmiş Suplement Protokolü',
+    desc: 'NMN, Resveratrol, Quercetin gibi kanıt destekli longevity moleküllerinden oluşan kişiye özel, doz-optimize suplement programı. Etkileşim analizi ve biyomarker takibiyle güvenli uygulama.',
+  },
+]
+
+interface LongevityPageContentProps {
+  recentArticles?: ArticleMeta[]
+}
+
+export default function LongevityPageContent({ recentArticles = [] }: LongevityPageContentProps) {
   const instrumentsRef = useRef(null)
   const statsRef = useRef(null)
   const isInstrumentsInView = useInView(instrumentsRef, { once: true, margin: '-80px' })
@@ -159,6 +183,46 @@ export default function LongevityPageContent() {
         </motion.div>
       </section>
 
+      {/* 3 Hizmet Kartı */}
+      <section className="bg-white py-20 px-6 md:px-12 border-b border-gray-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Temel Hizmetler</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-normal text-navy">Longevity Protokol Bileşenleri</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {serviceCards.map((card, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                className="border border-gray-100 p-8 hover:border-gold/40 transition-colors group"
+              >
+                <div className="text-3xl mb-5">{card.icon}</div>
+                <h3 className="font-serif text-[18px] text-navy mb-3 leading-snug">{card.title}</h3>
+                <p className="text-gray-500 text-[13px] leading-relaxed font-sans">{card.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10 bg-navy/5 border border-navy/10 p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            <div>
+              <div className="font-serif text-2xl text-navy font-light mb-1">60→40</div>
+              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Enerji Düzeyi Artışı</div>
+            </div>
+            <div>
+              <div className="font-serif text-2xl text-navy font-light mb-1">%85</div>
+              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Genetik Risk Azaltımı</div>
+            </div>
+            <div>
+              <div className="font-serif text-2xl text-navy font-light mb-1">3×</div>
+              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Zihinsel Berraklık</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Bilimsel Enstrümanlar */}
       <section id="metodoloji" className="bg-cream py-20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto">
@@ -224,6 +288,23 @@ export default function LongevityPageContent() {
           İletişime Geç →
         </Link>
       </section>
+
+      {recentArticles.length > 0 && (
+        <section className="bg-cream py-16 px-6 md:px-12">
+          <div className="max-w-6xl mx-auto">
+            <div className="flex justify-between items-baseline mb-8 border-b border-navy/10 pb-4">
+              <div>
+                <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-1">İlgili Yayınlar</p>
+                <h2 className="font-serif text-2xl font-normal text-navy">Longevity ile İlgili Makaleler</h2>
+              </div>
+              <Link href="/makaleler" className="text-[11px] tracking-[1px] uppercase font-sans text-gold hover:underline">
+                Tüm Makaleler →
+              </Link>
+            </div>
+            <ArticleGrid articles={recentArticles} />
+          </div>
+        </section>
+      )}
     </>
   )
 }

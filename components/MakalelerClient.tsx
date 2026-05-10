@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArticleMeta, ArticleCategory } from '@/lib/types'
+import { ArticleMeta, ArticleCategory, VirtualCategory, VIRTUAL_FILTER_MAP } from '@/lib/types'
 import ArticleGrid from '@/components/ArticleGrid'
 
 interface MakalelerClientProps {
@@ -10,31 +10,41 @@ interface MakalelerClientProps {
 }
 
 type FilterCategory = ArticleCategory | 'all'
+type ActiveFilter = { type: 'category'; value: FilterCategory } | { type: 'virtual'; value: VirtualCategory }
 
 const CATEGORY_DISPLAY: Record<FilterCategory, string> = {
   all: 'Tümü',
-  longevity: 'Sağlık & Tıp',
-  systems: 'İSG & Güvenlik',
+  longevity: 'Longevity',
+  systems: 'Corporate Bio-Integrity',
   neuroperformance: 'NeuroPerformance',
 }
 
 const MAIN_CATEGORIES: FilterCategory[] = ['all', 'longevity', 'systems', 'neuroperformance']
+const VIRTUAL_CATEGORIES: VirtualCategory[] = ['genel-saglik', 'teknik-isg', 'mevzuat']
 
 export default function MakalelerClient({ articles }: MakalelerClientProps) {
-  const [activeCategory, setActiveCategory] = useState<FilterCategory>('all')
+  const [activeFilter, setActiveFilter] = useState<ActiveFilter>({ type: 'category', value: 'all' })
   const [activeSubtopic, setActiveSubtopic] = useState<string | null>(null)
 
-  const subtopics: string[] = activeCategory === 'all'
-    ? []
-    : [...new Set(
+  const isCategory = activeFilter.type === 'category'
+  const activeCatValue = isCategory ? (activeFilter as { type: 'category'; value: FilterCategory }).value : 'all'
+  const activeVirtValue = !isCategory ? (activeFilter as { type: 'virtual'; value: VirtualCategory }).value : null
+
+  const subtopics: string[] = (isCategory && activeCatValue !== 'all')
+    ? [...new Set(
         articles
-          .filter(a => a.category === activeCategory)
+          .filter(a => a.category === activeCatValue)
           .map(a => a.altBaslik1)
           .filter((v): v is string => Boolean(v))
       )].sort()
+    : []
 
   const filteredArticles = articles.filter(a => {
-    if (activeCategory !== 'all' && a.category !== activeCategory) return false
+    if (!isCategory && activeVirtValue) {
+      const map = VIRTUAL_FILTER_MAP[activeVirtValue]
+      return a.altBaslik1 === map.altBaslik1
+    }
+    if (activeCatValue !== 'all' && a.category !== activeCatValue) return false
     if (activeSubtopic && a.altBaslik1 !== activeSubtopic) return false
     return true
   })
@@ -42,8 +52,18 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
   const countFor = (key: FilterCategory) =>
     key === 'all' ? articles.length : articles.filter(a => a.category === key).length
 
+  const countForVirtual = (key: VirtualCategory) => {
+    const map = VIRTUAL_FILTER_MAP[key]
+    return articles.filter(a => a.altBaslik1 === map.altBaslik1).length
+  }
+
   const handleCategoryClick = (key: FilterCategory) => {
-    setActiveCategory(key)
+    setActiveFilter({ type: 'category', value: key })
+    setActiveSubtopic(null)
+  }
+
+  const handleVirtualClick = (key: VirtualCategory) => {
+    setActiveFilter({ type: 'virtual', value: key })
     setActiveSubtopic(null)
   }
 
@@ -51,9 +71,13 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
     if (activeSubtopic) {
       setActiveSubtopic(null)
     } else {
-      setActiveCategory('all')
+      setActiveFilter({ type: 'category', value: 'all' })
     }
   }
+
+  const activeLabel = !isCategory && activeVirtValue
+    ? VIRTUAL_FILTER_MAP[activeVirtValue].label
+    : CATEGORY_DISPLAY[activeCatValue]
 
   return (
     <div className="bg-cream min-h-screen">
@@ -65,7 +89,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
           </p>
           <h1 className="font-serif text-4xl md:text-6xl text-navy mb-4">Makaleler</h1>
           <p className="text-navy/60 font-sans text-lg max-w-2xl">
-            Sağlık, İSG ve NeuroPerformance alanlarında güncel araştırmalar, klinik
+            Longevity, Corporate Bio-Integrity ve NeuroPerformance alanlarında güncel araştırmalar, klinik
             değerlendirmeler ve pratik rehberler.
           </p>
           <p className="mt-4 text-sm font-sans text-navy/40">{articles.length} makale</p>
@@ -78,7 +102,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
 
           {/* Geri tuşu */}
           <AnimatePresence>
-            {(activeCategory !== 'all' || activeSubtopic) && (
+            {(activeCatValue !== 'all' || activeSubtopic || !isCategory) && (
               <motion.button
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -86,17 +110,15 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
                 onClick={handleBack}
                 className="flex items-center gap-1 text-xs font-sans text-navy/50 hover:text-navy mb-3 transition-colors"
               >
-                ← {activeSubtopic
-                  ? CATEGORY_DISPLAY[activeCategory]
-                  : 'Tüm Kategoriler'}
+                ← {activeSubtopic ? activeLabel : 'Tüm Kategoriler'}
               </motion.button>
             )}
           </AnimatePresence>
 
-          {/* Ana kategoriler */}
+          {/* Ana kategoriler — birinci satır */}
           <div className="flex flex-wrap gap-2">
             {MAIN_CATEGORIES.map((key) => {
-              const isActive = activeCategory === key && !activeSubtopic
+              const isActive = isCategory && activeCatValue === key && !activeSubtopic
               return (
                 <button
                   key={key}
@@ -108,6 +130,27 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
                   }`}
                 >
                   {CATEGORY_DISPLAY[key]} ({countFor(key)})
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Sanal kategoriler — ikinci satır */}
+          <div className="flex flex-wrap gap-2 mt-2 pt-2 border-t border-navy/5">
+            {VIRTUAL_CATEGORIES.map((key) => {
+              const isActive = !isCategory && activeVirtValue === key
+              const { label } = VIRTUAL_FILTER_MAP[key]
+              return (
+                <button
+                  key={key}
+                  onClick={() => handleVirtualClick(key)}
+                  className={`px-3 py-1 rounded-full text-xs font-sans border transition-colors ${
+                    isActive
+                      ? 'bg-gold/90 text-white border-gold'
+                      : 'bg-white text-navy/50 border-navy/20 hover:border-gold/60 hover:text-gold'
+                  }`}
+                >
+                  {label} ({countForVirtual(key)})
                 </button>
               )
             })}
@@ -153,13 +196,11 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
       </section>
 
       {/* Başlık şeridi */}
-      {(activeCategory !== 'all' || activeSubtopic) && (
+      {(activeCatValue !== 'all' || activeSubtopic || !isCategory) && (
         <div className="bg-cream border-b border-navy/10 py-3">
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <p className="text-xs font-sans text-navy/40 uppercase tracking-widest">
-              {activeSubtopic
-                ? `${CATEGORY_DISPLAY[activeCategory]} › ${activeSubtopic}`
-                : CATEGORY_DISPLAY[activeCategory]}
+              {activeSubtopic ? `${activeLabel} › ${activeSubtopic}` : activeLabel}
               <span className="ml-2 text-gold">— {filteredArticles.length} makale</span>
             </p>
           </div>
@@ -174,7 +215,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
           </div>
         ) : (
           <motion.div
-            key={activeCategory + (activeSubtopic ?? '')}
+            key={JSON.stringify(activeFilter) + (activeSubtopic ?? '')}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}

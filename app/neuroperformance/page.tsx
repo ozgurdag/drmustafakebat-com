@@ -1,21 +1,13 @@
 import { Metadata } from 'next'
-import { getArticlesByCategory, getSubtopics } from '@/lib/articles'
-import CategoryPageClient from '@/components/CategoryPageClient'
+import { getArticlesByCategory } from '@/lib/articles'
+import NeuroperformancePageContent from '@/components/NeuroperformancePageContent'
 
 export const metadata: Metadata = {
-  title: 'NeuroPerformance | Dr. Mustafa Kebat',
-  description: 'Zihin ve hareket optimizasyon eğitimleri hakkında makaleler.',
+  title: 'NeuroPerformance: Zihin ve Hareket Optimizasyonu | Dr. Mustafa Kebat',
+  description: 'Nöro-görsel antrenman, propriyoseptif gelişim ve bilişsel yük yönetimi ile sinir sistemi optimizasyonu.',
 }
 
 export default function NeuroperformancePage() {
-  const articles = getArticlesByCategory('neuroperformance')
-  const subtopics = getSubtopics('neuroperformance')
-  return (
-    <CategoryPageClient
-      category="neuroperformance"
-      articles={articles}
-      subtopics={subtopics}
-      categoryNumber="03"
-    />
-  )
+  const recentArticles = getArticlesByCategory('neuroperformance').slice(0, 6)
+  return <NeuroperformancePageContent recentArticles={recentArticles} />
 }

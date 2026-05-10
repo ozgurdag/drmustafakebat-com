@@ -32,9 +32,11 @@ export default function Nav() {
         {/* Right */}
         <div className="hidden lg:flex flex-col items-end gap-0.5">
           <div className="flex gap-5 text-white text-[11px] font-sans tracking-[1px]">
-            {([['Longevity','/longevity'],['Systems','/systems'],['NeuroPerformance','/neuroperformance'],['Makaleler','/makaleler'],['Hakkımda','/hakkimda']] as [string, string][]).map(([label, href]) => (
-              <Link key={href} href={href} className="hover:text-gold transition-colors">{label}</Link>
-            ))}
+              <Link href="/longevity" className="hover:text-gold transition-colors">Longevity</Link>
+            <Link href="/systems" className="hover:text-gold transition-colors leading-tight text-center">Corporate<br />Bio-Integrity</Link>
+            <Link href="/neuroperformance" className="hover:text-gold transition-colors leading-tight text-center">Neuro<br />Performance</Link>
+            <Link href="/makaleler" className="hover:text-gold transition-colors">Makaleler</Link>
+            <Link href="/hakkimda" className="hover:text-gold transition-colors">Hakkımda</Link>
           </div>
           <button onClick={() => setMenuOpen(!menuOpen)} className="text-white text-[11px] font-sans tracking-[2px] self-end hover:text-gold transition-colors">
             ≡ MENÜ
@@ -54,7 +56,7 @@ export default function Nav() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed top-[72px] left-0 right-0 z-40 bg-navy border-t border-white/10 py-6 px-8 flex flex-col gap-4"
           >
-            {([['Longevity','/longevity'],['Systems','/systems'],['NeuroPerformance','/neuroperformance'],['Makaleler','/makaleler'],['Hakkımda','/hakkimda'],['İletişim','/iletisim']] as [string, string][]).map(([label, href]) => (
+            {([['Longevity','/longevity'],['Corporate Bio-Integrity','/systems'],['NeuroPerformance','/neuroperformance'],['Makaleler','/makaleler'],['Hakkımda','/hakkimda'],['İletişim','/iletisim']] as [string, string][]).map(([label, href]) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="text-white text-sm font-sans tracking-[2px] uppercase hover:text-gold transition-colors">{label}</Link>
             ))}
           </motion.div>

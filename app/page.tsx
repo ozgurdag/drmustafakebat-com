@@ -30,8 +30,8 @@ export default function Home() {
       <ServiceBlock
         number="01"
         eyebrow="Uzmanlık Alanı 01"
-        title="Longevity"
-        description="Bireysel sağlık ve yaşlanma yönetimi. Biyolojik yaş optimizasyonu, metabolik sağlık ve yaşam kalitesi için kanıta dayalı protokoller."
+        title="Longevity: Bireysel Sağlık ve Yaşlanma Yönetimi"
+        description="Biyolojik yaş optimizasyonu, metabolik sağlık ve yaşam kalitesi için kanıta dayalı protokoller. Hücresel gençleşme ve ömür uzatma bilimine dayalı kişiselleştirilmiş yaklaşım."
         items={[
           'Biyolojik Yaş Değerlendirmesi',
           'Beslenme ve Takviye Stratejileri',
@@ -48,13 +48,13 @@ export default function Home() {
       <ServiceBlock
         number="02"
         eyebrow="Uzmanlık Alanı 02"
-        title="Systems"
-        description="Kurumsal sağlık sistemleri kurulumu. İSG mevzuatı uyumundan risk yönetimine, eğitim tasarımından sertifikasyona kadar tam kapsamlı danışmanlık."
+        title="Corporate Bio-Integrity"
+        description="Kurumsal risk ve sağlık yönetimi. KVS erken uyarı sistemlerinden biometric veri auditine, çalışan biyogüvenliğinden wellness danışmanlığına tam kapsamlı hizmet."
         items={[
-          'İSG Risk Analizi ve Değerlendirmesi',
-          'Yangın ve Deprem Acil Durum Planları',
+          'Kardiyovasküler Erken Uyarı Sistemi',
+          'Biometric Data Audit & Raporlama',
           'Çalışan Sağlığı İzleme Sistemleri',
-          'İSG Eğitim Programı Tasarımı',
+          'Institutional Wellness Consulting',
           'Mevzuat Uyumluluk Denetimleri',
         ]}
         href="/systems"
@@ -67,8 +67,8 @@ export default function Home() {
       <ServiceBlock
         number="03"
         eyebrow="Uzmanlık Alanı 03"
-        title="NeuroPerformance"
-        description="Zihin ve hareket optimizasyon eğitimleri. Nöroergonomi, bilişsel performans ve stres yönetimi üzerine kurumsal ve bireysel eğitim programları."
+        title="NeuroPerformance: Zihin ve Hareket Optimizasyonu"
+        description="Nöro-görsel antrenman, propriyoseptif gelişim ve bilişsel yük yönetimi. Sporcu, yönetici ve yaşlı bireyler için sinir sistemi optimizasyon protokolleri."
         items={[
           'Nöroergonomi ve İş Tasarımı',
           'Bilişsel Yük ve Karar Verme',
