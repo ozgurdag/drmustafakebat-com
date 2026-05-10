@@ -6,12 +6,14 @@ export async function generateStaticParams() {
   return getArticleSlugs('neuroperformance').map(slug => ({ slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const article = getArticleBySlug('neuroperformance', params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const article = getArticleBySlug('neuroperformance', slug)
   if (!article) return { title: 'Dr. Mustafa Kebat' }
   return { title: `${article.title} | Dr. Mustafa Kebat`, description: article.excerpt }
 }
 
-export default function NeuroperformanceArticlePage({ params }: { params: { slug: string } }) {
-  return <ArticlePageTemplate category="neuroperformance" slug={params.slug} />
+export default async function NeuroperformanceArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  return <ArticlePageTemplate category="neuroperformance" slug={slug} />
 }
