@@ -95,6 +95,31 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
 
       {/* Related Articles */}
       <RelatedArticles articles={related} />
+
+      {/* Disclaimer & Source */}
+      <div className="mt-12 pt-6 border-t border-navy/10">
+        <div className="font-sans text-[11px] leading-relaxed text-navy/40 space-y-3">
+          <p>
+            <strong className="font-semibold text-navy/50">Sınırlı Sorumluluk Beyanı:</strong>{' '}
+            Web sitemizin içeriği, ziyaretçiyi bilgilendirmeye yönelik hazırlanmıştır. Sitede yer alan bilgiler, hiçbir zaman bir hukuki tavsiye yerini alamaz. Web sitemizdeki yayınlardan yola çıkarak, işlerinizin yürütülmesi, belgelerinizin düzenlenmesi ya da mevcut işleyişinizin değiştirilmesi kesinlikte tavsiye edilmez. Web sitemizin içeriğinde yer alan bilgilere istinaden profesyonel hukuki yardım almadan hareket edilmesi durumunda meydana gelebilecek zararlardan firmamız sorumlu değildir. Sitemizde kanunların içeriğine aykırı ilan ve reklam yapma kastı bulunmamaktadır.
+          </p>
+          <p>
+            Web sitemizin içeriği, ziyaretçiyi bilgilendirmeye yönelik hazırlanmıştır. Sitede yer alan bilgiler, hiçbir zaman bir hekim tedavisinin ya da konsültasyonunun yerini alamaz. Bu kaynaktan yola çıkarak, ilaç tedavisine başlanması ya da mevcut tedavinin değiştirilmesi kesinlikte tavsiye edilmez. Web sitemizin içeriği, asla kişisel teşhis ya da tedavi yönteminin seçimi için değerlendirilmemelidir. Sitede kanun içeriğine aykırı ilan ve reklam yapma kastı bulunmamaktadır.
+          </p>
+          <p className="text-navy/35 italic">
+            Dr. Mustafa Kebat&apos;a ait bu yazı {formattedDate} tarihinde{' '}
+            <a
+              href="https://tetkik.com.tr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-navy/60 transition-colors"
+            >
+              Tetkik.com.tr
+            </a>{' '}
+            adresinde yayınlanmıştır.
+          </p>
+        </div>
+      </div>
       </div>
     </>
   )
