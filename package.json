@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "tinacms build && next build",
+    "build": "node scripts/tina-build.js && next build",
     "build:local": "next build",
     "start": "next start",
     "lint": "eslint"
