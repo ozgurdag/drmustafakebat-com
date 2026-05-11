@@ -1,9 +1,9 @@
 import Breadcrumb from '@/components/Breadcrumb'
+import HakkimdaStats from '@/components/HakkimdaStats'
 
 export const metadata = {
   title: 'Hakkımda | Dr. Mustafa Kebat',
-  description:
-    'Dr. Mustafa Kebat hakkında bilgi: tıp eğitimi, İSG uzmanlığı ve araştırmacı kimliği.',
+  description: 'Dr. Mustafa Kebat hakkında bilgi: tıp eğitimi, iş yeri hekimliği ve araştırmacı kimliği.',
 }
 
 const credentials = [
@@ -14,10 +14,10 @@ const credentials = [
       'İstanbul Üniversitesi Tıp Fakültesi mezunu. Temel tıp bilimleri ve klinik uygulamalarda kapsamlı eğitim.',
   },
   {
-    icon: '🛡️',
-    title: 'A Sınıfı İSG Uzmanlığı',
+    icon: '🏥',
+    title: 'İş Yeri Hekimliği',
     description:
-      'Çalışma ve Sosyal Güvenlik Bakanlığı onaylı A Sınıfı İş Sağlığı ve Güvenliği Uzmanı. Kurumsal sağlık sistemleri kurulumu.',
+      'Çalışma ve Sosyal Güvenlik Bakanlığı onaylı İş Yeri Hekimi. 30+ yıllık kurumsal ve bireysel sağlık yönetimi deneyimi.',
   },
   {
     icon: '✍️',
@@ -37,11 +37,11 @@ export default function HakkimdaPage() {
             <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'Hakkımda' }]} />
           </div>
           <p className="mt-2 text-xs font-sans text-gold uppercase tracking-widest mb-6">
-            Hekim · İSG Uzmanı · Araştırmacı
+            Hekim · İş Yeri Hekimi · Araştırmacı
           </p>
           <h1 className="font-serif text-5xl md:text-7xl mb-6">Dr. Mustafa Kebat</h1>
           <p className="text-white/70 font-sans text-lg max-w-2xl leading-relaxed">
-            İnsan sağlığını bütüncül bir perspektifle ele alarak longevity, kurumsal iş güvenliği
+            İnsan sağlığını bütüncül bir perspektifle ele alarak longevity, kurumsal iş sağlığı
             ve nöroergonomi alanlarında bilimsel içerik üretiyorum.
           </p>
         </div>
@@ -59,14 +59,13 @@ export default function HakkimdaPage() {
             <div className="font-sans text-navy/80 leading-relaxed space-y-5">
               <h2 className="font-serif text-3xl text-navy mb-6">Biyografi</h2>
               <p>
-                Dr. Mustafa Kebat, tıp eğitiminin ardından iş sağlığı ve güvenliği alanına yöneldi.
-                15 yılı aşkın mesleki deneyimi boyunca hem bireysel hem de kurumsal düzeyde sağlık
-                yönetimine katkı sağladı.
+                Dr. Mustafa Kebat, tıp eğitiminin ardından iş yeri hekimliği ve koruyucu tıp alanına
+                yöneldi. 30 yılı aşkın mesleki deneyimi boyunca hem bireysel hem de kurumsal düzeyde
+                sağlık yönetimine katkı sağladı.
               </p>
               <p>
-                A Sınıfı İSG Uzmanı olarak pek çok büyük ölçekli firmada iş güvenliği sistemleri
-                kurdu, risk değerlendirme süreçlerini yönetti ve çalışan sağlığını artırmaya yönelik
-                programlar tasarladı.
+                İş yeri hekimi olarak pek çok büyük ölçekli firmada çalışan sağlığı sistemleri
+                kurdu, risk değerlendirme süreçlerini yönetti ve koruyucu hekimlik programları tasarladı.
               </p>
               <p>
                 Longevity tıbbı alanında bireylerin biyolojik yaşlanma süreçlerini yönetebilmelerine
@@ -106,33 +105,8 @@ export default function HakkimdaPage() {
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="bg-navy py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex flex-col md:flex-row items-center justify-around gap-10 text-center text-white">
-            <div>
-              <p className="font-serif text-5xl text-gold">1.000+</p>
-              <p className="font-sans text-sm uppercase tracking-widest text-white/60 mt-2">
-                Makale
-              </p>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-white/20" />
-            <div>
-              <p className="font-serif text-5xl text-gold">15+</p>
-              <p className="font-sans text-sm uppercase tracking-widest text-white/60 mt-2">
-                Yıl Deneyim
-              </p>
-            </div>
-            <div className="hidden md:block h-12 w-px bg-white/20" />
-            <div>
-              <p className="font-serif text-5xl text-gold">A Sınıfı</p>
-              <p className="font-sans text-sm uppercase tracking-widest text-white/60 mt-2">
-                İSG Uzmanı
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Animated Stats bar */}
+      <HakkimdaStats />
     </div>
   )
 }

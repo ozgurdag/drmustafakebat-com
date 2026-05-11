@@ -36,7 +36,7 @@ interface NeuroperformancePageContentProps {
 
 export default function NeuroperformancePageContent({ recentArticles = [] }: NeuroperformancePageContentProps) {
   const statsRef = useRef(null)
-  const isStatsInView = useInView(statsRef, { once: true, margin: '-80px' })
+  const isStatsInView = useInView(statsRef, { once: false, margin: '-80px' })
 
   return (
     <>
@@ -161,7 +161,7 @@ export default function NeuroperformancePageContent({ recentArticles = [] }: Neu
                 key={i}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
+                viewport={{ once: false, margin: '-60px' }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 className="border border-gray-100 p-8 hover:border-gold/40 transition-colors group"
               >

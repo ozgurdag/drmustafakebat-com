@@ -33,10 +33,25 @@
       "Bash(git -C /c/Users/fujitsu/Desktop/drmustafakebat.com commit -m \"feat: add ServiceBlock with scroll-triggered Framer Motion animations\")",
       "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\longevity\\\\[slug]\")",
       "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\systems\\\\[slug]\")",
-      "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\neuroperformance\\\\[slug]\")"
+      "Bash(mkdir -p \"C:\\\\Users\\\\fujitsu\\\\Desktop\\\\drmustafakebat.com\\\\app\\\\neuroperformance\\\\[slug]\")",
+      "Bash(curl -s \"https://drmustafakebat.com/systems/yuksekte-calisanlarda-kas-koordinasyonu-ve-motor-kontrol-mek\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\('next:', p.dependencies.next\\)\")",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(node -e \"process.stdin.resume\\(\\);let d='';process.stdin.on\\('data',c=>d+=c\\);process.stdin.on\\('end',\\(\\)=>{const j=JSON.parse\\(d\\);console.log\\('Build:', j.id\\);}\\)\")",
+      "Bash(node scripts/fetch-all-1044.js)",
+      "Bash(echo \"Script PID: $!\")",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/recategorize.js)",
+      "Bash(node scripts/netlify-deploy.js)",
+      "Bash(node scripts/netlify-deploy-parallel.js 6a002d1f5b8d4f654919061b)",
+      "Bash(curl -s -H \"Authorization: Bearer nfp_45QorMg4M6LsunW24LuRLAATm6xMDApN6336\" \"https://api.netlify.com/api/v1/deploys/6a002d1f5b8d4f654919061b\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\('State:', d.state, '\\\\nURL:', d.ssl_url || d.deploy_url, '\\\\nError:', d.error_message || 'none'\\)\")",
+      "Bash(node scripts/netlify-deploy-parallel.js)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\fujitsu\\Desktop\\temp-kebat"
+      "C:\\Users\\fujitsu\\Desktop\\temp-kebat",
+      "c:\\Users\\fujitsu\\Desktop\\drmustafakebat.com\\.git"
     ]
   }
 }

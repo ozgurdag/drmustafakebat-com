@@ -40,6 +40,7 @@ export default function Home() {
           'Hormonal Denge ve Yaşlanma',
         ]}
         href="/longevity"
+        ctaLabel="Longevity (Uzun Yaşam)"
         gradientClass="bg-gradient-to-br from-[#1a3a28] via-[#2d5a3d] to-[#4a7c59]"
         icon="🌿"
         photo="/photo-longevity.jpg"
@@ -58,6 +59,7 @@ export default function Home() {
           'Mevzuat Uyumluluk Denetimleri',
         ]}
         href="/systems"
+        ctaLabel="Corporate Bio-Integrity"
         reversed
         gradientClass="bg-gradient-to-br from-[#0d1f3a] via-[#1a3a6a] to-[#2d5a8a]"
         icon="⚙️"
@@ -77,6 +79,7 @@ export default function Home() {
           'Zihinsel Dayanıklılık Programları',
         ]}
         href="/neuroperformance"
+        ctaLabel="NeuroPerformance"
         gradientClass="bg-gradient-to-br from-[#1a1030] via-[#2d1a50] to-[#4a2d7a]"
         icon="🧠"
         photo="/photo-neuro.jpg"

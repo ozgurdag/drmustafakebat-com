@@ -13,7 +13,7 @@ const credentials = [
 
 export default function DoctorSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-100px' })
+  const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   return (
     <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#2d3142', minHeight: '500px' }}>

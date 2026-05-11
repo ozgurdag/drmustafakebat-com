@@ -44,10 +44,22 @@ next-env.d.ts
 *.xlsx
 *.docx
 
-# Local Netlify folder
-.netlify
+# Tina CMS generated files
+.tina/__generated__
 
-# Article images (too large for git — deploy via netlify-deploy-parallel.js)
+# Netlify local build artifacts
+.netlify/
+
+# Deploy artifacts
+deploy-update.zip
+deploy_status.json
+deploys.json
+scratch/
+
+# FTP config files
+*.coreftp
+
+# Article images (too large for git — already on cPanel, FTP action excludes this folder)
 /public/images/articles/
 
 # Fetch logs

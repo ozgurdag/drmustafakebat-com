@@ -25,6 +25,7 @@ const VIRTUAL_CATEGORIES: VirtualCategory[] = ['genel-saglik', 'teknik-isg', 'me
 export default function MakalelerClient({ articles }: MakalelerClientProps) {
   const [activeFilter, setActiveFilter] = useState<ActiveFilter>({ type: 'category', value: 'all' })
   const [activeSubtopic, setActiveSubtopic] = useState<string | null>(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const isCategory = activeFilter.type === 'category'
   const activeCatValue = isCategory ? (activeFilter as { type: 'category'; value: FilterCategory }).value : 'all'
@@ -48,6 +49,13 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
     if (activeSubtopic && a.altBaslik1 !== activeSubtopic) return false
     return true
   })
+
+  const searchedArticles = searchQuery.trim()
+    ? filteredArticles.filter(a =>
+        a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (a.excerpt ?? '').toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filteredArticles
 
   const countFor = (key: FilterCategory) =>
     key === 'all' ? articles.length : articles.filter(a => a.category === key).length
@@ -82,17 +90,65 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
   return (
     <div className="bg-cream min-h-screen">
       {/* Hero */}
-      <section className="bg-cream border-b border-navy/10 py-16 md:py-24">
+      <section className="bg-navy text-white py-20 md:py-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <p className="text-sm font-sans text-gold uppercase tracking-widest mb-4">
-            Araştırmalar &amp; Yazılar
-          </p>
-          <h1 className="font-serif text-4xl md:text-6xl text-navy mb-4">Makaleler</h1>
-          <p className="text-navy/60 font-sans text-lg max-w-2xl">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-5 inline-flex items-center gap-2 border border-gold/30 px-3 py-1.5"
+          >
+            ✦ Araştırmalar & Yazılar
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.7 }}
+            className="font-serif font-normal leading-[1.05] mb-5"
+            style={{ fontSize: 'clamp(32px, 5vw, 64px)' }}
+          >
+            Makaleler
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="text-white/60 font-sans text-[15px] leading-relaxed max-w-2xl"
+          >
             Longevity, Corporate Bio-Integrity ve NeuroPerformance alanlarında güncel araştırmalar, klinik
             değerlendirmeler ve pratik rehberler.
-          </p>
-          <p className="mt-4 text-sm font-sans text-navy/40">{articles.length} makale</p>
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="mt-4 text-[11px] font-sans text-white/30 tracking-widest uppercase"
+          >
+            {searchQuery ? `${searchedArticles.length} sonuç` : `${articles.length} makale`}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-6 relative max-w-lg"
+          >
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Makale ara... (örn: omega-3, melatonin)"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder:text-white/30 font-sans text-sm px-4 py-3 pr-10 focus:outline-none focus:border-gold/60 transition-colors"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-lg leading-none"
+              >
+                ×
+              </button>
+            )}
+          </motion.div>
         </div>
       </section>
 
@@ -201,7 +257,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
           <div className="max-w-7xl mx-auto px-6 lg:px-12">
             <p className="text-xs font-sans text-navy/40 uppercase tracking-widest">
               {activeSubtopic ? `${activeLabel} › ${activeSubtopic}` : activeLabel}
-              <span className="ml-2 text-gold">— {filteredArticles.length} makale</span>
+              <span className="ml-2 text-gold">— {searchedArticles.length} makale</span>
             </p>
           </div>
         </div>
@@ -209,18 +265,20 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
 
       {/* Articles */}
       <section className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-        {filteredArticles.length === 0 ? (
+        {searchedArticles.length === 0 ? (
           <div className="text-center py-24 text-navy/40 font-sans">
-            <p className="text-lg">Bu kategoride henüz makale bulunmamaktadır.</p>
+            <p className="text-lg">
+              {searchQuery ? `"${searchQuery}" için sonuç bulunamadı.` : 'Bu kategoride henüz makale bulunmamaktadır.'}
+            </p>
           </div>
         ) : (
           <motion.div
-            key={JSON.stringify(activeFilter) + (activeSubtopic ?? '')}
+            key={JSON.stringify(activeFilter) + (activeSubtopic ?? '') + searchQuery}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <ArticleGrid articles={filteredArticles} />
+            <ArticleGrid articles={searchedArticles} />
           </motion.div>
         )}
       </section>

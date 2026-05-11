@@ -12,6 +12,7 @@ interface ServiceBlockProps {
   description: string
   items: string[]
   href: string
+  ctaLabel?: string
   reversed?: boolean
   gradientClass: string
   icon: string
@@ -25,13 +26,14 @@ export default function ServiceBlock({
   description,
   items,
   href,
+  ctaLabel = 'Keşfet',
   reversed = false,
   gradientClass,
   icon,
   photo,
 }: ServiceBlockProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { once: false, margin: '-80px' })
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
   const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.0])
@@ -156,7 +158,7 @@ export default function ServiceBlock({
             href={href}
             className="group inline-flex items-center gap-2 text-[11px] tracking-[2px] uppercase font-sans font-bold text-navy border-b-2 border-gold pb-0.5 w-fit hover:text-gold transition-colors"
           >
-            Makaleleri Keşfet
+            {ctaLabel}
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
         </motion.div>

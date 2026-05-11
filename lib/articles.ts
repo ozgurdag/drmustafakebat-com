@@ -13,6 +13,41 @@ export function getArticleSlugs(category: ArticleCategory): string[] {
     .map(f => f.replace(/\.mdx$/, ''))
 }
 
+const SUBTOPIC_MAP: Record<string, string> = {
+  // Longevity
+  'Vitamin ve Mineral': 'Vitaminler & Mineraller',
+  'Kardiyovasküler': 'Kardiyovasküler Sağlık',
+  'Diyabet & İnsülin Direnci': 'Hormonlar & Metabolizma',
+  'Tiroid Hastalıkları': 'Hormonlar & Metabolizma',
+  'Hormonlar & Endokrin': 'Hormonlar & Metabolizma',
+  'Antioksidanlar': 'Hücresel Sağlık & Anti-Aging',
+  'Doğal Antiaging': 'Hücresel Sağlık & Anti-Aging',
+  'Yaşlılık & Kronik Hast.': 'Hücresel Sağlık & Anti-Aging',
+  
+  // Systems
+  'İSG & Güvenlik': 'İSG & Risk Yönetimi',
+  'İş Kazaları': 'İSG & Risk Yönetimi',
+  'Risk & KKD': 'İSG & Risk Yönetimi',
+  'Acil Durum & İlk Yardım': 'Acil Durum & Yangın',
+  'Yangın Güvenliği': 'Acil Durum & Yangın',
+  'Kurumsal Sağlık': 'Kurumsal Sağlık & Protokoller',
+  'Kurumsal Protokoller': 'Kurumsal Sağlık & Protokoller',
+
+  // NeuroPerformance
+  'Bilişsel Performans': 'Nöroloji & Bilişsel Performans',
+  'Nöroloji & Beyin': 'Nöroloji & Bilişsel Performans',
+  'Psikoloji & Ruh Sağlığı': 'Ruh Sağlığı & Stres',
+  'Tükenmişlik & Stres': 'Ruh Sağlığı & Stres',
+  'Uyku & Vardiyalı Çalışma': 'Uyku & Biyolojik Ritim',
+  'Fiziksel Performans': 'Performans & Egzersiz',
+  'Egzersiz & Fiziksel Aktivite': 'Performans & Egzersiz',
+}
+
+function normalizeSubtopic(topic: string | undefined): string {
+  if (!topic) return ''
+  return SUBTOPIC_MAP[topic] || topic
+}
+
 export function getArticleBySlug(category: ArticleCategory, slug: string): Article | null {
   const filePath = path.join(ARTICLES_DIR, category, `${slug}.mdx`)
   if (!fs.existsSync(filePath)) return null
@@ -22,7 +57,7 @@ export function getArticleBySlug(category: ArticleCategory, slug: string): Artic
     slug,
     title: data.title ?? '',
     category: data.category ?? category,
-    altBaslik1: data.altBaslik1,
+    altBaslik1: normalizeSubtopic(data.altBaslik1),
     altBaslik2: data.altBaslik2 ?? '',
     date: data.date ?? '',
     excerpt: data.excerpt ?? '',
