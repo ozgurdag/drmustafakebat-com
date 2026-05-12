@@ -45,16 +45,27 @@ export default function IletisimPageContent() {
 
   useEffect(() => {
     if (selected === null || !calendlyRef.current) return
-    const url = services[selected].calendlyUrl
+    const svc = services[selected]
     const el = calendlyRef.current
     el.innerHTML = ''
-    el.setAttribute('data-url', url)
     
+    let attempts = 0
+    const maxAttempts = 30
     const initCalendly = () => {
       if (typeof (window as any).Calendly !== 'undefined') {
-        ;(window as any).Calendly.initInlineWidget({ url, parentElement: el, prefill: {}, utm: {} })
-      } else {
+        ;(window as any).Calendly.initInlineWidget({ url: svc.calendlyUrl, parentElement: el, prefill: {}, utm: {} })
+      } else if (attempts < maxAttempts) {
+        attempts++
         setTimeout(initCalendly, 100)
+      } else {
+        el.innerHTML = `
+          <div class="p-8 text-center">
+            <p class="text-navy/70 mb-4">Otomatik takvim yakında aktif olacak. Şimdilik aşağıdaki formu kullanarak tercih ettiğiniz zaman ve konuyu belirtin.</p>
+            <a href="mailto:info@drmustafakebat.com?subject=Randevu%20Talebi%20-%20${encodeURIComponent(svc.title)}&body=Merhaba,%20${encodeURIComponent(svc.title)}%20alanında%20randevu%20almak%20istiyorum.%20Uygun%20olduğunuz%20zamanı%20belirtebilir%20misiniz?" class="inline-block bg-gold text-navy px-6 py-3 rounded-lg font-sans font-semibold hover:bg-gold/80 transition">
+              Randevu Talep Et
+            </a>
+          </div>
+        `
       }
     }
     initCalendly()
