@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 
 const services = [
@@ -41,6 +41,19 @@ export default function IletisimPageContent() {
   const cardsRef = useRef(null)
   const isCardsInView = useInView(cardsRef, { once: false, margin: '-60px' })
   const [selected, setSelected] = useState<number | null>(null)
+  const calendlyRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (selected === null || !calendlyRef.current) return
+    const url = services[selected].calendlyUrl
+    const el = calendlyRef.current
+    while (el.firstChild) el.removeChild(el.firstChild)
+    if (typeof (window as any).Calendly !== 'undefined') {
+      ;(window as any).Calendly.initInlineWidget({ url, parentElement: el, prefill: {}, utm: {} })
+    } else {
+      el.setAttribute('data-url', url)
+    }
+  }, [selected])
 
   return (
     <>
@@ -161,6 +174,7 @@ export default function IletisimPageContent() {
               </div>
 
               <div
+                ref={calendlyRef}
                 className="calendly-inline-widget"
                 data-url={services[selected].calendlyUrl}
                 style={{ minWidth: '320px', height: '700px' }}

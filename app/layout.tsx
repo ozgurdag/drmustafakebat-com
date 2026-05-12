@@ -22,7 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main className="pt-[68px]">{children}</main>
         <Footer />
-        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
+        <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="afterInteractive" />
       </body>
     </html>
   )
