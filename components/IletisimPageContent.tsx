@@ -47,12 +47,17 @@ export default function IletisimPageContent() {
     if (selected === null || !calendlyRef.current) return
     const url = services[selected].calendlyUrl
     const el = calendlyRef.current
-    while (el.firstChild) el.removeChild(el.firstChild)
-    if (typeof (window as any).Calendly !== 'undefined') {
-      ;(window as any).Calendly.initInlineWidget({ url, parentElement: el, prefill: {}, utm: {} })
-    } else {
-      el.setAttribute('data-url', url)
+    el.innerHTML = ''
+    el.setAttribute('data-url', url)
+    
+    const initCalendly = () => {
+      if (typeof (window as any).Calendly !== 'undefined') {
+        ;(window as any).Calendly.initInlineWidget({ url, parentElement: el, prefill: {}, utm: {} })
+      } else {
+        setTimeout(initCalendly, 100)
+      }
     }
+    initCalendly()
   }, [selected])
 
   return (
