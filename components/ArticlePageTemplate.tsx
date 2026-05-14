@@ -93,9 +93,6 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
             </div>
       </article>
 
-      {/* Related Articles */}
-      <RelatedArticles articles={related} />
-
       {/* Disclaimer & Source */}
       <div className="mt-12 pt-6 border-t border-navy/10">
         <div className="font-sans text-[11px] leading-relaxed text-navy/40 space-y-3">
@@ -121,6 +118,9 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
         </div>
       </div>
       </div>
+
+      {/* Related Articles */}
+      <RelatedArticles articles={related} />
     </>
   )
 }
