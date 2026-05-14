@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  generateBuildId: async () => 'stable',
 };
 
 export default nextConfig;
