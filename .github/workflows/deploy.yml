@@ -20,19 +20,15 @@ jobs:
         run: npm ci
 
       - name: Build
-        env:
-          TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-         npm run build:local
-
+        run: npm run build:local
 
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
       - name: Deploy via lftp
-         env:
-          TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
+        env:
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
           FTP_HOST: ${{ secrets.FTP_SERVER }}
         run: |
           lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<'FTPEOF'
