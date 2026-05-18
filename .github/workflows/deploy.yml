@@ -39,6 +39,6 @@ jobs:
           mirror -R --parallel=8 --no-perms \
             --exclude-glob .git \
             --exclude-glob '*/images/articles/*' \
-            out/ /public_html/
+            out/ /
           quit
           FTPEOF
