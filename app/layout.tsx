@@ -36,10 +36,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main className="pt-[68px]">{children}</main>
         <Footer />
-        <Script 
-          src="https://assets.calendly.com/assets/external/widget.js" 
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
           strategy="lazyOnload"
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-0F9V6TR9GJ"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-0F9V6TR9GJ');
+          `}
+        </Script>
       </body>
     </html>
   )
