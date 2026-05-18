@@ -20,16 +20,15 @@ export default function Home() {
           Bireyden kuruma.<br />Biyolojiden sisteme.
         </h2>
         <p className="text-gray-500 text-[15px] leading-relaxed font-sans max-w-2xl">
-          Dr. Mustafa Kebat, bireysel sağlık yönetiminden kurumsal iş güvenliği sistemlerine uzanan
-          bütünleşik bir uzmanlık anlayışı geliştirmiştir. 1.000&apos;den fazla makale ve yıllarca
-          süren klinik ve saha deneyimiyle; yaşlanma yönetimi, zihinsel performans ve iş güvenliği
-          sistemleri konularında danışmanlık ve eğitim hizmetleri sunmaktadır.
+          Dr. Mustafa Kebat, 30 yılı aşan saha deneyimi ve 1.000&apos;den fazla makalesiyle
+          bireylere sağlıklı yaşlanma yönetimi, zihinsel performans verimliliği ve kurumlara
+          iş sağlığı sistemleri alanlarında danışmanlık ve eğitim hizmetleri sunmaktadır.
         </p>
       </div>
 
       <ServiceBlock
         number="01"
-        eyebrow="Uzmanlık Alanı 01"
+        eyebrow="ODAK Alanı 01"
         title="Longevity: Bireysel Sağlık ve Yaşlanma Yönetimi"
         description="Biyolojik yaş optimizasyonu, metabolik sağlık ve yaşam kalitesi için kanıta dayalı protokoller. Hücresel gençleşme ve ömür uzatma bilimine dayalı kişiselleştirilmiş yaklaşım."
         items={[
@@ -48,7 +47,7 @@ export default function Home() {
 
       <ServiceBlock
         number="02"
-        eyebrow="Uzmanlık Alanı 02"
+        eyebrow="ODAK Alanı 02"
         title="Corporate Bio-Integrity"
         description="Kurumsal risk ve sağlık yönetimi. KVS erken uyarı sistemlerinden biometric veri auditine, çalışan biyogüvenliğinden wellness danışmanlığına tam kapsamlı hizmet."
         items={[
@@ -68,7 +67,7 @@ export default function Home() {
 
       <ServiceBlock
         number="03"
-        eyebrow="Uzmanlık Alanı 03"
+        eyebrow="ODAK Alanı 03"
         title="NeuroPerformance: Zihin ve Hareket Optimizasyonu"
         description="Nöro-görsel antrenman, propriyoseptif gelişim ve bilişsel yük yönetimi. Sporcu, yönetici ve yaşlı bireyler için sinir sistemi optimizasyon protokolleri."
         items={[

@@ -8,14 +8,28 @@ import Footer from '@/components/Footer'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
-  title: 'Dr. Mustafa Kebat | Hekim · İSG Uzmanı · Araştırmacı',
-  description: 'Longevity, kurumsal sağlık sistemleri ve nöroergonomi alanlarında uzman hekim ve iş güvenliği danışmanı.',
+  title: {
+    default: 'Dr. Mustafa Kebat | Hekim · Longevity Danışmanı · Araştırmacı',
+    template: '%s | Dr. Mustafa Kebat',
+  },
+  description: 'Dr. Mustafa Kebat — 30+ yıllık deneyimle bireysel longevity yönetimi, kurumsal iş sağlığı ve nöroergonomi danışmanlığı.',
+  keywords: ['longevity', 'biyolojik yaş', 'iş sağlığı', 'nöroergonomi', 'Dr Mustafa Kebat', 'İzmir hekim'],
+  openGraph: {
+    type: 'website',
+    locale: 'tr_TR',
+    url: 'https://drmustafakebat.com',
+    siteName: 'Dr. Mustafa Kebat',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" className={inter.variable}>
       <head>
+        <meta name="robots" content="index, follow" />
+        <meta property="og:site_name" content="Dr. Mustafa Kebat" />
+        <meta property="og:locale" content="tr_TR" />
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
       </head>
       <body className="bg-cream text-navy antialiased">

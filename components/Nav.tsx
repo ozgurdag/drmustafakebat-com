@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 
 const navLinks = [
-  { href: '/longevity', en: 'Longevity', tr: 'Uzun Yaşam' },
-  { href: '/systems', en: 'Corporate Bio-Integrity', tr: 'Kurumsal Sağlık' },
-  { href: '/neuroperformance', en: 'NeuroPerformance', tr: 'Zihin & Hareket' },
-  { href: '/makaleler', en: 'Makaleler', tr: null },
-  { href: '/hakkimda', en: 'Hakkımda', tr: null },
+  { href: '/longevity', label: 'Longevity' },
+  { href: '/systems', label: 'Kurumsal Sağlık' },
+  { href: '/neuroperformance', label: 'Nöroergonomi' },
+  { href: '/makaleler', label: 'Makaleler' },
+  { href: '/hakkimda', label: 'Hakkımda' },
 ]
 
 export default function Nav() {
@@ -25,16 +25,17 @@ export default function Nav() {
         <div className="hidden lg:block flex-shrink-0">
           <Link href="/">
             <div className="text-white text-[13px] tracking-[3px] uppercase font-sans">Dr. Mustafa Kebat</div>
-            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim · Longevity Danışmanı · Araştırmacı</div>
+            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim – Kişisel ve Kurumsal Longevity Danışmanı</div>
           </Link>
         </div>
 
         {/* Nav links — center */}
         <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
-          {navLinks.map(({ href, en, tr }) => (
-            <Link key={href} href={href} className="hover:text-gold transition-colors text-center group">
-              <span className="block text-white text-[13px] font-sans tracking-[1px] group-hover:text-gold transition-colors">{en}</span>
-              {tr && <span className="block text-white/35 text-[10px] font-sans tracking-[0.5px] mt-0.5 group-hover:text-gold/60 transition-colors">{tr}</span>}
+          {navLinks.map(({ href, label }) => (
+            <Link key={href} href={href} className="hover:text-gold transition-colors group">
+              <span className="block text-white text-[13px] font-sans tracking-[1px] group-hover:text-gold transition-colors">
+                {label}
+              </span>
             </Link>
           ))}
         </div>
@@ -51,7 +52,7 @@ export default function Nav() {
         <div className="flex lg:hidden flex-1 justify-center">
           <Link href="/">
             <div className="text-white text-[12px] tracking-[2px] uppercase font-sans">Dr. Mustafa Kebat</div>
-            <div className="text-gold text-[8px] tracking-[1px] font-sans text-center">Hekim · Longevity Danışmanı</div>
+            <div className="text-gold text-[8px] tracking-[1px] font-sans text-center">Hekim – Longevity Danışmanı</div>
           </Link>
         </div>
         <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden text-white text-2xl flex-shrink-0">≡</button>
@@ -66,10 +67,9 @@ export default function Nav() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed top-[72px] left-0 right-0 z-40 bg-navy border-t border-white/10 py-6 px-8 flex flex-col gap-4"
           >
-            {navLinks.map(({ href, en, tr }) => (
+            {navLinks.map(({ href, label }) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="text-white hover:text-gold transition-colors">
-                <span className="block text-sm font-sans tracking-[2px] uppercase">{en}</span>
-                {tr && <span className="block text-white/40 text-[10px] font-sans tracking-[1px] mt-0.5">{tr}</span>}
+                <span className="block text-sm font-sans tracking-[2px] uppercase">{label}</span>
               </Link>
             ))}
             <Link href="/iletisim" onClick={() => setMenuOpen(false)} className="text-white text-sm font-sans tracking-[2px] uppercase hover:text-gold transition-colors">İletişim</Link>

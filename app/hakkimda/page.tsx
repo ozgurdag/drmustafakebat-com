@@ -3,7 +3,7 @@ import HakkimdaStats from '@/components/HakkimdaStats'
 
 export const metadata = {
   title: 'Hakkımda | Dr. Mustafa Kebat',
-  description: 'Dr. Mustafa Kebat hakkında bilgi: tıp eğitimi, iş yeri hekimliği ve araştırmacı kimliği.',
+  description: 'Dr. Mustafa Kebat hakkında bilgi: tıp eğitimi, longevity danışmanlığı ve araştırmacı kimliği.',
 }
 
 const credentials = [
@@ -37,7 +37,7 @@ export default function HakkimdaPage() {
             <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'Hakkımda' }]} />
           </div>
           <p className="mt-2 text-xs font-sans text-gold uppercase tracking-widest mb-6">
-            Hekim · İş Yeri Hekimi · Araştırmacı
+            Hekim – Kişisel ve Kurumsal Longevity Danışmanı – Araştırmacı
           </p>
           <h1 className="font-serif text-5xl md:text-7xl mb-6">Dr. Mustafa Kebat</h1>
           <p className="text-white/70 font-sans text-lg max-w-2xl leading-relaxed">
@@ -57,25 +57,45 @@ export default function HakkimdaPage() {
             </div>
             {/* Biography */}
             <div className="font-sans text-navy/80 leading-relaxed space-y-5">
-              <h2 className="font-serif text-3xl text-navy mb-6">Biyografi</h2>
+              <p>Merhaba, ben Dr. Mustafa Kebat.</p>
               <p>
-                Dr. Mustafa Kebat, tıp eğitiminin ardından iş yeri hekimliği ve koruyucu tıp alanına
-                yöneldi. 30 yılı aşkın mesleki deneyimi boyunca hem bireysel hem de kurumsal düzeyde
-                sağlık yönetimine katkı sağladı.
+                1994 yılında tıp diplomamı alsam da halen devam eden tıbbi eğitimimde;
+                kaç yıl yaşadığınızdan çok, nasıl yaşadığınızla ne kadar sağlıklı ve
+                mutlu olduğunuzla ilgileniyorum.
               </p>
               <p>
-                İş yeri hekimi olarak pek çok büyük ölçekli firmada çalışan sağlığı sistemleri
-                kurdu, risk değerlendirme süreçlerini yönetti ve koruyucu hekimlik programları tasarladı.
+                Zamanımı ve enerjimi özellikle insan – çalışan odaklı üç ana başlıkta
+                harcıyorum: Longevity, Kurumsal İş Sağlığı ve Nöroergonomi.
               </p>
               <p>
-                Longevity tıbbı alanında bireylerin biyolojik yaşlanma süreçlerini yönetebilmelerine
-                rehberlik etmekte; NeuroPerformance çerçevesinde zihin-beden bütünleşmesini temel
-                alan eğitimler geliştirmektedir.
+                Longevity yaklaşımım; yaşam – çalışma koşullarınız özelinde biyolojik
+                yaşınızın yönetimini, metabolik sağlığınızı, inflamasyonunuzun kontrolünü
+                ve sağlıklı yaş alma sürecinizi size – kişiye özel planlıyorum. Bir diğer
+                bakış açısı ile uzun yaşamanın bedelini hafifletmenizi – ya da uzun yaşam
+                arzunuzun sağlıklı gerçekleşmesini sağlıyorum. Lakin pek tabi ki ömrünüze
+                ömür katamıyorum.
               </p>
               <p>
-                Tetkik.blog üzerinden 1.000'den fazla makale yayımlamış olan Dr. Kebat, bilimsel
-                araştırmaları hekimden hastaya, yöneticiden çalışana anlaşılır biçimde aktarmayı
-                öncelikli görev sayar.
+                Kurumsal iş sağlığı tarafında ise firmanın bakış açısını ve yapılanmasını
+                mevzuata uygunluktan sürdürülebilir longevity hedefli sağlık kültürüne
+                dönüşümü için sistem kurulumlarını yapıyor eğitimlerini veriyorum.
+              </p>
+              <p>
+                Nöroergonomi, en keyif aldığım bölüm. Beynin çalışma ortamıyla ilişkisi,
+                dikkat performansı, bilişsel yük, stres ve karar süreçleri yönetimi,
+                dikkatin tünelleşmesi gibi o kadar çok konusu olan nöroergonomi bitmesini
+                istemediğiniz tatil gibi zevkli.
+              </p>
+              <p>
+                Firmalarımla da bireysel danışanlarımla da çalışırken bilimsel yolu
+                önemsiyorum lakin öncelikle insan tarafını kazanarak…
+              </p>
+              <p className="font-serif text-lg text-navy italic mt-4">
+                Değerli dostlar,<br />
+                Hastalıklarla değil, yaşamın kendisiyle ilgileniyorum.<br />
+                Tempolu karmaşayı değil, sürdürülebilir sadeliği seviyorum.<br />
+                Daha sağlıklı, daha üretken, daha dengeli ve mümkün olan en uzun yaşam için…<br />
+                Bilimin rehberliğinde eğitimime devam ediyorum.
               </p>
             </div>
           </div>

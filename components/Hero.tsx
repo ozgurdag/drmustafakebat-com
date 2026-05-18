@@ -29,7 +29,7 @@ export default function Hero() {
       </video>
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-navy/60 z-[1]" />
+      <div className="absolute inset-0 bg-navy/85 z-[1]" />
 
       {/* Decorative SAĞLIK text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
@@ -84,7 +84,7 @@ export default function Hero() {
           className="inline-flex items-center gap-2 border border-gold text-gold font-sans uppercase font-sans"
           style={{ padding: '8px 20px', fontSize: '10px', letterSpacing: '2px' }}
         >
-          ★ &nbsp; 1.000+ Makale · 20 Yıl Deneyim
+          ★ &nbsp; 1.000+ Makale · 30+ Yıl Deneyim
         </motion.div>
       </div>
     </section>
