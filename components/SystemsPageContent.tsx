@@ -43,7 +43,7 @@ export default function SystemsPageContent({ recentArticles = [], sleepArticles 
     <>
       {/* Hero */}
       <section className="bg-navy text-white py-24 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -133,7 +133,7 @@ export default function SystemsPageContent({ recentArticles = [], sleepArticles 
           initial={{ opacity: 0, y: 20 }}
           animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-6xl mx-auto mt-16 pt-12 border-t border-white/10 grid grid-cols-3 gap-8"
+          className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10 grid grid-cols-3 gap-8"
         >
           {stats.map((s, i) => (
             <motion.div
@@ -151,7 +151,7 @@ export default function SystemsPageContent({ recentArticles = [], sleepArticles 
 
       {/* Hizmet Kartları */}
       <section id="hizmetler" className="bg-white py-20 px-6 md:px-12 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Kurumsal Hizmetler</p>
             <h2 className="font-serif text-3xl md:text-4xl font-normal text-navy">Bio-Integrity Protokol Bileşenleri</h2>
@@ -207,7 +207,7 @@ export default function SystemsPageContent({ recentArticles = [], sleepArticles 
       {/* İlgili Makaleler */}
       {recentArticles.length > 0 && (
         <section className="bg-cream py-16 px-6 md:px-12">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-baseline mb-8 border-b border-navy/10 pb-4">
               <div>
                 <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-1">İlgili Yayınlar</p>
@@ -225,7 +225,7 @@ export default function SystemsPageContent({ recentArticles = [], sleepArticles 
       {/* Uyku & Biyolojik Ritim */}
       {sleepArticles.length > 0 && (
         <section className="bg-white py-16 px-6 md:px-12 border-t border-gray-100">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-baseline mb-8 border-b border-navy/10 pb-4">
               <div>
                 <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-1">Çalışan Sağlığı</p>

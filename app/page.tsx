@@ -14,7 +14,7 @@ export default function Home() {
       <CredentialBar />
 
       {/* About strip */}
-      <div className="max-w-5xl mx-auto px-6 md:px-10 py-16">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 py-16">
         <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Yaklaşım</p>
         <h2 className="font-serif text-4xl md:text-5xl font-normal text-navy mb-5 leading-tight">
           Bireyden kuruma.<br />Biyolojiden sisteme.
@@ -88,7 +88,7 @@ export default function Home() {
       <DoctorSection />
 
       {recentArticles.length > 0 && (
-        <section className="max-w-6xl mx-auto px-6 md:px-10 py-16">
+        <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">
           <div className="flex justify-between items-baseline mb-10 border-b border-gray-200 pb-4">
             <div>
               <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-1">Son Yayınlar</p>

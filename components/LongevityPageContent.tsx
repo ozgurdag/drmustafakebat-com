@@ -78,7 +78,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
     <>
       {/* Hero */}
       <section className="bg-navy text-white py-24 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <motion.p
               initial={{ opacity: 0, y: 12 }}
@@ -167,7 +167,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
           initial={{ opacity: 0, y: 20 }}
           animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-6xl mx-auto mt-16 pt-12 border-t border-white/10 grid grid-cols-3 gap-8"
+          className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10 grid grid-cols-3 gap-8"
         >
           {stats.map((s, i) => (
             <motion.div
@@ -185,7 +185,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
 
       {/* 3 Hizmet Kartı */}
       <section className="bg-white py-20 px-6 md:px-12 border-b border-gray-100">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Temel Hizmetler</p>
             <h2 className="font-serif text-3xl md:text-4xl font-normal text-navy">Longevity Protokol Bileşenleri</h2>
@@ -225,7 +225,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
 
       {/* Bilimsel Enstrümanlar */}
       <section id="metodoloji" className="bg-cream py-20 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Tıbbi Yaklaşım Metodu</p>
             <h2 className="font-serif text-3xl md:text-5xl font-normal text-navy mb-5">
@@ -259,7 +259,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
 
       {/* Biyolojik Analizör */}
       <section id="analizor" className="bg-navy py-20 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Kişiselleştirilmiş Biyomarker Analizörü</p>
             <h2 className="font-serif text-3xl md:text-4xl font-normal text-white mb-4">
@@ -291,7 +291,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
 
       {recentArticles.length > 0 && (
         <section className="bg-cream py-16 px-6 md:px-12">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <div className="flex justify-between items-baseline mb-8 border-b border-navy/10 pb-4">
               <div>
                 <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-1">İlgili Yayınlar</p>

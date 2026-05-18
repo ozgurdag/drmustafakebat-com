@@ -75,7 +75,7 @@ export default function IletisimPageContent() {
     <>
       {/* Hero */}
       <section className="bg-navy text-white py-24 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -121,7 +121,7 @@ export default function IletisimPageContent() {
 
       {/* 3 Hizmet Kartı */}
       <section className="bg-white py-20 px-6 md:px-12" ref={cardsRef}>
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Randevu Türü Seçin</p>
             <h2 className="font-serif text-3xl md:text-4xl font-normal text-navy">Hangi Konuda Görüşmek İstersiniz?</h2>
@@ -206,7 +206,7 @@ export default function IletisimPageContent() {
 
       {/* İletişim Bilgileri */}
       <section className="bg-navy py-14 px-6 md:px-12">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>
             <div className="text-2xl mb-2">📍</div>
             <p className="text-[9px] text-white/30 uppercase tracking-widest font-sans mb-1">Konum</p>

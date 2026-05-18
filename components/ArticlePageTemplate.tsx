@@ -28,7 +28,7 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
   return (
     <>
       <div className="bg-navy py-12 px-6 lg:px-12">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Breadcrumb
             items={[
               { label: 'Ana Sayfa', href: '/' },
