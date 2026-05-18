@@ -4,6 +4,7 @@ import { getArticleBySlug, getArticlesBySubtopic } from '@/lib/articles'
 import { ArticleCategory, CATEGORY_LABELS, CATEGORY_COLORS } from '@/lib/types'
 import Breadcrumb from './Breadcrumb'
 import RelatedArticles from './RelatedArticles'
+import NewsletterForm from './NewsletterForm'
 
 interface ArticlePageTemplateProps {
   category: ArticleCategory
@@ -92,6 +93,8 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
               />
             </div>
       </article>
+
+      <NewsletterForm />
 
       {/* Disclaimer & Source */}
       <div className="mt-12 pt-6 border-t border-navy/10">

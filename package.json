@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/tina-build.js && next build",
-    "build:local": "next build",
+    "build": "node scripts/tina-build.js && node scripts/generate-rss.js && next build",
+    "build:local": "node scripts/generate-rss.js && next build",
     "start": "next start",
     "lint": "eslint"
   },
