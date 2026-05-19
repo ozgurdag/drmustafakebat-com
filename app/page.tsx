@@ -2,6 +2,7 @@ import Hero from '@/components/Hero'
 import CredentialBar from '@/components/CredentialBar'
 import ServiceBlock from '@/components/ServiceBlock'
 import DoctorSection from '@/components/DoctorSection'
+import NewsletterForm from '@/components/NewsletterForm'
 import ArticleGrid from '@/components/ArticleGrid'
 import { getRecentArticles } from '@/lib/articles'
 
@@ -85,6 +86,7 @@ export default function Home() {
       />
 
       <DoctorSection />
+      <NewsletterForm />
 
       {recentArticles.length > 0 && (
         <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">

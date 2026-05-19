@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArticleMeta, ArticleCategory, VirtualCategory, VIRTUAL_FILTER_MAP } from '@/lib/types'
 import ArticleGrid from '@/components/ArticleGrid'
+import NewsletterForm from '@/components/NewsletterForm'
 
 interface MakalelerClientProps {
   articles: ArticleMeta[]
@@ -282,6 +283,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
           </motion.div>
         )}
       </section>
+      <NewsletterForm />
     </div>
   )
 }
