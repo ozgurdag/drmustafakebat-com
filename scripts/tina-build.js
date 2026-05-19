@@ -1,6 +1,11 @@
 const { spawnSync } = require('child_process')
 
-console.log('Running tinacms build...')
+if (!process.env.TINA_CLIENT_ID || !process.env.TINA_TOKEN) {
+  console.log('Skipping Tina build (TINA_CLIENT_ID or TINA_TOKEN not set)')
+  process.exit(0)
+}
+
+console.log('Starting Tina build...')
 
 const result = spawnSync('npx', ['tinacms', 'build'], {
   stdio: 'inherit',
@@ -18,4 +23,4 @@ if (result.status !== 0) {
   process.exit(result.status || 1)
 }
 
-console.log('tinacms build completed successfully.')
+console.log('Tina build completed successfully.')
