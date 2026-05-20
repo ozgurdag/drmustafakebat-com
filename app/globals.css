@@ -9,3 +9,11 @@ html {
 body {
   @apply bg-cream text-navy;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

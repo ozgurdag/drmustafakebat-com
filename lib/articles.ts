@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { Article, ArticleMeta, ArticleCategory } from './types'
+import { Article, ArticleMeta, ArticleCategory, ALL_CATEGORIES } from './types'
 
 const ARTICLES_DIR = path.join(process.cwd(), 'content', 'articles')
 
@@ -13,41 +13,6 @@ export function getArticleSlugs(category: ArticleCategory): string[] {
     .map(f => f.replace(/\.mdx$/, ''))
 }
 
-const SUBTOPIC_MAP: Record<string, string> = {
-  // Longevity
-  'Vitamin ve Mineral': 'Vitaminler & Mineraller',
-  'Kardiyovasküler': 'Kardiyovasküler Sağlık',
-  'Diyabet & İnsülin Direnci': 'Hormonlar & Metabolizma',
-  'Tiroid Hastalıkları': 'Hormonlar & Metabolizma',
-  'Hormonlar & Endokrin': 'Hormonlar & Metabolizma',
-  'Antioksidanlar': 'Hücresel Sağlık & Anti-Aging',
-  'Doğal Antiaging': 'Hücresel Sağlık & Anti-Aging',
-  'Yaşlılık & Kronik Hast.': 'Hücresel Sağlık & Anti-Aging',
-  
-  // Systems
-  'İSG & Güvenlik': 'İSG & Risk Yönetimi',
-  'İş Kazaları': 'İSG & Risk Yönetimi',
-  'Risk & KKD': 'İSG & Risk Yönetimi',
-  'Acil Durum & İlk Yardım': 'Acil Durum & Yangın',
-  'Yangın Güvenliği': 'Acil Durum & Yangın',
-  'Kurumsal Sağlık': 'Kurumsal Sağlık & Protokoller',
-  'Kurumsal Protokoller': 'Kurumsal Sağlık & Protokoller',
-
-  // NeuroPerformance
-  'Bilişsel Performans': 'Nöroloji & Bilişsel Performans',
-  'Nöroloji & Beyin': 'Nöroloji & Bilişsel Performans',
-  'Psikoloji & Ruh Sağlığı': 'Ruh Sağlığı & Stres',
-  'Tükenmişlik & Stres': 'Ruh Sağlığı & Stres',
-  'Uyku & Vardiyalı Çalışma': 'Uyku & Biyolojik Ritim',
-  'Fiziksel Performans': 'Performans & Egzersiz',
-  'Egzersiz & Fiziksel Aktivite': 'Performans & Egzersiz',
-}
-
-function normalizeSubtopic(topic: string | undefined): string {
-  if (!topic) return ''
-  return SUBTOPIC_MAP[topic] || topic
-}
-
 export function getArticleBySlug(category: ArticleCategory, slug: string): Article | null {
   const filePath = path.join(ARTICLES_DIR, category, `${slug}.mdx`)
   if (!fs.existsSync(filePath)) return null
@@ -56,8 +21,8 @@ export function getArticleBySlug(category: ArticleCategory, slug: string): Artic
   return {
     slug,
     title: data.title ?? '',
-    category: data.category ?? category,
-    altBaslik1: normalizeSubtopic(data.altBaslik1),
+    category,
+    altBaslik1: data.altBaslik1 ?? '',
     altBaslik2: data.altBaslik2 ?? '',
     date: data.date ?? '',
     excerpt: data.excerpt ?? '',
@@ -80,8 +45,7 @@ export function getArticlesByCategory(category: ArticleCategory): ArticleMeta[] 
 }
 
 export function getAllArticles(): ArticleMeta[] {
-  const categories: ArticleCategory[] = ['longevity', 'systems', 'neuroperformance']
-  return categories
+  return ALL_CATEGORIES
     .flatMap(cat => getArticlesByCategory(cat))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
@@ -92,9 +56,31 @@ export function getArticlesBySubtopic(category: ArticleCategory, altBaslik1: str
 
 export function getSubtopics(category: ArticleCategory): string[] {
   const articles = getArticlesByCategory(category)
-  return [...new Set(articles.map(a => a.altBaslik1).filter((v): v is string => Boolean(v)))]
+  return [...new Set(articles.map(a => a.altBaslik1).filter((v): v is string => Boolean(v)))].sort()
 }
 
 export function getRecentArticles(count = 6): ArticleMeta[] {
   return getAllArticles().slice(0, count)
+}
+
+export function findArticleBySlug(slug: string, searchIn: ArticleCategory[]): Article | null {
+  for (const cat of searchIn) {
+    const article = getArticleBySlug(cat, slug)
+    if (article) return article
+  }
+  return null
+}
+
+export function getSlugsFromCategories(categories: ArticleCategory[]): string[] {
+  const seen = new Set<string>()
+  const slugs: string[] = []
+  for (const cat of categories) {
+    for (const slug of getArticleSlugs(cat)) {
+      if (!seen.has(slug)) {
+        seen.add(slug)
+        slugs.push(slug)
+      }
+    }
+  }
+  return slugs
 }
