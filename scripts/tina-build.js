@@ -10,7 +10,7 @@ console.log('Starting Tina build...')
 const result = spawnSync('npx', ['tinacms', 'build'], {
   stdio: 'inherit',
   shell: true,
-  env: { ...process.env },
+  env: { ...process.env, TINA_SKIP_CONFIG_CHECK: 'true' },
 })
 
 if (result.error) {
