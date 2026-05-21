@@ -22,7 +22,7 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
       <Link href={`/${article.category}/${article.slug}`}>
         <p className="font-sans uppercase mb-2.5" style={{ fontSize: '9px', color: '#c9a84c', letterSpacing: '2px' }}>
           {CATEGORY_LABELS[article.category]}
-          {article.altBaslik1 && ` · ${article.altBaslik1}`}
+          {article.altBaslik1 && article.altBaslik1 !== CATEGORY_LABELS[article.category] && article.altBaslik1 !== CATEGORY_SHORT[article.category] && ` · ${article.altBaslik1}`}
         </p>
         <h3 className="font-serif mb-2.5 group-hover:text-gold transition-colors" style={{ fontSize: '16px', color: '#111', lineHeight: '1.4' }}>
           {article.title}
