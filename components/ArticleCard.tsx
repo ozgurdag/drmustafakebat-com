@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArticleMeta, CATEGORY_LABELS } from '@/lib/types'
+import { ArticleMeta, CATEGORY_LABELS, CATEGORY_SHORT } from '@/lib/types'
 
 interface ArticleCardProps {
   article: ArticleMeta
