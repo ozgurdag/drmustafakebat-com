@@ -16,6 +16,7 @@ export interface ArticleFrontmatter {
   date: string
   excerpt: string
   image?: string
+  status?: 'published' | 'draft'
 }
 
 export interface Article extends ArticleFrontmatter {

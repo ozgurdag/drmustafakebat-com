@@ -27,16 +27,26 @@ export function getArticleBySlug(category: ArticleCategory, slug: string): Artic
     date: data.date ?? '',
     excerpt: data.excerpt ?? '',
     image: data.image ?? '',
+    status: data.status ?? 'published',
     content,
   }
 }
 
-export function getArticlesByCategory(category: ArticleCategory): ArticleMeta[] {
+export function getArticlesByCategory(category: ArticleCategory, includeDrafts = false): ArticleMeta[] {
   const slugs = getArticleSlugs(category)
+  const now = new Date()
+  
   return slugs
     .map(slug => {
       const article = getArticleBySlug(category, slug)
       if (!article) return null
+      
+      // Filter out drafts and scheduled posts for public view
+      if (!includeDrafts) {
+        if (article.status === 'draft') return null
+        if (new Date(article.date) > now) return null
+      }
+      
       const { content: _, ...meta } = article
       return meta
     })
@@ -44,9 +54,9 @@ export function getArticlesByCategory(category: ArticleCategory): ArticleMeta[] 
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
-export function getAllArticles(): ArticleMeta[] {
+export function getAllArticles(includeDrafts = false): ArticleMeta[] {
   return ALL_CATEGORIES
-    .flatMap(cat => getArticlesByCategory(cat))
+    .flatMap(cat => getArticlesByCategory(cat, includeDrafts))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
