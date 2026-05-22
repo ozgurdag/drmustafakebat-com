@@ -30,11 +30,9 @@ function AdminArticlesInner() {
   const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) return
     setLoading(true)
     setArticles([])
-    getArticlesMeta(selectedCat, token)
+    getArticlesMeta(selectedCat)
       .then(setArticles)
       .catch(console.error)
       .finally(() => setLoading(false))
@@ -52,15 +50,12 @@ function AdminArticlesInner() {
 
   const handleDelete = async () => {
     if (!deleteTarget) return
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) return
     setDeleting(true)
     try {
       await deleteFile(
         `content/articles/${deleteTarget.category}/${deleteTarget.slug}.mdx`,
         deleteTarget.sha,
-        `chore: delete ${deleteTarget.slug}`,
-        token
+        `chore: delete ${deleteTarget.slug}`
       )
       setArticles(prev => prev.filter(a => a.slug !== deleteTarget.slug))
       setDeleteTarget(null)

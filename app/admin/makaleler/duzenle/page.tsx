@@ -52,10 +52,9 @@ function EditArticleInner() {
   })
 
   useEffect(() => {
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token || !slug) return
+    if (!slug) return
 
-    getArticleFile(category, slug, token)
+    getArticleFile(category, slug)
       .then((data) => {
         if (!data) { alert('Makale bulunamadı!'); router.push('/admin/makaleler'); return }
         const { sha: fileSha, slug: _slug, ...rest } = data
@@ -80,8 +79,6 @@ function EditArticleInner() {
   }
 
   const handleSave = async () => {
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) { alert('Oturum süresi dolmuş.'); return }
     setSaving(true)
     try {
       const mdx = buildMdxContent(formData)
@@ -89,12 +86,11 @@ function EditArticleInner() {
       const oldPath = `content/articles/${originalCategory}/${slug}.mdx`
 
       if (formData.category !== originalCategory) {
-        // Move: create in new category, delete from old
         const { deleteFile } = await import('@/lib/github-api')
-        await createOrUpdateFile(newPath, mdx, undefined, `chore: move ${slug} to ${formData.category}`, token)
-        await deleteFile(oldPath, sha, `chore: remove ${slug} from ${originalCategory}`, token)
+        await createOrUpdateFile(newPath, mdx, undefined, `chore: move ${slug} to ${formData.category}`)
+        await deleteFile(oldPath, sha, `chore: remove ${slug} from ${originalCategory}`)
       } else {
-        await createOrUpdateFile(oldPath, mdx, sha, `chore: update ${slug}`, token)
+        await createOrUpdateFile(oldPath, mdx, sha, `chore: update ${slug}`)
       }
       router.push('/admin/makaleler')
     } catch (e) {

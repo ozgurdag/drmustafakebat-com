@@ -19,19 +19,16 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) return
-
     const load = async () => {
       try {
         const [catCounts, deployStatus] = await Promise.all([
           Promise.all(
             ALL_CATEGORIES.map(async (cat) => {
-              const files = await listCategoryFiles(cat, token)
+              const files = await listCategoryFiles(cat)
               return { category: cat, label: CATEGORY_SHORT[cat], count: files.length }
             })
           ),
-          getLastDeployStatus(token),
+          getLastDeployStatus(),
         ])
         setCounts(catCounts)
         setTotal(catCounts.reduce((s, c) => s + c.count, 0))

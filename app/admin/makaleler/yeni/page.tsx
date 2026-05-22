@@ -74,14 +74,11 @@ export default function NewArticlePage() {
       alert('Başlık zorunludur!')
       return
     }
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) { alert('Oturum süresi dolmuş, yeniden giriş yapın.'); return }
-
     setSaving(true)
     try {
       const mdx = buildMdxContent(formData)
       const path = `content/articles/${formData.category}/${formData.slug}.mdx`
-      await createOrUpdateFile(path, mdx, undefined, `feat: add ${formData.slug}`, token)
+      await createOrUpdateFile(path, mdx, undefined, `feat: add ${formData.slug}`)
       router.push('/admin/makaleler')
     } catch (e) {
       alert('Hata: ' + (e instanceof Error ? e.message : String(e)))

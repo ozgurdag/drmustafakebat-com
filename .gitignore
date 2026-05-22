@@ -67,3 +67,6 @@ scratch/
 # Fetch logs
 scripts/fetch-log.txt
 scripts/fetch-log-live.txt
+
+# PHP proxy credentials — upload manually to cPanel, never commit
+/public/api/proxy-config.php

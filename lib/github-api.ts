@@ -1,31 +1,51 @@
 import matter from 'gray-matter'
 import { ArticleCategory, ALL_CATEGORIES } from './types'
 
-const OWNER = 'ozgurdag'
-const REPO = 'drmustafakebat-com'
-const BRANCH = 'main'
-const API_BASE = 'https://api.github.com'
+const PROXY = '/api/proxy.php'
 
-function headers(token: string) {
-  return {
-    Authorization: `Bearer ${token}`,
-    Accept: 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json',
+async function proxy(action: string, options: {
+  method?: 'GET' | 'POST'
+  params?: Record<string, string>
+  body?: unknown
+} = {}): Promise<Response> {
+  const params = new URLSearchParams({ action, ...(options.params ?? {}) })
+  return fetch(`${PROXY}?${params}`, {
+    method: options.body ? 'POST' : (options.method ?? 'GET'),
+    headers: options.body ? { 'Content-Type': 'application/json' } : {},
+    credentials: 'include',
+    body: options.body ? JSON.stringify(options.body) : undefined,
+  })
+}
+
+// ─── Auth ────────────────────────────────────────────────────────────────────
+
+export interface LoginResult {
+  ok?: boolean
+  error?: 'invalid_credentials' | 'too_many_attempts' | string
+  remaining_attempts?: number
+  remaining_seconds?: number
+}
+
+export async function adminLogin(username: string, password: string): Promise<LoginResult> {
+  const res = await proxy('login', { body: { username, password } })
+  return res.json()
+}
+
+export async function adminLogout(): Promise<void> {
+  await proxy('logout', { body: {} })
+}
+
+export async function checkAdminSession(): Promise<boolean> {
+  try {
+    const res = await proxy('check')
+    const data = await res.json()
+    return data.ok === true
+  } catch {
+    return false
   }
 }
 
-export interface GitHubUser {
-  login: string
-  name: string | null
-  avatar_url: string
-}
-
-export async function verifyToken(token: string): Promise<GitHubUser> {
-  const res = await fetch(`${API_BASE}/user`, { headers: headers(token) })
-  if (!res.ok) throw new Error('Geçersiz token')
-  return res.json()
-}
+// ─── Files ───────────────────────────────────────────────────────────────────
 
 export interface GitHubFile {
   name: string
@@ -34,11 +54,8 @@ export interface GitHubFile {
   size: number
 }
 
-export async function listCategoryFiles(category: ArticleCategory, token: string): Promise<GitHubFile[]> {
-  const res = await fetch(
-    `${API_BASE}/repos/${OWNER}/${REPO}/contents/content/articles/${category}?ref=${BRANCH}`,
-    { headers: headers(token) }
-  )
+export async function listCategoryFiles(category: ArticleCategory): Promise<GitHubFile[]> {
+  const res = await proxy('list_files', { params: { category } })
   if (res.status === 404) return []
   if (!res.ok) throw new Error(`Dosyalar listelenemedi: ${res.status}`)
   const data = await res.json()
@@ -61,14 +78,10 @@ export interface ArticleFileData {
 
 export async function getArticleFile(
   category: ArticleCategory,
-  slug: string,
-  token: string
+  slug: string
 ): Promise<ArticleFileData | null> {
   const path = `content/articles/${category}/${slug}.mdx`
-  const res = await fetch(
-    `${API_BASE}/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`,
-    { headers: headers(token) }
-  )
+  const res = await proxy('get_file', { params: { path } })
   if (res.status === 404) return null
   if (!res.ok) throw new Error(`Makale yüklenemedi: ${res.status}`)
   const data = await res.json()
@@ -82,7 +95,9 @@ export async function getArticleFile(
     title: fm.title ?? '',
     altBaslik1: fm.altBaslik1 ?? '',
     altBaslik2: fm.altBaslik2 ?? '',
-    date: fm.date ? (typeof fm.date === 'string' ? fm.date.slice(0, 10) : new Date(fm.date).toISOString().slice(0, 10)) : '',
+    date: fm.date
+      ? (typeof fm.date === 'string' ? fm.date.slice(0, 10) : new Date(fm.date).toISOString().slice(0, 10))
+      : '',
     excerpt: fm.excerpt ?? '',
     image: fm.image ?? '',
     status: fm.status ?? 'published',
@@ -100,26 +115,12 @@ export interface AllArticlesMeta {
   status: 'published' | 'draft'
 }
 
-export async function getAllArticlesMeta(token: string): Promise<AllArticlesMeta[]> {
-  const results: AllArticlesMeta[] = []
-  await Promise.all(
-    ALL_CATEGORIES.map(async (cat) => {
-      const files = await listCategoryFiles(cat, token)
-      for (const f of files) {
-        const slug = f.name.replace(/\.mdx$/, '')
-        results.push({ slug, category: cat, sha: f.sha, title: slug, altBaslik1: '', date: '', status: 'published' })
-      }
-    })
-  )
-  return results
-}
-
-export async function getArticlesMeta(category: ArticleCategory, token: string): Promise<AllArticlesMeta[]> {
-  const files = await listCategoryFiles(category, token)
+export async function getArticlesMeta(category: ArticleCategory): Promise<AllArticlesMeta[]> {
+  const files = await listCategoryFiles(category)
   const results = await Promise.all(
     files.map(async (f) => {
       const slug = f.name.replace(/\.mdx$/, '')
-      const article = await getArticleFile(category, slug, token)
+      const article = await getArticleFile(category, slug)
       if (!article) return null
       return {
         slug,
@@ -135,40 +136,18 @@ export async function getArticlesMeta(category: ArticleCategory, token: string):
   return results.filter((a): a is AllArticlesMeta => a !== null)
 }
 
-function buildMdx(data: Omit<ArticleFileData, 'sha' | 'slug' | 'category'>, content: string): string {
-  const fm: Record<string, string> = {
-    title: data.title,
-    date: data.date,
-    excerpt: data.excerpt,
-    status: data.status,
-  }
-  if (data.altBaslik1) fm.altBaslik1 = data.altBaslik1
-  if (data.altBaslik2) fm.altBaslik2 = data.altBaslik2
-  if (data.image) fm.image = data.image
-
-  return matter.stringify(content, fm)
-}
+// ─── Write / Delete ──────────────────────────────────────────────────────────
 
 export async function createOrUpdateFile(
   path: string,
   mdxContent: string,
   sha: string | undefined,
-  message: string,
-  token: string
+  message: string
 ): Promise<void> {
   const encoded = btoa(unescape(encodeURIComponent(mdxContent)))
-  const body: Record<string, unknown> = {
-    message,
-    content: encoded,
-    branch: BRANCH,
-  }
-  if (sha) body.sha = sha
-
-  const res = await fetch(`${API_BASE}/repos/${OWNER}/${REPO}/contents/${path}`, {
-    method: 'PUT',
-    headers: headers(token),
-    body: JSON.stringify(body),
-  })
+  const payload: Record<string, unknown> = { message, content: encoded, branch: 'main' }
+  if (sha) payload.sha = sha
+  const res = await proxy('put_file', { body: { path, payload } })
   if (!res.ok) {
     const err = await res.json().catch(() => ({}))
     throw new Error(`Dosya kaydedilemedi: ${res.status} — ${(err as { message?: string }).message ?? ''}`)
@@ -178,16 +157,15 @@ export async function createOrUpdateFile(
 export async function deleteFile(
   path: string,
   sha: string,
-  message: string,
-  token: string
+  message: string
 ): Promise<void> {
-  const res = await fetch(`${API_BASE}/repos/${OWNER}/${REPO}/contents/${path}`, {
-    method: 'DELETE',
-    headers: headers(token),
-    body: JSON.stringify({ message, sha, branch: BRANCH }),
+  const res = await proxy('delete_file', {
+    body: { path, payload: { message, sha, branch: 'main' } },
   })
   if (!res.ok) throw new Error(`Dosya silinemedi: ${res.status}`)
 }
+
+// ─── Deploy status ───────────────────────────────────────────────────────────
 
 export interface DeployStatus {
   status: 'success' | 'failure' | 'in_progress' | 'queued' | 'unknown'
@@ -196,23 +174,37 @@ export interface DeployStatus {
   html_url: string | null
 }
 
-export async function getLastDeployStatus(token: string): Promise<DeployStatus> {
-  const res = await fetch(
-    `${API_BASE}/repos/${OWNER}/${REPO}/actions/runs?per_page=1&branch=${BRANCH}`,
-    { headers: headers(token) }
-  )
-  if (!res.ok) return { status: 'unknown', conclusion: null, created_at: null, html_url: null }
-  const data = await res.json()
-  const run = data.workflow_runs?.[0]
-  if (!run) return { status: 'unknown', conclusion: null, created_at: null, html_url: null }
-  return {
-    status: run.status === 'completed' ? (run.conclusion === 'success' ? 'success' : 'failure') : run.status,
-    conclusion: run.conclusion,
-    created_at: run.created_at,
-    html_url: run.html_url,
+export async function getLastDeployStatus(): Promise<DeployStatus> {
+  try {
+    const res = await proxy('get_runs')
+    if (!res.ok) return { status: 'unknown', conclusion: null, created_at: null, html_url: null }
+    const data = await res.json()
+    const run = data.workflow_runs?.[0]
+    if (!run) return { status: 'unknown', conclusion: null, created_at: null, html_url: null }
+    return {
+      status: run.status === 'completed'
+        ? (run.conclusion === 'success' ? 'success' : 'failure')
+        : run.status,
+      conclusion: run.conclusion,
+      created_at: run.created_at,
+      html_url: run.html_url,
+    }
+  } catch {
+    return { status: 'unknown', conclusion: null, created_at: null, html_url: null }
   }
 }
 
+// ─── MDX builder (pure, no API calls) ───────────────────────────────────────
+
 export function buildMdxContent(data: Omit<ArticleFileData, 'sha' | 'slug' | 'category'>): string {
-  return buildMdx(data, data.content)
+  const fm: Record<string, string> = {
+    title: data.title,
+    date: data.date,
+    excerpt: data.excerpt,
+    status: data.status,
+  }
+  if (data.altBaslik1) fm.altBaslik1 = data.altBaslik1
+  if (data.altBaslik2) fm.altBaslik2 = data.altBaslik2
+  if (data.image) fm.image = data.image
+  return matter.stringify(data.content, fm)
 }

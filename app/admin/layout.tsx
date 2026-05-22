@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { LayoutDashboard, FileText, Globe, LogOut } from 'lucide-react'
+import { checkAdminSession, adminLogout } from '@/lib/github-api'
 
 const navItems = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -19,18 +20,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     const isLoginPage = pathname === '/admin/login' || pathname === '/admin/login/'
-    if (isLoginPage) {
-      setAuthorized(true)
-      return
-    }
+    if (isLoginPage) { setAuthorized(true); return }
 
-    const token = sessionStorage.getItem('gh_pat')
-    if (!token) {
-      setAuthorized(false)
-      router.push('/admin/login')
-      return
-    }
-    setAuthorized(true)
+    checkAdminSession().then(ok => {
+      if (ok) {
+        setAuthorized(true)
+      } else {
+        setAuthorized(false)
+        router.push('/admin/login')
+      }
+    })
   }, [pathname, router])
 
   const isLoginPage = pathname === '/admin/login' || pathname === '/admin/login/'
@@ -46,14 +45,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (authorized === false) return null
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('gh_pat')
+  const handleLogout = async () => {
+    await adminLogout()
     router.push('/admin/login')
   }
 
   return (
     <div className="flex min-h-screen bg-[#f5f3ee]">
-      {/* Sidebar */}
       <aside className="w-60 bg-navy text-white flex flex-col fixed inset-y-0 shadow-2xl z-30">
         <div className="p-7 border-b border-white/5">
           <h2 className="text-lg font-serif tracking-widest text-gold uppercase">Dr. Kebat</h2>
@@ -69,9 +67,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 key={item.href}
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all font-sans text-sm ${
-                  isActive
-                    ? 'bg-gold text-navy font-bold'
-                    : 'text-white/60 hover:bg-white/5 hover:text-white'
+                  isActive ? 'bg-gold text-navy font-bold' : 'text-white/60 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 <Icon size={16} />
@@ -91,13 +87,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 ml-60 p-10">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.35 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
           {children}
         </motion.div>
       </main>
