@@ -72,7 +72,8 @@ export async function getArticleFile(
   if (res.status === 404) return null
   if (!res.ok) throw new Error(`Makale yüklenemedi: ${res.status}`)
   const data = await res.json()
-  const decoded = atob(data.content.replace(/\n/g, ''))
+  const bytes = Uint8Array.from(atob(data.content.replace(/\n/g, '')), c => c.charCodeAt(0))
+  const decoded = new TextDecoder('utf-8').decode(bytes)
   const { data: fm, content } = matter(decoded)
   return {
     slug,

@@ -64,12 +64,22 @@ export default function AdminDashboard() {
           <h1 className="text-3xl font-serif text-navy">Hoş Geldiniz</h1>
           <p className="text-gray-400 font-sans text-sm mt-1">Sitenizin içerik durumu aşağıdadır.</p>
         </div>
-        <Link
-          href="/admin/makaleler/yeni"
-          className="flex items-center gap-2 bg-navy text-white px-5 py-2.5 rounded-xl font-sans text-sm font-bold hover:bg-gold hover:text-navy transition-all shadow-sm"
-        >
-          <Plus size={16} /> Yeni Makale
-        </Link>
+        <div className="flex items-center gap-3">
+          <a
+            href="https://analytics.google.com/analytics/web/#/p430752402/reports/intelligenthome"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 bg-white border border-gray-100 text-gray-500 px-4 py-2.5 rounded-xl font-sans text-xs font-bold hover:bg-gray-50 transition-all shadow-sm"
+          >
+            <ExternalLink size={13} /> Google Analytics
+          </a>
+          <Link
+            href="/admin/makaleler/yeni"
+            className="flex items-center gap-2 bg-navy text-white px-5 py-2.5 rounded-xl font-sans text-sm font-bold hover:bg-gold hover:text-navy transition-all shadow-sm"
+          >
+            <Plus size={16} /> Yeni Makale
+          </Link>
+        </div>
       </div>
 
       {/* Top Stats */}
