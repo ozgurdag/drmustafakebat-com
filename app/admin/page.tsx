@@ -144,6 +144,20 @@ export default function AdminDashboard() {
           ))}
         </div>
       </div>
+
+      {/* Google Analytics / Looker Studio Embed */}
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="p-6 border-b border-gray-50">
+          <h3 className="font-serif text-lg text-navy">Site Analitiği</h3>
+          <p className="text-[10px] text-gray-400 font-sans uppercase tracking-widest mt-1">Google Analytics · Looker Studio</p>
+        </div>
+        <iframe
+          src="https://datastudio.google.com/embed/reporting/0a389baa-4269-42c7-b768-0b38f01a6e48/page/Da7yF"
+          className="w-full border-0"
+          style={{ height: '600px' }}
+          allowFullScreen
+        />
+      </div>
     </div>
   )
 }
