@@ -53,12 +53,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="flex min-h-screen bg-[#f5f3ee]">
       <aside className="w-60 bg-navy text-white flex flex-col fixed inset-y-0 shadow-2xl z-30">
-        <div className="p-7 border-b border-white/5">
+        <div className="p-7 border-b border-white/5 shrink-0">
           <h2 className="text-lg font-serif tracking-widest text-gold uppercase">Dr. Kebat</h2>
           <p className="text-[10px] text-white/40 tracking-[2px] mt-1 font-sans">YÖNETİM PANELİ</p>
         </div>
 
-        <nav className="flex-1 px-3 py-6 space-y-1">
+        <nav className="flex-1 overflow-y-auto px-3 py-6 space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href || (pathname === '/admin' && item.href === '/admin')
@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           })}
         </nav>
 
-        <div className="p-3 border-t border-white/5">
+        <div className="p-3 border-t border-white/5 shrink-0">
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-red-400 hover:bg-red-500/10 transition-all font-sans text-sm"
