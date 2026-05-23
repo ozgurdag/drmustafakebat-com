@@ -26,23 +26,14 @@ jobs:
         run: npm run build
 
 
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
-
-      - name: Deploy via lftp
-        env:
-          FTP_USER: ${{ secrets.FTP_USERNAME }}
-          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
-          FTP_HOST: ${{ secrets.FTP_SERVER }}
-        run: |
-          lftp -u "$FTP_USER","$FTP_PASS" "$FTP_HOST" <<'FTPEOF'
-          set ftp:ssl-allow no
-          set net:reconnect-interval-base 5
-          set net:max-retries 10
-          set net:timeout 30
-          mirror -R --parallel=8 --no-perms \
-            --exclude-glob .git \
-            --exclude-glob '*/images/articles/*' \
-            out/ /
-          quit
-          FTPEOF
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./out/
+          server-dir: /
+          exclude: |
+            **/.git*
+            **/images/articles/**
