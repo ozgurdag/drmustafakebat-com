@@ -3,7 +3,7 @@ import ArticlePageTemplate from '@/components/ArticlePageTemplate'
 import type { Metadata } from 'next'
 import type { ArticleCategory } from '@/lib/types'
 
-const SYSTEMS_CATEGORIES: ArticleCategory[] = ['isg', 'acil', 'mevzuat', 'kimyasal']
+const SYSTEMS_CATEGORIES: ArticleCategory[] = ['saglik']
 
 export async function generateStaticParams() {
   return getSlugsFromCategories(SYSTEMS_CATEGORIES).map(slug => ({ slug }))

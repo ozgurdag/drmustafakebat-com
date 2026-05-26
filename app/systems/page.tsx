@@ -8,9 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function SystemsPage() {
-  const recentArticles = getArticlesByCategory('isg').slice(0, 3)
-    .concat(getArticlesByCategory('acil').slice(0, 2))
-    .concat(getArticlesByCategory('mevzuat').slice(0, 1))
+  const recentArticles = getArticlesByCategory('saglik').slice(0, 6)
   const sleepArticles = getArticlesByCategory('neuroperformance')
     .filter(a => a.altBaslik1 === 'Uyku & Vardiyalı Çalışma' || a.altBaslik1 === 'Uyku & Biyolojik Ritim')
     .slice(0, 6)

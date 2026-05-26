@@ -21,9 +21,6 @@ jobs:
         run: npm ci
 
       - name: Build
-        env:
-          TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
         run: npm run build
 
       - name: FTP Deploy

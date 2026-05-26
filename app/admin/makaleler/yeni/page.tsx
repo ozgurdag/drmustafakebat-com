@@ -8,14 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Save, ArrowLeft, Eye, Edit3, Image as ImageIcon } from 'lucide-react'
 
 const ALT_BASLIK_OPTIONS: Record<ArticleCategory, string[]> = {
-  longevity: ['Doğal Antiaging', 'Yaşlılık & Kronik Hast.', 'Antioksidanlar'],
+  longevity: ['Longevity', 'Bilişsel Longevity', 'İş Sağlığı ve Longevity', 'Longevity Biyobelirteçleri', 'Mesleki Longevity', 'Metabolik Longevity', 'Yönetici Longevity'],
   beslenme: ['Kan Tahlilleri & Biyokimya', 'Vitaminler & Mineraller', 'Beslenme & Diyet', 'Sindirim Sistemi', 'Diyabet & İnsülin Direnci', 'İlaçlar & Farmakoloji'],
-  saglik: ['Genel Sağlık', 'Kardiyovasküler', 'Enfeksiyon & Bağışıklık', 'Kozmetik Dermatoloji', 'Solunum Sistemi', 'Kanser & Onkoloji', 'Tiroid Hastalıkları', 'Hormonlar & Endokrin'],
-  neuroperformance: ['Egzersiz & Fiziksel Aktivite', 'Psikoloji & Ruh Sağlığı', 'Uyku & Biyolojik Ritim', 'Uyku & Vardiyalı Çalışma', 'Nöroloji & Beyin', 'Tükenmişlik & Stres', 'Fiziksel Performans', 'Nöroergonomi', 'Bilişsel Performans'],
-  isg: ['İSG & Güvenlik', 'Ekipman & Makine Güvenliği', 'İş Kazaları', 'Fiziksel Riskler & Ergonomi', 'Risk & KKD', 'Kurumsal Sağlık'],
-  acil: ['Acil Durum & İlk Yardım', 'Yangın Güvenliği'],
-  mevzuat: ['Mevzuat & Yaptırımlar', 'Eğitim & Sertifikasyon'],
-  kimyasal: ['Kimyasal & Toksikoloji'],
+  saglik: ['Kurumsal Sağlık', 'Kurumsal Sağlık Mimarisi', 'Çalışan Sağlığı ve Verimliliği Programları', 'Yönetici Sağlık Programları', 'Endüstriyel Sağlık Risk Yönetimi', 'Psikolojik Sağlık programları', 'Yorgunluk Riski Yönetimi', 'Yüksek Güvenilirlik İşgücü Programları', 'Ergonomik Sağlık Sistemleri'],
+  neuroperformance: ['Nöroergonomi', 'Biyofilik Tasarım ve Çevresel Nöroergonomi', 'İnterosepsiyon ile Duygu Regülasyonu', 'Zihinsel Yorgunluk', 'İnsan Hatası Mühendisliği', 'Nörobilişsel Güvenlik', 'Vardiyalı Çalışma Nörobilimi', 'Propriosepsiyon ve İş Güvenliği', 'Endüstriyel Nöroergonomi', 'Nöroadaptif Çalışma Sistemleri'],
 }
 
 type PublishMode = 'publish' | 'draft' | 'scheduled'

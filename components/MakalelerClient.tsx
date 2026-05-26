@@ -15,13 +15,9 @@ type FilterCategory = ArticleCategory | 'all'
 const FILTER_LABELS: Record<FilterCategory, string> = {
   all: 'Tümü',
   longevity: 'Longevity',
-  beslenme: 'Beslenme & Metabolizma',
-  saglik: 'Genel Sağlık',
-  neuroperformance: 'NeuroPerformance',
-  isg: 'İş Sağlığı & Güvenliği',
-  acil: 'Acil & İlk Yardım',
-  mevzuat: 'Mevzuat & Eğitim',
-  kimyasal: 'Kimyasal & Çevre',
+  beslenme: 'İnsan Sürdürülebilirliği',
+  saglik: 'Kurumsal Sağlık',
+  neuroperformance: 'Nöroergonomi',
 }
 
 const MAIN_FILTERS: FilterCategory[] = ['all', ...ALL_CATEGORIES]
