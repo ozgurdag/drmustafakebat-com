@@ -34,7 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-cream text-navy antialiased">
         <Nav />
-        <main className="pt-[68px]">{children}</main>
+        <main className="pt-[90px]">{children}</main>
         <Footer />
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"

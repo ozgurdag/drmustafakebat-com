@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer style={{ background: '#2d3142', padding: '28px 32px' }} className="flex flex-col items-center gap-3 text-center">
+    <footer style={{ background: '#224a3e', padding: '28px 32px' }} className="flex flex-col items-center gap-3 text-center">
       <span className="font-serif text-white" style={{ fontSize: '13px', letterSpacing: '2px' }}>
         Dr. Mustafa Kebat
       </span>

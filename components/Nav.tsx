@@ -19,7 +19,8 @@ export default function Nav() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
-        className="fixed top-0 left-0 right-0 z-50 bg-navy h-[72px] flex items-center px-8 gap-8"
+        className="fixed top-0 left-0 right-0 z-50 h-[90px] flex items-center px-8 gap-8 bg-cover bg-center bg-navy"
+        style={{ backgroundImage: "url('/images/nav-banner.jpg')" }}
       >
         {/* Left — Dr. Mustafa Kebat */}
         <div className="hidden lg:block flex-shrink-0">
@@ -65,7 +66,7 @@ export default function Nav() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-[72px] left-0 right-0 z-40 bg-navy border-t border-white/10 py-6 px-8 flex flex-col gap-4"
+            className="fixed top-[90px] left-0 right-0 z-40 bg-navy border-t border-white/10 py-6 px-8 flex flex-col gap-4"
           >
             {navLinks.map(({ href, label }) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="text-white hover:text-gold transition-colors">

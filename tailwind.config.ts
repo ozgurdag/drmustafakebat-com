@@ -9,9 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: '#c9a84c',
-        navy: '#2d3142',
+        gold: '#ccbb9e',
+        navy: '#224a3e',
         cream: '#f5f3ee',
+        olive: '#404b45',
+        sage: '#c2c6a6',
       },
       fontFamily: {
         serif: ['Georgia', 'Times New Roman', 'serif'],
