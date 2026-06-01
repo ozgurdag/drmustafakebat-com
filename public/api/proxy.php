@@ -24,6 +24,15 @@ ini_set('session.cookie_secure', '1');
 ini_set('session.cookie_samesite', 'Strict');
 ini_set('session.use_strict_mode', '1');
 ini_set('session.gc_maxlifetime', 86400);
+
+// Özel session dizini (cPanel ortak temizlik aracının oturumu silmesini engeller)
+$sessDir = __DIR__ . '/sessions';
+if (!file_exists($sessDir)) {
+    mkdir($sessDir, 0700, true);
+    file_put_contents($sessDir . '/.htaccess', "Deny from all\n");
+}
+session_save_path($sessDir);
+
 session_set_cookie_params(['lifetime' => 86400, 'path' => '/', 'secure' => true, 'httponly' => true, 'samesite' => 'Strict']);
 session_start();
 
