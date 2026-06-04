@@ -2,7 +2,7 @@
   {
     "slug": "adacayi-nasil-demlenmeli",
     "category": "longevity",
-    "sha": "2eed78b0da4c96613651b255852bdb8b3ea10bce",
+    "sha": "e8153620815a4a63e372c638f8d75eafe1614bf1",
     "title": "Adaçayı Nasıl Demlenmeli?",
     "altBaslik1": "Doğal Antiaging",
     "date": "2025-07-21",
@@ -42,6 +42,15 @@
     "title": "Demlenmiş Çaylarda Ortalama Antioksidan Kapasitesi",
     "altBaslik1": "Doğal Antiaging",
     "date": "2025-06-29",
+    "status": "published"
+  },
+  {
+    "slug": "deneme",
+    "category": "longevity",
+    "sha": "1a5fd814b6b386ff785d30fecafae183dc3091ee",
+    "title": "deneme",
+    "altBaslik1": "Yönetici Longevity",
+    "date": "2026-06-04",
     "status": "published"
   },
   {
