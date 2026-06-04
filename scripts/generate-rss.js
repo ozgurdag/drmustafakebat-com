@@ -51,7 +51,7 @@ function getArticleBySlug(category, slug) {
   return {
     slug,
     title: data.title ?? '',
-    category: data.category ?? category,
+    category: category,
     altBaslik1: normalizeSubtopic(data.altBaslik1),
     altBaslik2: data.altBaslik2 ?? '',
     date: data.date ?? '',
