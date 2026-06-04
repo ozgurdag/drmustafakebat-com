@@ -61,7 +61,7 @@ function getArticleBySlug(category, slug) {
 }
 
 function getAllArticles() {
-  const categories = ['longevity', 'systems', 'neuroperformance'];
+  const categories = ['longevity', 'beslenme', 'saglik', 'neuroperformance'];
   return categories
     .flatMap(cat => {
       const slugs = getArticleSlugs(cat);

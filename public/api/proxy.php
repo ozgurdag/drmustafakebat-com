@@ -39,6 +39,11 @@ session_start();
 $action = $_GET['action'] ?? '';
 $input  = json_decode(file_get_contents('php://input'), true) ?? [];
 
+if ($action !== 'login' && $action !== 'logout') {
+    session_write_close();
+}
+
+
 function isLocked(): bool {
     if (!isset($_SESSION['lockout_until'])) return false;
     if ($_SESSION['lockout_until'] > time()) return true;

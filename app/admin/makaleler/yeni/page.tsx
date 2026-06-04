@@ -32,6 +32,7 @@ export default function NewArticlePage() {
   const [saving, setSaving] = useState(false)
   const [preview, setPreview] = useState(false)
   const [publishMode, setPublishMode] = useState<PublishMode>('publish')
+  const [uploading, setUploading] = useState(false)
 
   const [formData, setFormData] = useState({
     title: '',
@@ -45,6 +46,42 @@ export default function NewArticlePage() {
     content: '',
     status: 'published' as 'published' | 'draft',
   })
+
+  const triggerImageUpload = () => {
+    document.getElementById('image-upload-input')?.click()
+  }
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Resim boyutu en fazla 5MB olabilir!')
+      return
+    }
+
+    setUploading(true)
+    const data = new FormData()
+    data.append('image', file)
+
+    try {
+      const res = await fetch('/api/upload.php', {
+        method: 'POST',
+        body: data,
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || `Yükleme hatası: ${res.status}`)
+      }
+      const result = await res.json()
+      setFormData(f => ({ ...f, image: result.url }))
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Resim yüklenemedi!')
+    } finally {
+      setUploading(false)
+      e.target.value = ''
+    }
+  }
 
   const handleTitleChange = (title: string) => {
     setFormData({ ...formData, title, slug: slugify(title) })
@@ -237,13 +274,41 @@ export default function NewArticlePage() {
                   type="text"
                   value={formData.image}
                   onChange={(e) => setFormData(f => ({ ...f, image: e.target.value }))}
-                  placeholder="/images/..."
+                  placeholder="/images/uploads/..."
                   className="w-full bg-gray-50 border-none rounded-xl px-4 py-2.5 text-sm font-sans outline-none focus:ring-1 focus:ring-gold/30"
                 />
-                <button className="bg-gray-100 p-2.5 rounded-xl hover:bg-gold/20 transition-colors" title="Görsel">
-                  <ImageIcon size={16} />
+                <input
+                  type="file"
+                  id="image-upload-input"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageUpload}
+                />
+                <button
+                  type="button"
+                  onClick={triggerImageUpload}
+                  disabled={uploading}
+                  className="bg-gray-100 p-2.5 rounded-xl hover:bg-gold/20 transition-colors disabled:opacity-50"
+                  title="Görsel Yükle"
+                >
+                  <ImageIcon size={16} className={uploading ? 'animate-pulse text-gold' : ''} />
                 </button>
               </div>
+              <p className="text-[10px] text-gray-400 font-sans mt-1">
+                Önerilen: 16:9 oranında (örn. 1200x675 px), maksimum 2MB, WebP veya JPEG formatında.
+              </p>
+              {formData.image && (
+                <div className="mt-3 relative w-full h-32 rounded-xl overflow-hidden border border-gray-100 bg-gray-50">
+                  <img
+                    src={formData.image}
+                    alt="Kapak Görseli Önizleme"
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

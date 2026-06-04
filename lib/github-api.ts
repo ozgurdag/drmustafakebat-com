@@ -116,25 +116,66 @@ export interface AllArticlesMeta {
 }
 
 export async function getArticlesMeta(category: ArticleCategory): Promise<AllArticlesMeta[]> {
-  const files = await listCategoryFiles(category)
+  // 1. Fetch metadata JSON cache (local & fast)
+  let cached: AllArticlesMeta[] = []
+  try {
+    const res = await fetch('/api/articles-metadata.json', { cache: 'no-store' })
+    if (res.ok) {
+      const data = await res.json()
+      cached = (data as AllArticlesMeta[]).filter((a) => a.category === category)
+    }
+  } catch (e) {
+    console.warn('Failed to load articles-metadata.json:', e)
+  }
+
+  // 2. Fetch live file list from GitHub (1 fast request)
+  let files: GitHubFile[] = []
+  try {
+    files = await listCategoryFiles(category)
+  } catch (e) {
+    console.error('Failed to list category files from GitHub:', e)
+    return cached
+  }
+
+  const cachedMap = new Map<string, AllArticlesMeta>()
+  for (const item of cached) {
+    cachedMap.set(item.slug, item)
+  }
+
+  // 3. For each file on GitHub, use cache if SHA matches, otherwise fetch content
   const results = await Promise.all(
     files.map(async (f) => {
       const slug = f.name.replace(/\.mdx$/, '')
-      const article = await getArticleFile(category, slug)
-      if (!article) return null
-      return {
-        slug,
-        category,
-        sha: f.sha,
-        title: article.title,
-        altBaslik1: article.altBaslik1,
-        date: article.date,
-        status: article.status,
+      const cachedItem = cachedMap.get(slug)
+
+      // If SHA matches, return cached item immediately (0 requests!)
+      if (cachedItem && cachedItem.sha === f.sha) {
+        return cachedItem
+      }
+
+      // If SHA is different or new, fetch live file
+      try {
+        const article = await getArticleFile(category, slug)
+        if (!article) return null
+        return {
+          slug,
+          category,
+          sha: f.sha,
+          title: article.title,
+          altBaslik1: article.altBaslik1,
+          date: article.date,
+          status: article.status,
+        }
+      } catch (err) {
+        console.error(`Failed to fetch live file ${category}/${slug}:`, err)
+        return cachedItem ?? null
       }
     })
   )
+
   return results.filter((a): a is AllArticlesMeta => a !== null)
 }
+
 
 // ─── Write / Delete ──────────────────────────────────────────────────────────
 
