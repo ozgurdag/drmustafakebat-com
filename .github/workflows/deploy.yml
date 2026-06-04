@@ -34,3 +34,6 @@ jobs:
           exclude: |
             **/.git*
             **/images/articles/**
+          log-level: verbose
+          timeout: 180000
+
