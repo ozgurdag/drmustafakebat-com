@@ -4,6 +4,7 @@ import Script from 'next/script'
 import './globals.css'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import AdminSessionWatcher from '@/components/AdminSessionWatcher'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
       </head>
       <body className="bg-cream text-navy antialiased">
+        <AdminSessionWatcher />
         <Nav />
         <main className="pt-[90px]">{children}</main>
         <Footer />

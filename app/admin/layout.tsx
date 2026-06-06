@@ -22,10 +22,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const isLoginPage = pathname === '/admin/login' || pathname === '/admin/login/'
     if (isLoginPage) { setAuthorized(true); return }
 
+    const hasSession = typeof window !== 'undefined' && window.sessionStorage.getItem('admin_active') === 'true'
+    if (!hasSession) {
+      setAuthorized(false)
+      adminLogout().catch(console.error)
+      router.push('/admin/login')
+      return
+    }
+
     checkAdminSession().then(ok => {
       if (ok) {
         setAuthorized(true)
       } else {
+        if (typeof window !== 'undefined') {
+          window.sessionStorage.removeItem('admin_active')
+        }
         setAuthorized(false)
         router.push('/admin/login')
       }
@@ -46,6 +57,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (authorized === false) return null
 
   const handleLogout = async () => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.removeItem('admin_active')
+    }
     await adminLogout()
     router.push('/admin/login')
   }

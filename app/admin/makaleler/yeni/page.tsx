@@ -112,7 +112,7 @@ export default function NewArticlePage() {
       const mdx = buildMdxContent(formData)
       const path = `content/articles/${formData.category}/${formData.slug}.mdx`
       await createOrUpdateFile(path, mdx, undefined, `feat: add ${formData.slug}`)
-      router.push('/admin/makaleler')
+      router.push(`/admin/makaleler?category=${formData.category}`)
     } catch (e) {
       alert('Hata: ' + (e instanceof Error ? e.message : String(e)))
     } finally {

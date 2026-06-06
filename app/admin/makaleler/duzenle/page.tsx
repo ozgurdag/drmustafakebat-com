@@ -89,14 +89,14 @@ function EditArticleInner() {
 
     getArticleFile(category, slug)
       .then((data) => {
-        if (!data) { alert('Makale bulunamadı!'); router.push('/admin/makaleler'); return }
+        if (!data) { alert('Makale bulunamadı!'); router.push(`/admin/makaleler?category=${category}`); return }
         const { sha: fileSha, slug: _slug, ...rest } = data
         setSha(fileSha)
         setOriginalCategory(data.category)
         setFormData(rest)
         setPublishMode(getPublishMode(data.status, data.date))
       })
-      .catch((e) => { alert('Yüklenemedi: ' + e.message); router.push('/admin/makaleler') })
+      .catch((e) => { alert('Yüklenemedi: ' + e.message); router.push(`/admin/makaleler?category=${category}`) })
       .finally(() => setLoading(false))
   }, [slug, category, router])
 
@@ -125,7 +125,7 @@ function EditArticleInner() {
       } else {
         await createOrUpdateFile(oldPath, mdx, sha, `chore: update ${slug}`)
       }
-      router.push('/admin/makaleler')
+      router.push(`/admin/makaleler?category=${formData.category}`)
     } catch (e) {
       alert('Hata: ' + (e instanceof Error ? e.message : String(e)))
     } finally {

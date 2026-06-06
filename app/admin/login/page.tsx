@@ -41,6 +41,7 @@ export default function AdminLoginPage() {
     try {
       const result = await adminLogin(username.trim(), password)
       if (result.ok) {
+        sessionStorage.setItem('admin_active', 'true')
         router.push('/admin')
       } else if (result.error === 'too_many_attempts') {
         setLockedFor(result.remaining_seconds ?? 900)
