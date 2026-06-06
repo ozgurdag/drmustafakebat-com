@@ -38,6 +38,16 @@ function AdminArticlesInner() {
       .finally(() => setLoading(false))
   }, [selectedCat])
 
+  const filtered = useMemo(() => {
+    if (!search.trim()) return articles
+    const q = search.toLowerCase()
+    return articles.filter(a =>
+      a.title.toLowerCase().includes(q) ||
+      a.slug.toLowerCase().includes(q) ||
+      a.altBaslik1.toLowerCase().includes(q)
+    )
+  }, [articles, search])
+
   useEffect(() => {
     if (loading || filtered.length === 0) return
     const highlight = searchParams.get('highlight')
@@ -54,16 +64,6 @@ function AdminArticlesInner() {
       }, 200)
     }
   }, [loading, filtered, searchParams])
-
-  const filtered = useMemo(() => {
-    if (!search.trim()) return articles
-    const q = search.toLowerCase()
-    return articles.filter(a =>
-      a.title.toLowerCase().includes(q) ||
-      a.slug.toLowerCase().includes(q) ||
-      a.altBaslik1.toLowerCase().includes(q)
-    )
-  }, [articles, search])
 
   const handleDelete = async () => {
     if (!deleteTarget) return
