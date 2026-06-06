@@ -38,6 +38,23 @@ function AdminArticlesInner() {
       .finally(() => setLoading(false))
   }, [selectedCat])
 
+  useEffect(() => {
+    if (loading || filtered.length === 0) return
+    const highlight = searchParams.get('highlight')
+    if (highlight) {
+      setTimeout(() => {
+        const el = document.getElementById(`row-${highlight}`)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+          el.classList.add('bg-gold/15', 'transition-all', 'duration-1000')
+          setTimeout(() => {
+            el.classList.remove('bg-gold/15')
+          }, 2500)
+        }
+      }, 200)
+    }
+  }, [loading, filtered, searchParams])
+
   const filtered = useMemo(() => {
     if (!search.trim()) return articles
     const q = search.toLowerCase()
@@ -138,7 +155,7 @@ function AdminArticlesInner() {
                 </td>
               </tr>
             ) : filtered.map((article) => (
-              <tr key={article.slug} className="hover:bg-gray-50/50 transition-colors">
+              <tr key={article.slug} id={`row-${article.slug}`} className="hover:bg-gray-50/50 transition-colors">
                 <td className="px-6 py-4">
                   <p className="font-bold text-navy line-clamp-1">{article.title || article.slug}</p>
                   <p className="text-[10px] text-gray-300 mt-0.5">{article.slug}</p>

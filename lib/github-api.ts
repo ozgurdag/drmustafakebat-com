@@ -184,7 +184,7 @@ export async function createOrUpdateFile(
   mdxContent: string,
   sha: string | undefined,
   message: string
-): Promise<void> {
+): Promise<string> {
   const encoded = btoa(unescape(encodeURIComponent(mdxContent)))
   const payload: Record<string, unknown> = { message, content: encoded, branch: 'main' }
   if (sha) payload.sha = sha
@@ -193,6 +193,8 @@ export async function createOrUpdateFile(
     const err = await res.json().catch(() => ({}))
     throw new Error(`Dosya kaydedilemedi: ${res.status} — ${(err as { message?: string }).message ?? ''}`)
   }
+  const data = await res.json()
+  return data.content?.sha ?? ''
 }
 
 export async function deleteFile(

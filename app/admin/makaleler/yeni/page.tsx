@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ArticleCategory, ALL_CATEGORIES, CATEGORY_LABELS } from '@/lib/types'
 import { createOrUpdateFile, buildMdxContent } from '@/lib/github-api'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Save, ArrowLeft, Eye, Edit3, Image as ImageIcon } from 'lucide-react'
+import { Save, ArrowLeft, Eye, Image as ImageIcon } from 'lucide-react'
 
 const ALT_BASLIK_OPTIONS: Record<ArticleCategory, string[]> = {
   longevity: ['Longevity', 'Bilişsel Longevity', 'İş Sağlığı ve Longevity', 'Longevity Biyobelirteçleri', 'Mesleki Longevity', 'Metabolik Longevity', 'Yönetici Longevity'],
@@ -27,12 +27,105 @@ function slugify(title: string) {
     .replace(/^-|-$/g, '')
 }
 
+// Custom Markdown to HTML converter
+function markdownToHtml(md: string): string {
+  if (!md) return ''
+  
+  let html = md
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+    
+  const lines = html.split('\n');
+  const processedLines = [];
+  let inList = false;
+  
+  for (let line of lines) {
+    if (line.startsWith('- ')) {
+      if (!inList) {
+        processedLines.push('<ul>');
+        inList = true;
+      }
+      processedLines.push(`<li>${line.substring(2)}</li>`);
+    } else {
+      if (inList) {
+        processedLines.push('</ul>');
+        inList = false;
+      }
+      if (line.trim() === '') {
+        processedLines.push('<p></p>');
+      } else if (line.startsWith('### ')) {
+        processedLines.push(`<h3>${line.substring(4)}</h3>`);
+      } else if (line.startsWith('## ')) {
+        processedLines.push(`<h2>${line.substring(3)}</h2>`);
+      } else if (line.startsWith('# ')) {
+        processedLines.push(`<h1>${line.substring(2)}</h1>`);
+      } else {
+        processedLines.push(`<p>${line}</p>`);
+      }
+    }
+  }
+  if (inList) {
+    processedLines.push('</ul>');
+  }
+  
+  html = processedLines.join('\n');
+  
+  // Inline styles
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+  html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+  html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener" class="text-gold underline">$1</a>');
+  
+  return html;
+}
+
+// Custom HTML to Markdown converter
+function htmlToMarkdown(html: string): string {
+  if (!html) return ''
+  
+  let md = html
+    // Headings
+    .replace(/<h3>(.*?)<\/h3>/gim, '### $1')
+    .replace(/<h2>(.*?)<\/h2>/gim, '## $1')
+    .replace(/<h1>(.*?)<\/h1>/gim, '# $1')
+    // Bold
+    .replace(/<strong>(.*?)<\/strong>/g, '**$1**')
+    .replace(/<b>(.*?)<\/b>/g, '**$1**')
+    // Italic
+    .replace(/<em>(.*?)<\/em>/g, '_$1_')
+    .replace(/<i>(.*?)<\/i>/g, '_$1_')
+    // Lists
+    .replace(/<li>(.*?)<\/li>/gim, '- $1')
+    .replace(/<ul>\s*/gim, '')
+    .replace(/<\/ul>\s*/gim, '\n')
+    .replace(/<ol>\s*/gim, '')
+    .replace(/<\/ol>\s*/gim, '\n')
+    // Links
+    .replace(/<a href="(.*?)"(.*?)>(.*?)<\/a>/g, '[$3]($1)')
+    // Paragraphs and divs
+    .replace(/<p>(.*?)<\/p>/gim, '$1\n\n')
+    .replace(/<div>(.*?)<\/div>/gim, '$1\n\n')
+    .replace(/<br\s*\/?>/gim, '\n')
+    // Strip other tags
+    .replace(/<[^>]+>/g, '')
+    // Clean spaces
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+    
+  return md;
+}
+
 export default function NewArticlePage() {
   const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [preview, setPreview] = useState(false)
   const [publishMode, setPublishMode] = useState<PublishMode>('publish')
   const [uploading, setUploading] = useState(false)
+  
+  const [editorTab, setEditorTab] = useState<'code' | 'visual'>('code')
+  const [visualContent, setVisualContent] = useState('')
 
   const [formData, setFormData] = useState({
     title: '',
@@ -102,6 +195,24 @@ export default function NewArticlePage() {
     }
   }
 
+  const switchToVisual = () => {
+    setVisualContent(markdownToHtml(formData.content))
+    setEditorTab('visual')
+  }
+
+  const switchToCode = () => {
+    const el = document.getElementById('visual-editor')
+    if (el) {
+      setFormData(f => ({ ...f, content: htmlToMarkdown(el.innerHTML) }))
+    }
+    setEditorTab('code')
+  }
+
+  const runCommand = (command: string, value: string = '') => {
+    document.execCommand(command, false, value)
+    document.getElementById('visual-editor')?.focus()
+  }
+
   const handleSave = async () => {
     if (!formData.title.trim() || !formData.slug.trim()) {
       alert('Başlık zorunludur!')
@@ -109,10 +220,23 @@ export default function NewArticlePage() {
     }
     setSaving(true)
     try {
-      const mdx = buildMdxContent(formData)
-      const path = `content/articles/${formData.category}/${formData.slug}.mdx`
-      await createOrUpdateFile(path, mdx, undefined, `feat: add ${formData.slug}`)
-      router.push(`/admin/makaleler?category=${formData.category}`)
+      let currentContent = formData.content
+      if (editorTab === 'visual') {
+        const el = document.getElementById('visual-editor')
+        if (el) {
+          currentContent = htmlToMarkdown(el.innerHTML)
+        }
+      }
+
+      const updatedFormData = { ...formData, content: currentContent }
+      const mdx = buildMdxContent(updatedFormData)
+      const path = `content/articles/${updatedFormData.category}/${updatedFormData.slug}.mdx`
+      await createOrUpdateFile(path, mdx, undefined, `feat: add ${updatedFormData.slug}`)
+      
+      alert('Yeni makale başarıyla oluşturuldu!')
+      
+      // Redirect to the edit page of this newly created article, so they stay editing it!
+      router.push(`/admin/makaleler/duzenle?slug=${updatedFormData.slug}&category=${updatedFormData.category}`)
     } catch (e) {
       alert('Hata: ' + (e instanceof Error ? e.message : String(e)))
     } finally {
@@ -128,19 +252,32 @@ export default function NewArticlePage() {
     setFormData(f => ({ ...f, content: newContent }))
   }
 
+  const handlePreviewOpen = () => {
+    let currentContent = formData.content
+    if (editorTab === 'visual') {
+      const el = document.getElementById('visual-editor')
+      if (el) currentContent = htmlToMarkdown(el.innerHTML)
+    }
+    setFormData(f => ({ ...f, content: currentContent }))
+    setPreview(true)
+  }
+
   return (
     <div className="space-y-8 pb-32">
       {/* Top Bar */}
       <div className="flex items-center justify-between">
-        <button onClick={() => router.back()} className="flex items-center gap-2 text-gray-400 hover:text-navy transition-colors font-sans text-sm">
+        <button
+          onClick={() => router.push(`/admin/makaleler?category=${formData.category}`)}
+          className="flex items-center gap-2 text-gray-400 hover:text-navy transition-colors font-sans text-sm font-bold"
+        >
           <ArrowLeft size={16} /> Geri
         </button>
         <div className="flex gap-3">
           <button
-            onClick={() => setPreview(!preview)}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition-all font-sans text-sm font-bold"
+            onClick={handlePreviewOpen}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-gray-100 hover:bg-gray-50 transition-all font-sans text-sm font-bold shadow-sm"
           >
-            {preview ? <><Edit3 size={16} /> Düzenle</> : <><Eye size={16} /> Önizleme</>}
+            <Eye size={16} /> Önizleme
           </button>
           <button
             onClick={handleSave}
@@ -167,22 +304,67 @@ export default function NewArticlePage() {
               {formData.slug || '...'}.mdx
             </p>
 
-            <div className="flex gap-2 mb-4 p-2 bg-gray-50 rounded-xl text-sm font-sans">
-              <button onClick={() => insertText('**', '**')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all font-bold">B</button>
-              <button onClick={() => insertText('_', '_')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all italic">I</button>
-              <button onClick={() => insertText('### ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">H3</button>
-              <button onClick={() => insertText('## ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">H2</button>
-              <button onClick={() => insertText('- ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">— Liste</button>
-              <button onClick={() => insertText('[', '](url)')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">Link</button>
+            {/* Tab selection */}
+            <div className="flex gap-2 mb-4 p-1 bg-gray-100 rounded-xl text-sm font-sans w-fit">
+              <button
+                type="button"
+                onClick={() => { if (editorTab === 'visual') switchToCode() }}
+                className={`px-4 py-2 rounded-lg transition-all font-bold ${editorTab === 'code' ? 'bg-white shadow-sm text-navy' : 'text-gray-500 hover:text-navy'}`}
+              >
+                Kod Görünümü (Markdown)
+              </button>
+              <button
+                type="button"
+                onClick={() => { if (editorTab === 'code') switchToVisual() }}
+                className={`px-4 py-2 rounded-lg transition-all font-bold ${editorTab === 'visual' ? 'bg-white shadow-sm text-navy' : 'text-gray-500 hover:text-navy'}`}
+              >
+                Görsel Düzenleyici (Word Tipi)
+              </button>
             </div>
 
-            <textarea
-              id="editor-textarea"
-              value={formData.content}
-              onChange={(e) => setFormData(f => ({ ...f, content: e.target.value }))}
-              className="w-full min-h-[560px] font-sans text-base text-gray-700 leading-relaxed outline-none border-none resize-none"
-              placeholder="İçeriği buraya yazın..."
-            />
+            {editorTab === 'code' ? (
+              <>
+                <div className="flex gap-2 mb-4 p-2 bg-gray-50 rounded-xl text-sm font-sans">
+                  <button type="button" onClick={() => insertText('**', '**')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all font-bold">B</button>
+                  <button type="button" onClick={() => insertText('_', '_')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all italic">I</button>
+                  <button type="button" onClick={() => insertText('### ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">H3</button>
+                  <button type="button" onClick={() => insertText('## ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">H2</button>
+                  <button type="button" onClick={() => insertText('- ')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">— Liste</button>
+                  <button type="button" onClick={() => insertText('[', '](url)')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all">Link</button>
+                </div>
+
+                <textarea
+                  id="editor-textarea"
+                  value={formData.content}
+                  onChange={(e) => setFormData(f => ({ ...f, content: e.target.value }))}
+                  className="w-full min-h-[560px] font-sans text-base text-gray-700 leading-relaxed outline-none border-none resize-none"
+                  placeholder="İçeriği buraya yazın..."
+                />
+              </>
+            ) : (
+              <>
+                <div className="flex gap-2 mb-4 p-2 bg-gray-50 rounded-xl text-sm font-sans">
+                  <button type="button" onClick={() => runCommand('bold')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all font-bold" title="Kalın (Bold)">B</button>
+                  <button type="button" onClick={() => runCommand('italic')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all italic" title="Eğik (Italic)">I</button>
+                  <button type="button" onClick={() => runCommand('formatBlock', 'H2')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all font-semibold" title="Başlık 2">H2</button>
+                  <button type="button" onClick={() => runCommand('formatBlock', 'H3')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all font-semibold" title="Başlık 3">H3</button>
+                  <button type="button" onClick={() => runCommand('insertUnorderedList')} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all" title="Madde İşaretli Liste">— Liste</button>
+                  <button type="button" onClick={() => {
+                    const url = prompt('Bağlantı adresi girin:')
+                    if (url) runCommand('createLink', url)
+                  }} className="px-3 py-1.5 hover:bg-white rounded-lg transition-all" title="Bağlantı Ekle">Link</button>
+                </div>
+
+                <div
+                  id="visual-editor"
+                  contentEditable
+                  suppressContentEditableWarning
+                  dangerouslySetInnerHTML={{ __html: visualContent }}
+                  className="w-full min-h-[560px] outline-none border-none resize-none prose prose-lg max-w-none focus:outline-none overflow-y-auto font-sans"
+                  style={{ minHeight: '560px' }}
+                />
+              </>
+            )}
           </div>
         </div>
 
@@ -314,27 +496,63 @@ export default function NewArticlePage() {
         </div>
       </div>
 
-      {/* Preview overlay */}
+      {/* Preview */}
       <AnimatePresence>
         {preview && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-white overflow-y-auto"
+            className="fixed inset-0 z-[60] bg-[#f5f3ee] overflow-y-auto"
           >
-            <div className="max-w-4xl mx-auto py-20 px-6">
+            {/* Header section (like actual site) */}
+            <div className="bg-navy py-16 px-6 lg:px-12 text-white relative">
               <button
                 onClick={() => setPreview(false)}
-                className="fixed top-8 right-8 bg-navy text-white px-5 py-3 rounded-xl shadow-2xl hover:bg-gold hover:text-navy transition-all font-sans text-sm font-bold"
+                className="absolute top-8 right-8 bg-gold text-navy px-5 py-2.5 rounded-xl shadow-2xl hover:bg-white hover:text-navy transition-all font-sans text-xs font-bold tracking-widest"
               >
                 KAPAT
               </button>
-              <p className="text-gold uppercase tracking-widest text-[10px] mb-4">Önizleme</p>
-              <h1 className="text-5xl font-serif text-navy mb-10 leading-tight">{formData.title}</h1>
-              <div className="prose prose-lg max-w-none font-serif text-gray-700">
-                {formData.content.split('\n').map((line, i) => <p key={i}>{line}</p>)}
+              <div className="max-w-4xl mx-auto">
+                <span className="bg-gold/20 text-gold border border-gold/40 text-xs px-2.5 py-1 rounded-md font-sans uppercase tracking-widest font-bold">
+                  {CATEGORY_LABELS[formData.category]}
+                </span>
+                <h1 className="text-4xl lg:text-6xl font-serif font-light text-white mt-6 leading-tight">
+                  {formData.title || 'Başlıksız Makale'}
+                </h1>
+                <div className="flex items-center gap-3 mt-6 text-white/40 text-xs font-sans font-semibold tracking-wider">
+                  <span>{formData.date || 'Tarih Belirtilmedi'}</span>
+                  {formData.altBaslik1 && (
+                    <span className="text-[10px] text-gold border border-gold/40 px-2 py-0.5 rounded font-bold">
+                      {formData.altBaslik1}
+                    </span>
+                  )}
+                </div>
+                {formData.excerpt && (
+                  <p className="text-white/60 mt-4 max-w-2xl text-sm leading-relaxed font-sans italic">
+                    {formData.excerpt}
+                  </p>
+                )}
               </div>
+            </div>
+
+            {/* Featured Image */}
+            {formData.image && (
+              <div className="w-full max-h-[380px] overflow-hidden bg-navy/30 flex justify-center items-center border-b border-gray-100">
+                <img
+                  src={formData.image}
+                  alt={formData.title}
+                  className="w-full object-cover max-h-[380px]"
+                />
+              </div>
+            )}
+
+            {/* Content section */}
+            <div className="max-w-4xl mx-auto py-16 px-6 lg:px-12 bg-white my-8 rounded-3xl shadow-sm border border-gray-100">
+              <div 
+                className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-navy prose-a:text-gold prose-a:underline font-serif text-gray-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: markdownToHtml(formData.content) }}
+              />
             </div>
           </motion.div>
         )}
