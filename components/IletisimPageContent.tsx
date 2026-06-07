@@ -99,7 +99,7 @@ Saygılarımla.`
     const initCalendly = () => {
       if (typeof (window as any).Calendly !== 'undefined') {
         ;(window as any).Calendly.initInlineWidget({ 
-          url: 'https://calendly.com/drmustafakebat/cevrimici-gorusme-talebi', 
+          url: 'https://calendly.com/drmustafakebat/neuroperformance', 
           parentElement: el, 
           prefill: {}, 
           utm: {} 
@@ -111,7 +111,7 @@ Saygılarımla.`
         el.innerHTML = `
           <div class="p-8 text-center bg-white rounded-2xl shadow-sm border border-navy/10">
             <p class="text-navy/70 mb-4">Otomatik takvim yüklenemedi. Doğrudan randevu almak için aşağıdaki butonu kullanabilirsiniz.</p>
-            <a href="https://calendly.com/drmustafakebat/cevrimici-gorusme-talebi" target="_blank" class="inline-block bg-gold text-navy px-6 py-3 rounded-lg font-sans font-semibold hover:bg-gold/80 transition">
+            <a href="https://calendly.com/drmustafakebat/neuroperformance" target="_blank" class="inline-block bg-gold text-navy px-6 py-3 rounded-lg font-sans font-semibold hover:bg-gold/80 transition">
               Takvimi Yeni Sekmede Aç
             </a>
           </div>
@@ -287,7 +287,7 @@ Saygılarımla.`
                   <div
                     ref={calendlyRef}
                     className="calendly-inline-widget rounded-2xl overflow-hidden border border-navy/10"
-                    data-url="https://calendly.com/drmustafakebat/cevrimici-gorusme-talebi"
+                    data-url="https://calendly.com/drmustafakebat/neuroperformance"
                     style={{ minWidth: '320px', height: '700px' }}
                   />
                 </motion.div>
