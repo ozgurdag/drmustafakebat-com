@@ -45,15 +45,6 @@
     "status": "published"
   },
   {
-    "slug": "deneme",
-    "category": "longevity",
-    "sha": "1a5fd814b6b386ff785d30fecafae183dc3091ee",
-    "title": "deneme",
-    "altBaslik1": "Yönetici Longevity",
-    "date": "2026-06-04",
-    "status": "published"
-  },
-  {
     "slug": "evinizde-dogal-bocek-kovucu-sprey-yapalim",
     "category": "longevity",
     "sha": "52ab32a90a6b42d2508e8d9924949ec4291616ab",
@@ -5699,7 +5690,7 @@
   {
     "slug": "sigarayi-birakanlarda-sabah-sigarasi-istegi-neden-en-gucludur",
     "category": "saglik",
-    "sha": "074a0e60ea82c8b800f80cd7589cc7e47ad71017",
+    "sha": "bf319d59b3547b1e887355fe397e2c454ab0df8e",
     "title": "Sigarayı Bırakanlarda Sabah Sigarası İsteği Neden En Güçlüdür?",
     "altBaslik1": "Genel Sağlık",
     "date": "2025-02-19",
@@ -6437,10 +6428,10 @@
   {
     "slug": "anksiyete-bozuklugunun-calisanin-propriyosepsiyonuna-etkisi",
     "category": "neuroperformance",
-    "sha": "89f58c4101307999c4177eb6e6a1c54c8af22c20",
+    "sha": "7c0e1879e1bb13596986669dc0391e698754e8c4",
     "title": "Anksiyete Bozukluğunun Çalışanın Propriyosepsiyonuna Etkisi",
-    "altBaslik1": "Tükenmişlik & Stres",
-    "date": "2025-03-15",
+    "altBaslik1": "Propriosepsiyon ve İş Güvenliği",
+    "date": "2026-06-05",
     "status": "published"
   },
   {

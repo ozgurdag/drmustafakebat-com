@@ -24,9 +24,9 @@ export default function Nav() {
       >
         {/* Left — Dr. Mustafa Kebat */}
         <div className="hidden lg:block flex-shrink-0">
-          <Link href="/">
-            <div className="text-white text-[13px] tracking-[3px] uppercase font-sans">Dr. Mustafa Kebat</div>
-            <div className="text-gold text-[9px] tracking-[2px] font-sans">Hekim – Kişisel ve Kurumsal Longevity Danışmanı</div>
+          <Link href="/" className="hover:opacity-90 transition-opacity">
+            <div className="text-white text-[18px] tracking-[3px] uppercase font-sans font-medium">Dr. Mustafa Kebat</div>
+            <div className="text-gold text-[10px] tracking-[1.5px] font-sans mt-0.5">Kurumsal Sağlık ve Longevity Danışmanı</div>
           </Link>
         </div>
 
@@ -51,9 +51,9 @@ export default function Nav() {
 
         {/* Mobile: logo center + hamburger right */}
         <div className="flex lg:hidden flex-1 justify-center">
-          <Link href="/">
-            <div className="text-white text-[12px] tracking-[2px] uppercase font-sans">Dr. Mustafa Kebat</div>
-            <div className="text-gold text-[8px] tracking-[1px] font-sans text-center">Hekim – Longevity Danışmanı</div>
+          <Link href="/" className="hover:opacity-90 transition-opacity">
+            <div className="text-white text-[15px] tracking-[2px] uppercase font-sans font-medium text-center">Dr. Mustafa Kebat</div>
+            <div className="text-gold text-[9px] tracking-[0.5px] font-sans text-center mt-0.5">Kurumsal Sağlık ve Longevity Danışmanı</div>
           </Link>
         </div>
         <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden text-white text-2xl flex-shrink-0">≡</button>

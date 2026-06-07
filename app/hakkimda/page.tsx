@@ -37,7 +37,7 @@ export default function HakkimdaPage() {
             <Breadcrumb items={[{ label: 'Ana Sayfa', href: '/' }, { label: 'Hakkımda' }]} />
           </div>
           <p className="mt-2 text-xs font-sans text-gold uppercase tracking-widest mb-6">
-            Hekim – Kişisel ve Kurumsal Longevity Danışmanı – Araştırmacı
+            Kurumsal Sağlık ve Longevity Danışmanı – Araştırmacı
           </p>
           <h1 className="font-serif text-5xl md:text-7xl mb-6">Dr. Mustafa Kebat</h1>
           <p className="text-white/70 font-sans text-lg max-w-2xl leading-relaxed">
