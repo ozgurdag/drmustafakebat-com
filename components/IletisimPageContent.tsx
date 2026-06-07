@@ -45,7 +45,8 @@ export default function IletisimPageContent() {
     email: '',
     phone: '',
     dateTime: '',
-    message: ''
+    message: '',
+    botcheck: false
   })
   const calendlyRef = useRef<HTMLDivElement>(null)
 
@@ -58,16 +59,33 @@ export default function IletisimPageContent() {
       email: '',
       phone: '',
       dateTime: '',
-      message: ''
+      message: '',
+      botcheck: false
     })
   }
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value
+    setForm(prev => ({ ...prev, [e.target.name]: value }))
   }
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (form.botcheck) {
+      setFormSubmitted(true)
+      return
+    }
+
+    const lastSubStr = localStorage.getItem('lastFormSubmit')
+    if (lastSubStr) {
+      const lastSubTime = parseInt(lastSubStr, 10)
+      if (Date.now() - lastSubTime < 5 * 60 * 1000) {
+        alert('Talebiniz alınmıştır. Yeni bir talep göndermek için lütfen 5 dakika bekleyin.')
+        return
+      }
+    }
+
     setIsSubmitting(true)
     
     try {
@@ -91,6 +109,7 @@ export default function IletisimPageContent() {
       })
 
       if (response.ok) {
+        localStorage.setItem('lastFormSubmit', Date.now().toString())
         setFormSubmitted(true)
       } else {
         alert('Form gönderilirken bir hata oluştu. Lütfen bilgilerinizi kontrol edip tekrar deneyin.')
@@ -322,7 +341,7 @@ export default function IletisimPageContent() {
                       </p>
                       <button
                         onClick={() => {
-                          setForm({ name: '', email: '', phone: '', dateTime: '', message: '' })
+                          setForm({ name: '', email: '', phone: '', dateTime: '', message: '', botcheck: false })
                           setFormSubmitted(false)
                         }}
                         className="mt-2 text-xs font-sans text-navy/50 underline hover:text-gold transition-colors"
@@ -332,6 +351,7 @@ export default function IletisimPageContent() {
                     </div>
                   ) : (
                     <form onSubmit={handleFormSubmit} className="bg-white rounded-2xl border border-navy/10 p-8 md:p-10 space-y-6 max-w-2xl mx-auto shadow-sm">
+                      <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} onChange={handleFormChange} checked={form.botcheck} />
                       <h3 className="font-serif text-xl md:text-2xl text-navy mb-4 border-b border-navy/5 pb-3">Yüz Yüze Görüşme Talep Formu</h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
