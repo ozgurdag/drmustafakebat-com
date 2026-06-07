@@ -74,15 +74,15 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6 md:p-10 bg-[#1e2235] rounded-3xl border border-[rgba(204,187,158,0.2)] shadow-2xl text-gray-200">
+    <div className="max-w-3xl mx-auto p-6 md:p-10 bg-white/5 backdrop-blur-md rounded-3xl border border-gold/20 shadow-2xl text-gray-200">
       <div className="text-center mb-8">
-        <span className="text-[10px] text-[#ccbb9e] tracking-widest uppercase font-sans font-bold">
+        <span className="text-[10px] text-gold tracking-widest uppercase font-sans font-bold">
           Klinik Tarama Modülü
         </span>
         <h3 className="text-2xl font-serif text-white font-medium mt-1">
           Biyolojik Yaş &amp; Hücresel Sağlık Analizi
         </h3>
-        <p className="text-xs text-gray-400 mt-2 font-sans">
+        <p className="text-xs text-white/50 mt-2 font-sans">
           Biyolojik parametrelerinizi girerek kişisel Longevity profilinizi anında çıkarın.
         </p>
       </div>
@@ -90,7 +90,7 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div>
-            <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5 font-sans font-semibold">
+            <label className="block text-[10px] text-white/60 uppercase tracking-widest mb-1.5 font-sans font-semibold">
               Kronolojik Yaş
             </label>
             <input
@@ -98,18 +98,18 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
               min={18} max={100}
               value={answers.age}
               onChange={e => setAnswers({ ...answers, age: Number(e.target.value) })}
-              className="w-full px-4 py-2.5 bg-[#090A0C] border border-[rgba(204,187,158,0.2)] rounded-xl text-sm text-white focus:outline-none focus:border-[#ccbb9e] font-sans"
+              className="w-full px-4 py-2.5 bg-white/5 border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             />
           </div>
 
           <div>
-            <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5 font-sans font-semibold">
+            <label className="block text-[10px] text-white/60 uppercase tracking-widest mb-1.5 font-sans font-semibold">
               Günlük Ortalama Uyku
             </label>
             <select
               value={answers.sleepHours}
               onChange={e => setAnswers({ ...answers, sleepHours: Number(e.target.value) })}
-              className="w-full px-4 py-2.5 bg-[#090A0C] border border-[rgba(204,187,158,0.2)] rounded-xl text-sm text-white focus:outline-none focus:border-[#ccbb9e] font-sans"
+              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
               <option value="5">5 saat veya altı (Riskli)</option>
               <option value="7">7 saat (Yeterli)</option>
@@ -118,13 +118,13 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
           </div>
 
           <div>
-            <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5 font-sans font-semibold">
+            <label className="block text-[10px] text-white/60 uppercase tracking-widest mb-1.5 font-sans font-semibold">
               Beslenme Tipi
             </label>
             <select
               value={answers.nutritionType}
               onChange={e => setAnswers({ ...answers, nutritionType: e.target.value })}
-              className="w-full px-4 py-2.5 bg-[#090A0C] border border-[rgba(204,187,158,0.2)] rounded-xl text-sm text-white focus:outline-none focus:border-[#ccbb9e] font-sans"
+              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
               <option value="akdeniz">Akdeniz Beslenmesi</option>
               <option value="standart">Standart Batı Tipi</option>
@@ -132,13 +132,13 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
           </div>
 
           <div>
-            <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1.5 font-sans font-semibold">
+            <label className="block text-[10px] text-white/60 uppercase tracking-widest mb-1.5 font-sans font-semibold">
               Haftalık Egzersiz (gün)
             </label>
             <select
               value={answers.exerciseWeekly}
               onChange={e => setAnswers({ ...answers, exerciseWeekly: Number(e.target.value) })}
-              className="w-full px-4 py-2.5 bg-[#090A0C] border border-[rgba(204,187,158,0.2)] rounded-xl text-sm text-white focus:outline-none focus:border-[#ccbb9e] font-sans"
+              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
               <option value="0">Hiç (Sedanter)</option>
               <option value="2">1-2 gün</option>
@@ -149,16 +149,16 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
         </div>
 
         <div>
-          <label className="block text-[10px] text-gray-400 uppercase tracking-widest mb-3 font-sans font-semibold">
+          <label className="block text-[10px] text-white/60 uppercase tracking-widest mb-3 font-sans font-semibold">
             Stres Yoğunluğu — {answers.stressLevel}/10
           </label>
           <input
             type="range" min="1" max="10"
             value={answers.stressLevel}
             onChange={e => setAnswers({ ...answers, stressLevel: Number(e.target.value) })}
-            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-[#ccbb9e]"
+            className="w-full h-1.5 rounded-lg appearance-none cursor-pointer accent-gold bg-white/10"
           />
-          <div className="flex justify-between text-[10px] text-gray-500 font-sans mt-1">
+          <div className="flex justify-between text-[10px] text-white/40 font-sans mt-2">
             <span>Düşük</span><span>Orta</span><span>Yüksek</span>
           </div>
         </div>
@@ -166,7 +166,7 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
         <button
           type="submit"
           disabled={isAnalyzing}
-          className="w-full py-4 bg-gradient-to-r from-[#ccbb9e] to-[#404b45] text-[#090A0C] font-bold text-xs uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all font-sans disabled:opacity-60"
+          className="w-full py-4 bg-gold text-navy font-bold text-xs uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 hover:bg-gold/80 transition-all font-sans disabled:opacity-60"
         >
           {isAnalyzing ? (
             <>
@@ -183,19 +183,19 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
       </form>
 
       {report && (
-        <div className="mt-8 border-t border-[rgba(204,187,158,0.15)] pt-6">
-          <div className="flex items-center gap-2 text-[#ccbb9e] mb-4">
+        <div className="mt-8 border-t border-gold/10 pt-6">
+          <div className="flex items-center gap-2 text-gold mb-4">
             <Award className="w-5 h-5" />
             <h4 className="font-serif text-lg">Dr. Mustafa Kebat Kişisel Raporu</h4>
           </div>
-          <div className="bg-[#090a0c] p-6 rounded-2xl border border-[rgba(204,187,158,0.1)] text-xs text-gray-300 leading-relaxed font-sans">
+          <div className="bg-white/5 p-6 rounded-2xl border border-gold/10 text-xs text-white/80 leading-relaxed font-sans">
             {report.split('\n').map((line, i) => {
               if (line.startsWith('### ')) return <h3 key={i} className="text-base font-serif text-white mb-3 mt-0">{line.replace('### ', '')}</h3>
-              if (line.startsWith('#### ')) return <h4 key={i} className="text-sm font-semibold text-[#ccbb9e] mb-2 mt-4">{line.replace('#### ', '')}</h4>
-              if (line.startsWith('---')) return <hr key={i} className="border-[rgba(204,187,158,0.15)] my-4" />
-              if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**')) return <p key={i} className="text-gray-500 italic mt-3">{line.replace(/\*/g, '')}</p>
+              if (line.startsWith('#### ')) return <h4 key={i} className="text-sm font-semibold text-gold mb-2 mt-4">{line.replace('#### ', '')}</h4>
+              if (line.startsWith('---')) return <hr key={i} className="border-gold/10 my-4" />
+              if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**')) return <p key={i} className="text-white/50 italic mt-3">{line.replace(/\*/g, '')}</p>
               if (/^\d+\./.test(line)) return <p key={i} className="ml-2 mb-1">{line.replace(/\*\*(.*?)\*\*/g, (_, m) => m)}</p>
-              if (line.startsWith('- ')) return <p key={i} className="ml-2 mb-1 text-gray-400">· {line.slice(2)}</p>
+              if (line.startsWith('- ')) return <p key={i} className="ml-2 mb-1 text-gold/70">· <span className="text-white/80">{line.slice(2)}</span></p>
               if (line.trim() === '') return <div key={i} className="h-2" />
               return <p key={i} className="mb-2">{line.replace(/\*\*(.*?)\*\*/g, (_, m) => m)}</p>
             })}
