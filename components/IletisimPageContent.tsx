@@ -71,16 +71,22 @@ export default function IletisimPageContent() {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          dateTime: form.dateTime,
-          service: services[selected!].title,
-          message: form.message
+          access_key: '2250a1e7-04f0-44b9-b128-0113545fa6e3',
+          subject: `Yüz Yüze Görüşme Talebi - ${services[selected!].title}`,
+          from_name: 'Dr. Mustafa Kebat İletişim',
+          'İsim Soyisim': form.name,
+          Email: form.email,
+          Telefon: form.phone,
+          'Tercih Edilen Zaman': form.dateTime || 'Belirtilmedi',
+          'Seçilen Hizmet': services[selected!].title,
+          Mesaj: form.message || 'Belirtilmedi'
         })
       })
 
