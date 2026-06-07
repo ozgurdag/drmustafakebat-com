@@ -39,6 +39,7 @@ export default function IletisimPageContent() {
   const [selected, setSelected] = useState<number | null>(null)
   const [meetingType, setMeetingType] = useState<'online' | 'face-to-face' | null>(null)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -65,28 +66,34 @@ export default function IletisimPageContent() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setIsSubmitting(true)
     
-    const subject = `Yüz Yüze Görüşme Talebi - ${services[selected!].title}`
-    const body = `Merhaba Dr. Mustafa Kebat,
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          dateTime: form.dateTime,
+          service: services[selected!].title,
+          message: form.message
+        })
+      })
 
-Yüz yüze görüşme talebi detayları aşağıdadır:
-
-Hizmet: ${services[selected!].title}
-Ad Soyad: ${form.name}
-E-posta: ${form.email}
-Telefon: ${form.phone}
-Tercih Edilen Zaman: ${form.dateTime || 'Belirtilmedi'}
-
-Mesaj:
-${form.message || 'Belirtilmedi'}
-
-Saygılarımla.`
-
-    const mailtoUrl = `mailto:info@drmustafakebat.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    window.location.href = mailtoUrl
-    setFormSubmitted(true)
+      if (response.ok) {
+        setFormSubmitted(true)
+      } else {
+        alert('Form gönderilirken bir hata oluştu. Lütfen bilgilerinizi kontrol edip tekrar deneyin.')
+      }
+    } catch (err) {
+      alert('Sistemsel bir bağlantı hatası oluştu. Lütfen daha sonra tekrar deneyin.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   useEffect(() => {
@@ -303,9 +310,9 @@ Saygılarımla.`
                   {formSubmitted ? (
                     <div className="bg-white rounded-2xl border border-navy/10 p-10 flex flex-col items-center justify-center text-center gap-4 max-w-md mx-auto shadow-sm">
                       <span className="text-5xl">✉️</span>
-                      <h3 className="font-serif text-2xl text-navy">Talebiniz Hazırlandı</h3>
+                      <h3 className="font-serif text-2xl text-navy">Talebiniz İletildi</h3>
                       <p className="font-sans text-navy/70 text-sm leading-relaxed">
-                        Yüz yüze görüşme talebiniz e-posta uygulamanıza yönlendirildi. Lütfen e-postayı göndererek talebi tamamlayınız.
+                        Yüz yüze görüşme talebiniz başarıyla gönderildi. En kısa sürede sizinle e-posta veya telefon üzerinden iletişime geçeceğiz.
                       </p>
                       <button
                         onClick={() => {
@@ -400,9 +407,10 @@ Saygılarımla.`
 
                       <button
                         type="submit"
-                        className="w-full bg-navy text-white font-sans font-semibold text-sm py-3.5 rounded-lg hover:bg-navy/90 hover:shadow-lg transition-all duration-300"
+                        disabled={isSubmitting}
+                        className={`w-full bg-navy text-white font-sans font-semibold text-sm py-3.5 rounded-lg transition-all duration-300 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-navy/90 hover:shadow-lg'}`}
                       >
-                        Formu Hazırla ve E-posta Gönder
+                        {isSubmitting ? 'Gönderiliyor...' : 'Talebi Gönder'}
                       </button>
                     </form>
                   )}
