@@ -3,11 +3,11 @@ import CredentialBar from '@/components/CredentialBar'
 import ServiceBlock from '@/components/ServiceBlock'
 import DoctorSection from '@/components/DoctorSection'
 import NewsletterForm from '@/components/NewsletterForm'
-import ArticleGrid from '@/components/ArticleGrid'
+import RandomArticleGrid from '@/components/RandomArticleGrid'
 import { getRecentArticles } from '@/lib/articles'
 
 export default function Home() {
-  const recentArticles = getRecentArticles(6)
+  const recentArticlesPool = getRecentArticles(30)
 
   return (
     <>
@@ -90,7 +90,7 @@ export default function Home() {
       <DoctorSection />
       <NewsletterForm />
 
-      {recentArticles.length > 0 && (
+      {recentArticlesPool.length > 0 && (
         <section className="max-w-7xl mx-auto px-6 md:px-10 py-16">
           <div className="flex justify-between items-baseline mb-10 border-b border-gray-200 pb-4">
             <div>
@@ -101,7 +101,7 @@ export default function Home() {
               Tümü →
             </a>
           </div>
-          <ArticleGrid articles={recentArticles} />
+          <RandomArticleGrid pool={recentArticlesPool} count={6} />
         </section>
       )}
     </>

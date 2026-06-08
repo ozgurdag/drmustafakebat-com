@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArticleMeta, ArticleCategory, ALL_CATEGORIES, CATEGORY_SHORT } from '@/lib/types'
 import ArticleGrid from '@/components/ArticleGrid'
@@ -26,17 +26,12 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
   const [activeCategory, setActiveCategory] = useState<FilterCategory>('all')
   const [activeSubtopic, setActiveSubtopic] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
-  const [displayArticles, setDisplayArticles] = useState<ArticleMeta[]>(articles)
-
-  useEffect(() => {
-    setDisplayArticles([...articles].sort(() => Math.random() - 0.5))
-  }, [articles])
 
   const subtopics: string[] =
     activeCategory !== 'all'
       ? [
           ...new Set(
-            displayArticles
+            articles
               .filter(a => a.category === activeCategory)
               .map(a => a.altBaslik1)
               .filter((v): v is string => Boolean(v))
@@ -44,7 +39,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
         ].sort()
       : []
 
-  const filteredArticles = displayArticles.filter(a => {
+  const filteredArticles = articles.filter(a => {
     if (activeCategory !== 'all' && a.category !== activeCategory) return false
     if (activeSubtopic && a.altBaslik1 !== activeSubtopic) return false
     return true
