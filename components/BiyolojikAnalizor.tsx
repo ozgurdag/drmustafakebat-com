@@ -109,11 +109,11 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
             <select
               value={answers.sleepHours}
               onChange={e => setAnswers({ ...answers, sleepHours: Number(e.target.value) })}
-              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
+              className="w-full px-4 py-2.5 bg-white/5 border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
-              <option value="5">5 saat veya altı (Riskli)</option>
-              <option value="7">7 saat (Yeterli)</option>
-              <option value="8">8 saat (Optimum Sirkadiyen)</option>
+              <option value="5" className="bg-[#0f1f16] text-white">5 saat veya altı (Riskli)</option>
+              <option value="7" className="bg-[#0f1f16] text-white">7 saat (Yeterli)</option>
+              <option value="8" className="bg-[#0f1f16] text-white">8 saat (Optimum Sirkadiyen)</option>
             </select>
           </div>
 
@@ -124,10 +124,10 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
             <select
               value={answers.nutritionType}
               onChange={e => setAnswers({ ...answers, nutritionType: e.target.value })}
-              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
+              className="w-full px-4 py-2.5 bg-white/5 border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
-              <option value="akdeniz">Akdeniz Beslenmesi</option>
-              <option value="standart">Standart Batı Tipi</option>
+              <option value="akdeniz" className="bg-[#0f1f16] text-white">Akdeniz Beslenmesi</option>
+              <option value="standart" className="bg-[#0f1f16] text-white">Standart Batı Tipi</option>
             </select>
           </div>
 
@@ -138,12 +138,12 @@ Kronolojik yaşınız **${answers.age}** iken, hücresel dinamiğinize göre tah
             <select
               value={answers.exerciseWeekly}
               onChange={e => setAnswers({ ...answers, exerciseWeekly: Number(e.target.value) })}
-              className="w-full px-4 py-2.5 bg-[#1a2e24] border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
+              className="w-full px-4 py-2.5 bg-white/5 border border-gold/20 rounded-xl text-sm text-white focus:outline-none focus:border-gold font-sans transition-colors"
             >
-              <option value="0">Hiç (Sedanter)</option>
-              <option value="2">1-2 gün</option>
-              <option value="3">3-4 gün (Önerilen)</option>
-              <option value="5">5+ gün (Aktif)</option>
+              <option value="0" className="bg-[#0f1f16] text-white">Hiç (Sedanter)</option>
+              <option value="2" className="bg-[#0f1f16] text-white">1-2 gün</option>
+              <option value="3" className="bg-[#0f1f16] text-white">3-4 gün (Önerilen)</option>
+              <option value="5" className="bg-[#0f1f16] text-white">5+ gün (Aktif)</option>
             </select>
           </div>
         </div>
