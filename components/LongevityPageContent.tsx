@@ -106,7 +106,7 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
               transition={{ delay: 0.3, duration: 0.6 }}
               className="text-white/60 font-sans text-[15px] leading-relaxed mb-8 max-w-lg"
             >
-              Sadece yaşlanmayı geciktirmekle kalmıyor, biyolojik yaşınızı geri alıyoruz. Dr. Mustafa Kebat liderliğinde hücresel temizlik, mitokondriyal sirkadiyen optimizasyon ve genomik analizlerle yaşam kalitesini ve enerjinizi zirveye ulaştırın.
+              Daha uzun süre düşünebilmek, üretebilmek ve yüksek performansla yaşayabilmek. Dr. Mustafa Kebat, biyolojik yaşlanma süreçlerini yaşam tarzı, metabolik sağlık, nörofizyoloji ve bilimsel risk analizleriyle birlikte değerlendirerek kişiye özel sağlıklı yaşlanma stratejileri geliştirmektedir.
             </motion.p>
 
             <motion.div
@@ -143,10 +143,10 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
             </p>
             <ul className="space-y-3.5">
               {[
-                'Epigenetik Yaş Ölçümü (Horvath Saati Entegrasyonu)',
-                'Hormon ve Uyku Derinleştirici Sirkadiyen Ritim Modülasyonu',
-                'Hücre Temizliği (Otofaji) & Mitokondriyal Rezervasyon',
-                'İleri Düzey Yaşlanma Karşıtı Polifenol & Adaptogen Protokolü',
+                'Biyolojik Yaş ve İnsan Performansı Analizi',
+                'Nörosirkadiyen Performans Analizi',
+                'Hücresel Dayanıklılık ve Mitokondriyal Performans Yönetimi',
+                'Fitokimyasal Longevity ve İnflamasyon Yönetimi',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-[13px] font-sans text-white/70">
                   <span className="text-gold mt-0.5 flex-shrink-0">✓</span>

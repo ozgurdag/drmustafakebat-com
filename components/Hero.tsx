@@ -46,7 +46,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="text-gold text-[10px] tracking-[4px] uppercase font-sans mb-4"
         >
-          Hekim · Longevity Danışmanı · Araştırmacı
+          İnsan Performansı Hekimliği
         </motion.p>
 
         <motion.h1
@@ -74,7 +74,7 @@ export default function Hero() {
           className="font-sans tracking-[1px] mb-7"
           style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}
         >
-          Longevity · Systems · NeuroPerformance
+          Longevity · Sistemler · NöroPerformans
         </motion.p>
 
         <motion.div

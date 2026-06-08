@@ -21,9 +21,7 @@ export default function Home() {
           Bireyden kuruma.<br />Biyolojiden sisteme.
         </h2>
         <p className="text-gray-500 text-[15px] leading-relaxed font-sans max-w-2xl">
-          Dr. Mustafa Kebat, 30 yılı aşan saha deneyimi ve 1.000&apos;den fazla makalesiyle
-          bireylere sağlıklı yaşlanma yönetimi, zihinsel performans verimliliği ve kurumlara
-          iş sağlığı sistemleri alanlarında danışmanlık ve eğitim hizmetleri sunmaktadır.
+          Dr. Mustafa Kebat, 30 yılı aşan saha deneyimi ile Longevity, Nöroergonomi, Kurumsal Sağlık Risk Yönetimi ve İnsan/Çalışan Performansı alanlarında hizmet veren, iş sağlığı sistemlerini geleceğin bilimsel yaklaşımıyla yeniden yorumlayan hekim ve kurumsal danışmandır.
         </p>
       </div>
 
@@ -31,16 +29,20 @@ export default function Home() {
         number="01"
         eyebrow="ODAK Alanı 01"
         title="Longevity: Bireysel Sağlık ve Yaşlanma Yönetimi"
-        description="Biyolojik yaş optimizasyonu, metabolik sağlık ve yaşam kalitesi için kanıta dayalı protokoller. Hücresel gençleşme ve ömür uzatma bilimine dayalı kişiselleştirilmiş yaklaşım."
+        description="Zihinsel ve metabolik kapasiteyi mümkün olan en uzun süre koruyarak sağlıklı yaşam yıllarını artırmayı hedefleyen bilimsel bir yaklaşımdır. Dr. Mustafa Kebat, bireyin biyolojik özelliklerini, yaşam tarzını, çalışma koşullarını ve nörofizyolojik performansını birlikte değerlendirerek kanıta dayalı kişiselleştirilmiş stratejiler geliştirmektedir."
         items={[
-          'Biyolojik Yaş Değerlendirmesi',
-          'Beslenme ve Takviye Stratejileri',
-          'Kardiyovasküler Sağlık Optimizasyonu',
-          'Bağışıklık Sistemi Güçlendirme',
-          'Hormonal Denge ve Yaşlanma',
+          'Biyolojik Yaş ve Sağlık Rezervi Değerlendirmesi',
+          'Metabolik Sağlık ve Hastalık Risk Yönetimi',
+          'Bilişsel Performans ve Beyin Sağlığının Korunması',
+          'Beslenme, Mikronütrisyon ve Bilimsel Takviye Stratejileri',
+          'Kardiyovasküler Dayanıklılık ve Sağlıklı Yaşlanma Planlaması',
+          'Uyku, Stres Yönetimi ve Otonom Sinir Sistemi Optimizasyonu',
+          'Kas-İskelet Sistemi, Hareket Kalitesi ve Fonksiyonel Kapasite Yönetimi',
+          'Bağışıklık Sisteminin Desteklenmesi ve İnflamasyon Kontrolü',
+          'Hormonal Dengenin Yaşlanma Süreciyle Birlikte Değerlendirilmesi'
         ]}
         href="/longevity"
-        ctaLabel="Longevity (Uzun Yaşam)"
+        ctaLabel="Longevity (Yaşlanma Yönetimi)"
         gradientClass="bg-gradient-to-br from-[#1a3a28] via-[#2d5a3d] to-[#4a7c59]"
         icon="🌿"
         photo="/photo-longevity.jpg"
