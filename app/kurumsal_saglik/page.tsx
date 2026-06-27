@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 }
 
 export default function SaglikPage() {
-  const articles = getArticlesByCategory('saglik')
+  const articles = getArticlesByCategory('kurumsal_saglik')
   return <MakalelerClient articles={articles} />
 }

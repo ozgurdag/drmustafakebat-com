@@ -9,9 +9,12 @@ import { Save, ArrowLeft, Eye, Image as ImageIcon } from 'lucide-react'
 
 const ALT_BASLIK_OPTIONS: Record<ArticleCategory, string[]> = {
   longevity: ['Longevity', 'Bilişsel Longevity', 'İş Sağlığı ve Longevity', 'Longevity Biyobelirteçleri', 'Mesleki Longevity', 'Metabolik Longevity', 'Yönetici Longevity'],
-  beslenme: ['Kan Tahlilleri & Biyokimya', 'Vitaminler & Mineraller', 'Beslenme & Diyet', 'Sindirim Sistemi', 'Diyabet & İnsülin Direnci', 'İlaçlar & Farmakoloji'],
-  saglik: ['Kurumsal Sağlık', 'Kurumsal Sağlık Mimarisi', 'Çalışan Sağlığı ve Verimliliği Programları', 'Yönetici Sağlık Programları', 'Endüstriyel Sağlık Risk Yönetimi', 'Psikolojik Sağlık programları', 'Yorgunluk Riski Yönetimi', 'Yüksek Güvenilirlik İşgücü Programları', 'Ergonomik Sağlık Sistemleri'],
+  kurumsal_saglik: ['Kurumsal Sağlık', 'Kurumsal Sağlık Mimarisi', 'Çalışan Sağlığı ve Verimliliği Programları', 'Yönetici Sağlık Programları', 'Endüstriyel Sağlık Risk Yönetimi', 'Psikolojik Sağlık programları', 'Yorgunluk Riski Yönetimi', 'Yüksek Güvenilirlik İşgücü Programları', 'Ergonomik Sağlık Sistemleri'],
   neuroperformance: ['Nöroergonomi', 'Biyofilik Tasarım ve Çevresel Nöroergonomi', 'İnterosepsiyon ile Duygu Regülasyonu', 'Zihinsel Yorgunluk', 'İnsan Hatası Mühendisliği', 'Nörobilişsel Güvenlik', 'Vardiyalı Çalışma Nörobilimi', 'Propriosepsiyon ve İş Güvenliği', 'Endüstriyel Nöroergonomi', 'Nöroadaptif Çalışma Sistemleri'],
+  is_sagligi: [],
+  genel_tip: ['Kan Tahlilleri & Biyokimya', 'Vitaminler & Mineraller', 'Beslenme & Diyet', 'Sindirim Sistemi', 'Diyabet & İnsülin Direnci', 'İlaçlar & Farmakoloji'],
+  spor: [],
+  dusunce_yazilarim: [],
 }
 
 type PublishMode = 'publish' | 'draft' | 'scheduled'

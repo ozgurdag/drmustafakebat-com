@@ -4,10 +4,10 @@ import { getArticlesByCategory } from '@/lib/articles'
 
 export const metadata: Metadata = {
   title: 'Beslenme & Metabolizma: Bilimsel Gıda Yönetimi | Dr. Mustafa Kebat',
-  description: 'Vitaminler, beslenme protokolleri, biyokimya analizi ve metabolik sağlık yönetimi.',
+  description: 'Vitaminler, genel_tip protokolleri, biyokimya analizi ve metabolik sağlık yönetimi.',
 }
 
 export default function BeslenmePage() {
-  const articles = getArticlesByCategory('beslenme')
+  const articles = getArticlesByCategory('genel_tip')
   return <MakalelerClient articles={articles} />
 }
