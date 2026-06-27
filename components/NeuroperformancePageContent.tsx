@@ -6,22 +6,72 @@ import Link from 'next/link'
 import ArticleGrid from './ArticleGrid'
 import { ArticleMeta } from '@/lib/types'
 
-const serviceCards = [
-  {
-    icon: '👁️',
-    title: 'Nöro-Görsel Antrenman',
-    desc: 'Görsel işleme hızı, periferal farkındalık ve göz-el koordinasyonu geliştiren bilimsel protokoller. Sporcular için reaksiyon süresi optimizasyonu, yöneticiler için görsel dikkat yönetimi.',
-  },
-  {
-    icon: '⚡',
-    title: 'Propriyoseptif Gelişim',
-    desc: 'Vücut pozisyon algısı ve denge sistemini güçlendiren özelleştirilmiş antrenman protokolleri. Sakatlık önleme, postürel stabilite ve atletik hareket kalitesi için nöromüsküler yeniden programlama.',
-  },
+const neuroItems = [
   {
     icon: '🧠',
-    title: 'Bilişsel Yük Yönetimi',
-    desc: 'Yüksek baskı altında karar kalitesini korumak için bilişsel dayanıklılık protokolleri. Çalışma belleği kapasitesi, odak sürekliliği ve zihinsel yorgunluk yönetimi için kanıt destekli stratejiler.',
+    title: '1. Nöroergonomi Nedir?',
+    desc: 'Nöroergonominin tanımı, amacı ve klasik ergonomiden farkları. Beyin temelli tasarımın çalışma yaşamındaki önemi.',
   },
+  {
+    icon: '🎯',
+    title: '2. İnsan Beyni İş Yerinde Nasıl Çalışır?',
+    desc: 'Dikkat, algı, bellek, karar verme ve öğrenme süreçlerinin iş performansı ve güvenliği üzerindeki etkileri.',
+  },
+  {
+    icon: '⚠️',
+    title: '3. Dikkat, Algı ve Hata Mekanizmaları',
+    desc: 'İnsan hatasının nörobilimsel nedenleri. Dikkat tünelleşmesi, algı yanılmaları ve otomatikleşmenin riskleri.',
+  },
+  {
+    icon: '🔋',
+    title: '4. Beyin Yorgunluğu ve Zihinsel İş Yükü',
+    desc: 'Mental yorgunluk belirtileri, iş yükü yönetimi, bilişsel tükenme sendromu ve performans üzerindeki etkileri.',
+  },
+  {
+    icon: '👁️',
+    title: '5. Görsel Tasarım ve Nöroergonomi',
+    desc: 'Renk, ışık, kontrast, uyarı sistemleri ve görsel arayüz tasarımının beyin üzerindeki etkileri ve doğru uygulama ilkeleri.',
+  },
+  {
+    icon: '🔊',
+    title: '6. Gürültü, Stres ve Bilişsel Performans',
+    desc: 'Gürültünün beyindeki etkileri, stres yanıtı, karar kalitesi ve hata oranları üzerindeki rolü.',
+  },
+  {
+    icon: '🪑',
+    title: '7. Nöroergonomik Çalışma İstasyonu Tasarımı',
+    desc: 'Ofis, kontrol odası ve üretim alanlarında beyne uygun çalışma istasyonu tasarım prensipleri.',
+  },
+  {
+    icon: '🌙',
+    title: '8. Vardiyalar, Sirkadiyen Ritim ve Beyin Sağlığı',
+    desc: 'Vardiyalı çalışmanın nörobiyolojik etkileri, uyku-uyanıklık döngüsü ve performansa yansımaları.',
+  },
+  {
+    icon: '🏃',
+    title: '9. Hareket, Beyin ve Performans',
+    desc: 'Fiziksel aktivitenin bilişsel fonksiyonlar, yaratıcılık, dikkat ve öğrenme üzerindeki olumlu etkileri.',
+  },
+  {
+    icon: '🛡️',
+    title: '10. Nörobilişsel Güvenlik ve Davranış',
+    desc: 'Nörobilişsel güvenlik kavramı, güvenli davranışın nörobilimsel temelleri ve eğitim yaklaşımları.',
+  },
+  {
+    icon: '🤖',
+    title: '11. Teknoloji, Otomasyon ve Beyin',
+    desc: 'Yapay zeka, otomasyon, dijitalleşme ve insan beyni ilişkisi. Teknolojinin doğru kullanımı ve nöroergonomik riskler.',
+  },
+  {
+    icon: '📊',
+    title: '12. Ölçüm, Değerlendirme ve Nöroergonomik Analiz',
+    desc: 'Nöroergonomik değerlendirme yöntemleri, dikkat ve bilişsel performans ölçümleri, analiz araçları ve uygulama süreçleri.',
+  },
+  {
+    icon: '💡',
+    title: '13. Geleceğin İş Yerleri ve Nöroergonomi',
+    desc: 'İnsan merkezli, beyne uygun, sürdürülebilir ve dirençli iş yerlerinin geleceği. Trendler, yeni yaklaşımlar ve inovasyon.',
+  }
 ]
 
 const stats = [
@@ -60,9 +110,8 @@ export default function NeuroperformancePageContent({ recentArticles = [] }: Neu
               className="font-serif font-normal leading-[1.05] mb-6"
               style={{ fontSize: 'clamp(32px, 4.5vw, 58px)' }}
             >
-              Sinir Sisteminizi<br />
-              <em className="text-gold" style={{ fontStyle: 'italic' }}>Elit Seviyeye</em><br />
-              Taşıyın.
+              NÖROERGONOMİ<br />
+              <em className="text-gold" style={{ fontStyle: 'italic', fontSize: '0.6em', lineHeight: '1.2', display: 'block', marginTop: '10px' }}>BEYİNE UYGUN İŞ, GÜVENLİ, SAĞLIKLI VE SÜRDÜRÜLEBİLİR PERFORMANS</em>
             </motion.h1>
 
             <motion.p
@@ -148,42 +197,35 @@ export default function NeuroperformancePageContent({ recentArticles = [] }: Neu
         </motion.div>
       </section>
 
-      {/* Hizmet Kartları */}
-      <section id="hizmetler" className="bg-white py-20 px-6 md:px-12 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto">
+      {/* 13 Maddelik Liste */}
+      <section id="hizmetler" className="bg-[#0a1220] py-20 px-6 md:px-12 border-b border-navy/20">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Uygulama Protokolleri</p>
-            <h2 className="font-serif text-3xl md:text-4xl font-normal text-navy">NeuroPerformance Sistem Bileşenleri</h2>
+            <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Eğitim ve Protokoller</p>
+            <h2 className="font-serif text-3xl md:text-4xl font-normal text-white">Nöroergonomi Eğitim İçerikleri</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {serviceCards.map((card, i) => (
+          <div className="flex flex-col gap-4">
+            {neuroItems.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: '-60px' }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="border border-gray-100 p-8 hover:border-gold/40 transition-colors group"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-40px' }}
+                transition={{ delay: (i % 5) * 0.1, duration: 0.4 }}
+                className="flex items-center gap-6 bg-navy/40 border border-gold/20 p-5 rounded-lg hover:bg-navy/80 hover:border-gold/50 transition-colors group"
               >
-                <div className="text-3xl mb-5">{card.icon}</div>
-                <h3 className="font-serif text-[18px] text-navy mb-3 leading-snug">{card.title}</h3>
-                <p className="text-gray-500 text-[13px] leading-relaxed font-sans">{card.desc}</p>
+                <div className="w-14 h-14 flex-shrink-0 flex items-center justify-center border border-gold/30 rounded-full text-2xl bg-white/5 group-hover:bg-gold/10 transition-colors">
+                  {item.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-serif text-lg text-white font-medium mb-1">{item.title}</h3>
+                  <p className="text-white/60 text-sm font-sans leading-relaxed">{item.desc}</p>
+                </div>
+                <div className="hidden md:flex text-gold/40 group-hover:text-gold transition-colors">
+                  →
+                </div>
               </motion.div>
             ))}
-          </div>
-          <div className="mt-10 bg-navy/5 border border-navy/10 p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div>
-              <div className="font-serif text-2xl text-navy font-light mb-1">Sporcu</div>
-              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Sahada daha az sakatlık, daha yüksek performans</div>
-            </div>
-            <div>
-              <div className="font-serif text-2xl text-navy font-light mb-1">Yönetici</div>
-              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Karar yorgunluğu olmadan sürekli netlik</div>
-            </div>
-            <div>
-              <div className="font-serif text-2xl text-navy font-light mb-1">Yaşlı Birey</div>
-              <div className="text-[10px] text-navy/50 uppercase tracking-widest font-sans">Denge ve bağımsızlığı koruma</div>
-            </div>
           </div>
         </div>
       </section>

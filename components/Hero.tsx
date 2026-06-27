@@ -74,7 +74,7 @@ export default function Hero() {
           className="font-sans tracking-[1px] mb-7"
           style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}
         >
-          Longevity · Sistemler · NöroPerformans
+          Uzun Yaşam · Sistemler · NöroPerformans
         </motion.p>
 
         <motion.div

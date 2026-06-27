@@ -26,6 +26,9 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
     day: 'numeric',
   })
 
+  // tetkik.com.tr ibaresi sadece Mayıs 2026'dan önceki yazılar için gösterilecek
+  const isBeforeMay2026 = new Date(article.date) < new Date('2026-05-01')
+
   return (
     <>
       <div className="bg-navy py-12 px-6 lg:px-12">
@@ -106,18 +109,20 @@ export default function ArticlePageTemplate({ category, slug }: ArticlePageTempl
           <p>
             Web sitemizin içeriği, ziyaretçiyi bilgilendirmeye yönelik hazırlanmıştır. Sitede yer alan bilgiler, hiçbir zaman bir hekim tedavisinin ya da konsültasyonunun yerini alamaz. Bu kaynaktan yola çıkarak, ilaç tedavisine başlanması ya da mevcut tedavinin değiştirilmesi kesinlikte tavsiye edilmez. Web sitemizin içeriği, asla kişisel teşhis ya da tedavi yönteminin seçimi için değerlendirilmemelidir. Sitede kanun içeriğine aykırı ilan ve reklam yapma kastı bulunmamaktadır.
           </p>
-          <p className="text-navy/35 italic">
-            Dr. Mustafa Kebat&apos;a ait bu yazı {formattedDate} tarihinde{' '}
-            <a
-              href="https://tetkik.com.tr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-navy/60 transition-colors"
-            >
-              Tetkik.com.tr
-            </a>{' '}
-            adresinde yayınlanmıştır.
-          </p>
+          {isBeforeMay2026 && (
+            <p className="text-navy/35 italic">
+              Dr. Mustafa Kebat&apos;a ait bu yazı {formattedDate} tarihinde{' '}
+              <a
+                href="https://tetkik.com.tr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-navy/60 transition-colors"
+              >
+                Tetkik.com.tr
+              </a>{' '}
+              adresinde yayınlanmıştır.
+            </p>
+          )}
         </div>
       </div>
       </div>

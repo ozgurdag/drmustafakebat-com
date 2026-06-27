@@ -143,10 +143,14 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
             </p>
             <ul className="space-y-3.5">
               {[
-                'Biyolojik Yaş ve İnsan Performansı Analizi',
-                'Nörosirkadiyen Performans Analizi',
-                'Hücresel Dayanıklılık ve Mitokondriyal Performans Yönetimi',
-                'Fitokimyasal Longevity ve İnflamasyon Yönetimi',
+                'Epigenetik yaş analizi (uygunsa)',
+                'Metabolik yaş değerlendirmesi',
+                'Kardiyovasküler risk profili',
+                'Nörokognitif performans değerlendirmesi',
+                'Otonom sinir sistemi analizi (ör. HRV)',
+                'Kas-iskelet ve fonksiyonel kapasite değerlendirmesi',
+                'Uyku ve sirkadiyen ritim analizi',
+                'Kişiye özel Longevity ve performans yol haritası',
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-[13px] font-sans text-white/70">
                   <span className="text-gold mt-0.5 flex-shrink-0">✓</span>
@@ -227,13 +231,13 @@ export default function LongevityPageContent({ recentArticles = [] }: LongevityP
       <section id="metodoloji" className="bg-cream py-20 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Tıbbi Yaklaşım Metodu</p>
+            <p className="text-gold text-[10px] tracking-[3px] uppercase font-sans mb-3">Yaklaşım Metodum</p>
             <h2 className="font-serif text-3xl md:text-5xl font-normal text-navy mb-5">
-              Bilimsel Longevity Enstrümanlarımız
+              Bilimsel Longevity Enstrümanlarım
             </h2>
             <div className="w-12 h-px bg-gold mx-auto mb-5" />
             <p className="text-gray-500 font-sans text-[15px] leading-relaxed max-w-2xl mx-auto">
-              Dr. Mustafa Kebat kliniğinde uygulanan tüm biyosüreçler insan ömrünün sadece uzun değil, tamamen enerjik ve hastalıksız geçirilmesini hedefler.
+              Biyolojik yaşlanma süreçlerinin yönetilmesini, zihinsel ve fiziksel performansın korunmasını ve yaşam kalitesinin sürdürülebilir şekilde geliştirilmesini hedeflemekteyim.
             </p>
           </div>
 

@@ -15,9 +15,12 @@ type FilterCategory = ArticleCategory | 'all'
 const FILTER_LABELS: Record<FilterCategory, string> = {
   all: 'Tümü',
   longevity: 'Longevity',
-  beslenme: 'İnsan Sürdürülebilirliği',
-  saglik: 'Kurumsal Sağlık',
+  kurumsal_saglik: 'Kurumsal Sağlık',
   neuroperformance: 'Nöroergonomi',
+  is_sagligi: 'İş Sağlığı',
+  genel_tip: 'Genel Tıp',
+  spor: 'Spor',
+  dusunce_yazilarim: 'Düşünce Yazılarım',
 }
 
 const MAIN_FILTERS: FilterCategory[] = ['all', ...ALL_CATEGORIES]
@@ -102,8 +105,7 @@ export default function MakalelerClient({ articles }: MakalelerClientProps) {
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-white/60 font-sans text-[15px] leading-relaxed max-w-2xl"
           >
-            Longevity, Beslenme, Genel Sağlık, NeuroPerformance ve İş Sağlığı alanlarında
-            güncel araştırmalar, klinik değerlendirmeler ve pratik rehberler.
+            Longevity'den Nöroergonomiye, Kurumsal Sağlıktan İş Sağlığı ve Güvenliğine kadar uzanan geniş bir yelpazede; güncel bilimsel gelişmeleri, klinik bakış açılarını, uygulamaya dönük rehberleri ve çalışma hayatına ilişkin düşünce yazılarımı sizlerle paylaşıyorum.
           </motion.p>
           <motion.p
             initial={{ opacity: 0 }}

@@ -1,8 +1,11 @@
 export type ArticleCategory =
   | 'longevity'
-  | 'beslenme'
-  | 'saglik'
+  | 'kurumsal_saglik'
   | 'neuroperformance'
+  | 'is_sagligi'
+  | 'genel_tip'
+  | 'spor'
+  | 'dusunce_yazilarim'
 
 export interface ArticleFrontmatter {
   title: string
@@ -25,36 +28,52 @@ export interface ArticleMeta extends ArticleFrontmatter {
 }
 
 export const CATEGORY_LABELS: Record<ArticleCategory, string> = {
-  longevity: 'Longevity: Yaşlanma Yönetimi',
-  beslenme: 'İnsan Sürdürülebilirliği',
-  saglik: 'Kurumsal Sağlık',
+  longevity: 'Longevity',
+  kurumsal_saglik: 'Kurumsal Sağlık',
   neuroperformance: 'Nöroergonomi',
+  is_sagligi: 'İş Sağlığı',
+  genel_tip: 'Genel Tıp',
+  spor: 'Spor',
+  dusunce_yazilarim: 'Düşünce Yazılarım',
 }
 
 export const CATEGORY_SHORT: Record<ArticleCategory, string> = {
   longevity: 'Longevity',
-  beslenme: 'İnsan Sürdürülebilirliği',
-  saglik: 'Kurumsal Sağlık',
+  kurumsal_saglik: 'Kurumsal Sağlık',
   neuroperformance: 'Nöroergonomi',
+  is_sagligi: 'İş Sağlığı',
+  genel_tip: 'Genel Tıp',
+  spor: 'Spor',
+  dusunce_yazilarim: 'Düşünce Yazılarım',
 }
 
 export const CATEGORY_DESCRIPTIONS: Record<ArticleCategory, string> = {
   longevity: 'Doğal antiaging, yaşlanma yönetimi',
-  beslenme: 'Vitaminler, beslenme, metabolizma, kan tahlilleri',
-  saglik: 'Kurumsal sağlık, çalışan sağlığı, iş sağlığı yönetimi',
+  kurumsal_saglik: 'Kurumsal sağlık, çalışan sağlığı, iş sağlığı yönetimi',
   neuroperformance: 'Nöroergonomi, bilişsel performans, zihin ve çalışma ortamı',
+  is_sagligi: 'İş sağlığı ve güvenliği, meslek hastalıkları',
+  genel_tip: 'Anatomi, insan, metabolizma, tıp bilimleri',
+  spor: 'Spor, hareket, fiziksel performans',
+  dusunce_yazilarim: 'Düşünce yazıları, vizyon, felsefe',
 }
 
 export const CATEGORY_COLORS: Record<ArticleCategory, string> = {
   longevity: 'bg-emerald-700',
-  beslenme: 'bg-lime-700',
-  saglik: 'bg-teal-700',
+  kurumsal_saglik: 'bg-teal-700',
   neuroperformance: 'bg-purple-700',
+  is_sagligi: 'bg-blue-700',
+  genel_tip: 'bg-indigo-700',
+  spor: 'bg-orange-700',
+  dusunce_yazilarim: 'bg-slate-700',
 }
 
 export const ALL_CATEGORIES: ArticleCategory[] = [
   'longevity',
-  'beslenme',
-  'saglik',
+  'kurumsal_saglik',
   'neuroperformance',
+  'is_sagligi',
+  'genel_tip',
+  'spor',
+  'dusunce_yazilarim',
 ]
+
