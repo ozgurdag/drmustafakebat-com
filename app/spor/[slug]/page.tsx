@@ -1,3 +1,4 @@
+export const dynamicParams = false;
 import { getArticleSlugs, getArticleBySlug } from '@/lib/articles'
 import ArticlePageTemplate from '@/components/ArticlePageTemplate'
 import type { Metadata } from 'next'

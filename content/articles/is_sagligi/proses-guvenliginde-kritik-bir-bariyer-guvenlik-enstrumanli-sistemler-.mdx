@@ -1,0 +1,109 @@
+---
+title: Proses Güvenliğinde Kritik Bir Bariyer – Güvenlik Enstrümanlı Sistemler (SIS)
+category: 'is_sagligi'
+altBaslik1: İSG & Güvenlik
+altBaslik2: Genel İSG
+date: '2026-02-04'
+excerpt: >-
+  Yüksek riskli endüstriyel tesislerde meydana gelebilecek proses kaynaklı
+  kazaların önlenmesinde, mühendislik kontrolleri hayati önem taşır. Bunların
+  başında
+image: >-
+  /images/articles/proses-guvenliginde-kritik-bir-bariyer-guvenlik-enstrumanli-sistemler-.png
+---
+
+## 
+
+**Proses Emniyetinde Otomatik Savunma Hatları**
+
+Yüksek riskli endüstriyel tesislerde meydana gelebilecek proses kaynaklı kazaların önlenmesinde, mühendislik kontrolleri hayati önem taşır. Bunların başında yer alan **Güvenlik Enstrümanlı Sistemler (SIS)**, kontrol sistemlerinden bağımsız olarak çalışan, otomatik bir güvenlik fonksiyonu sunan ve kaza senaryolarının aktif olarak önüne geçen sistemlerdir.
+
+**SIS**, *“önleyici mühendislik kontrolleri”* arasında en yüksek güvenlik seviyesini sunar. Bu nedenle **İş Güvenliği profesyonelleri** için sadece sistemin varlığı değil, doğru tasarımı, SIL *(Güvenlik Bütünlüğü Seviyesi)* gereksinimlerinin karşılanması ve periyodik testleri de önem arz eder.
+
+🧩  🧩  🧩 
+
+**SIS’in Temel Yapısı – Tehdit Algılama ve Otomatik Müdahale Zinciri**
+
+Bir Güvenlik Enstrümanlı Sistem, **üç ana bileşenden** oluşur:
+
+- **Algılayıcılar (Sensörler):** Proses değişkenlerini *(basınç, sıcaklık, seviye, debi vb.)* sürekli izler.
+
+- **Logic Solver ***(Mantık Çözücü – PLC veya RTU)***:** Önceden belirlenmiş limitlerin aşılması durumunda devreye girerek karar mekanizmasını tetikler.
+
+- **Final Elemanlar ***(Aktüatörler)***:** Vana kapatma, sistem durdurma gibi fiziksel müdahaleyi gerçekleştirerek süreci güvenli moda çeker.
+
+Bu zincirin **tüm halkaları yüksek güvenilirlikle çalışmak zorundadır**. Bir halkadaki arıza, fonksiyonun başarısızlığına ve dolayısıyla kaza oluşumuna yol açabilir.
+
+⚙️  ⚙️  ⚙️ 
+
+**SIS ile DCS (Dağıtılmış Kontrol Sistemi) Arasındaki Fark**
+
+İş Güvenliği uzmanları genellikle** SIS**’in neden ayrı bir sistem olarak kurgulandığını sorgular. Temel fark, **SIS’in sadece güvenlik fonksiyonunu yerine getirmekle yükümlü olması** ve bu nedenle:
+
+- DCS'ten bağımsız çalışması,
+
+- Güvenlik seviyesine uygun donanım/yazılım sertifikasyonuna sahip olması,
+
+- Otomatik tanılama ve test kapasitesinin yüksek olmasıdır.
+
+Bu ayrım, **IEC 61508 – TS EN 61508-1 – (2010)** ve **IEC 61511** **– TS EN 61511-1 – (2018)** standartlarında net şekilde tarif edilmiştir.
+
+🛑  🛑  🛑 
+
+**Güvenlik Enstrümanlı Fonksiyon (SIF) Nedir?**
+
+Her **SIS**, birden fazla **Güvenlik Enstrümanlı Fonksiyon (SIF)** içerir. 
+
+Örnek bir SIF:
+
+“Proses tankı sıcaklığı 120°C’yi aşarsa, **SIS** sıcaklık sensöründen gelen veriyi alır, mantık ünitesi kararı verir ve çıkış vanasını kapatarak tehlikeli yükselmeyi durdurur.”
+
+Her bir SIF’in riski düşürme görevi vardır. Hangi fonksiyonun ne seviyede güvenlik sunduğu ise **SIL ***(Safety Integrity Level)* değeriyle ifade edilir.
+
+📐  📐  📐 
+
+**SIL (Güvenlik Bütünlüğü Seviyesi) – Nicel Güvenlik Performansı**
+
+**SIL**, bir **SIF**'in başarısız olma olasılığına ***(PFDavg)*** göre sınıflandırılır:
+
+SIL SeviyesiTipik Risk AzaltmaOrtalama Arıza Olasılığı **(PFDavg)**SIL 110 – 100 kat10⁻¹ – 10⁻²SIL 2100 – 1.000 kat10⁻² – 10⁻³SIL 31.000 – 10.000 kat10⁻³ – 10⁻⁴SIL 410.000+ kat10⁻⁴ – 10⁻⁵
+
+**LOPA ***(Layer of Protection Analysis)* ve **Risk Grafikleri**, **SIL** belirleme yöntemleri arasında en yaygın olanlardır. İş Güvenliği Uzmanı, bu analizlerin dokümantasyonuna ve uygulama kalitesine dikkat etmelidir.
+
+📚  📚  📚 
+
+**İlgili Standartlar: IEC 61508 – TS EN 61508-1 – (2010) ve IEC 61511 – TS EN 61511-1 – (2018)**
+
+**SIS**’in tasarım, kurulum ve işletme esasları aşağıdaki standartlara dayanır:
+
+- **IEC 61508 – TS EN 61508-1 – (2010)**: Elektrik/elektronik/programlanabilir sistemlerin fonksiyonel güvenliği için genel çerçeve.
+
+- **IEC 61511** **– TS EN 61511-1 – (2018)**: Proses endüstrisine özel Güvenlik Enstrümanlı Sistem standartı.
+
+- **IEC 62061** – **TS EN IEC 62061 – (2021)** / **ISO 13849 – TS EN ISO 13849-1 – (2023)**: Makine emniyeti bağlamında kullanılır.
+
+Bu standartlar, **SIS Yaşam Döngüsü** felsefesiyle sistemin ilk tasarımından, bakımına ve nihai sökümüne kadar her adımı kapsar.
+
+🔧  🔧  🔧 
+
+**İş Güvenliği Uzmanı Ne Yapmalı?**
+
+İş Güvenliği Uzmanının **SIS** konusunda başlıca dikkate alması gerekenler ve duruma göre de sorumlulukları şunlardır:
+
+- **SIL doğrulama ve test protokollerinin varlığını denetlemek,**
+
+- **SIF performans raporlarını gözden geçirmek,**
+
+- **LOPA veya risk analiz dokümanlarının geçerliliğini izlemek,**
+
+- **SIS bakım ve kalibrasyon kayıtlarını takip etmek,**
+
+- **SIS bypass ***(devre dışı bırakma)*** işlemlerinin kontrol altında yapılmasını sağlamak.**
+
+**SIS** ile entegre çalışan her sistemin hata toleransı ve bakım süreci, insan faktörünü minimumda tutmak için net tanımlanmalı ve kayıt altına alınmalıdır.
+
+✅ ✅ ✅
+
+Güvenlik Enstrümanlı Sistemler *(SIS)*, modern endüstride **proaktif risk azaltma yaklaşımının** temel taşlarından biridir. İş Güvenliği Uzmanları, bu sistemleri sadece *“mevcut”* olarak değil; *“doğru tasarlanmış, test edilmiş ve sürdürülebilir” *sistemler olarak değerlendirmelidir.
+
+Unutulmamalıdır ki, **bir SIS başarısız olduğunda, diğer tüm koruma katmanları da riske girer**. Bu yüzden,** SIS**’e dair bilgi düzeyinin artırılması, İş Güvenliği kültürünün gelişimi açısından stratejik öneme sahiptir.

@@ -117,6 +117,15 @@
     "status": "published"
   },
   {
+    "slug": "hazirlik-asamasinda",
+    "category": "longevity",
+    "sha": "e43ba6fcb1232b3cda265d91f5a2df4aa65971de",
+    "title": "İçerik Hazırlanıyor",
+    "altBaslik1": "",
+    "date": "2026-01-01",
+    "status": "draft"
+  },
+  {
     "slug": "ilaclar-ve-bitkiler",
     "category": "longevity",
     "sha": "74fc4809e5d8cf6fc908ed37e73f48197ed2e73c",
@@ -520,6 +529,15 @@
     "altBaslik1": "Psikoloji & Ruh Sağlığı",
     "date": "2026-03-29",
     "status": "published"
+  },
+  {
+    "slug": "hazirlik-asamasinda",
+    "category": "neuroperformance",
+    "sha": "ba63d0268d5b4f79e818928cf49d4e225ad46fe5",
+    "title": "İçerik Hazırlanıyor",
+    "altBaslik1": "",
+    "date": "2026-01-01",
+    "status": "draft"
   },
   {
     "slug": "hse-indicator-tool-is-sagligi-ve-guvenlik-gostergesi-araci-psikososyal",
