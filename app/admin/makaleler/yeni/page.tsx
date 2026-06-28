@@ -43,20 +43,23 @@ function markdownToHtml(md: string): string {
   const processedLines = [];
   let inList = false;
   
-  for (let line of lines) {
-    if (line.startsWith('- ')) {
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+    // Also support bullet point character
+    if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
       if (!inList) {
         processedLines.push('<ul>');
         inList = true;
       }
-      processedLines.push(`<li>${line.substring(2)}</li>`);
+      const content = line.trim().substring(2).trim();
+      processedLines.push(`<li>${content}</li>`);
     } else {
       if (inList) {
         processedLines.push('</ul>');
         inList = false;
       }
       if (line.trim() === '') {
-        processedLines.push('<p></p>');
+        processedLines.push('<p><br/></p>');
       } else if (line.startsWith('### ')) {
         processedLines.push(`<h3>${line.substring(4)}</h3>`);
       } else if (line.startsWith('## ')) {
@@ -90,28 +93,28 @@ function htmlToMarkdown(html: string): string {
   
   let md = html
     // Headings
-    .replace(/<h3>(.*?)<\/h3>/gim, '### $1')
-    .replace(/<h2>(.*?)<\/h2>/gim, '## $1')
-    .replace(/<h1>(.*?)<\/h1>/gim, '# $1')
+    .replace(/<h3>(.*?)<\/h3>/gim, '\n### $1\n\n')
+    .replace(/<h2>(.*?)<\/h2>/gim, '\n## $1\n\n')
+    .replace(/<h1>(.*?)<\/h1>/gim, '\n# $1\n\n')
     // Bold
     .replace(/<strong>(.*?)<\/strong>/g, '**$1**')
     .replace(/<b>(.*?)<\/b>/g, '**$1**')
     // Italic
     .replace(/<em>(.*?)<\/em>/g, '_$1_')
     .replace(/<i>(.*?)<\/i>/g, '_$1_')
-    // Lists
-    .replace(/<li>(.*?)<\/li>/gim, '- $1')
-    .replace(/<ul>\s*/gim, '')
-    .replace(/<\/ul>\s*/gim, '\n')
-    .replace(/<ol>\s*/gim, '')
-    .replace(/<\/ol>\s*/gim, '\n')
+    // Lists - FIXED
+    .replace(/<ul>\s*/gim, '\n\n')
+    .replace(/<\/ul>\s*/gim, '\n\n')
+    .replace(/<ol>\s*/gim, '\n\n')
+    .replace(/<\/ol>\s*/gim, '\n\n')
+    .replace(/<li>(.*?)<\/li>/gim, '- $1\n')
     // Links
     .replace(/<a href="(.*?)"(.*?)>(.*?)<\/a>/g, '[$3]($1)')
     // Paragraphs and divs
     .replace(/<p>(.*?)<\/p>/gim, '$1\n\n')
     .replace(/<div>(.*?)<\/div>/gim, '$1\n\n')
     .replace(/<br\s*\/?>/gim, '\n')
-    // Strip other tags
+    // Strip other tags except those we handled
     .replace(/<[^>]+>/g, '')
     // Clean spaces
     .replace(/\n{3,}/g, '\n\n')
