@@ -9,9 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        gold: '#ccbb9e',
-        navy: '#224a3e',
-        cream: '#f5f3ee',
+        gold: '#C5A059',
+        navy: '#0F172A',
+        cream: '#F8F9FA',
         olive: '#404b45',
         sage: '#c2c6a6',
       },
