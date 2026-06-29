@@ -20,7 +20,7 @@ export default function ArticleCard({ article, index = 0 }: ArticleCardProps) {
       style={{ borderBottom: '2px solid #111', paddingBottom: '20px' }}
     >
       <Link href={`/${article.category}/${article.slug}`}>
-        <p className="font-sans uppercase mb-2.5" style={{ fontSize: '9px', color: '#ccbb9e', letterSpacing: '2px' }}>
+        <p className="font-sans uppercase mb-2.5" style={{ fontSize: '9px', color: '#C5A059', letterSpacing: '2px' }}>
           {CATEGORY_LABELS[article.category]}
           {article.altBaslik1 && article.altBaslik1 !== CATEGORY_LABELS[article.category] && article.altBaslik1 !== CATEGORY_SHORT[article.category] && ` · ${article.altBaslik1}`}
         </p>

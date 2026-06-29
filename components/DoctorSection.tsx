@@ -16,13 +16,13 @@ export default function DoctorSection() {
   const isInView = useInView(ref, { once: false, margin: '-100px' })
 
   return (
-    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#224a3e', minHeight: '500px' }}>
+    <section ref={ref} className="flex flex-col md:flex-row" style={{ background: '#0F172A', minHeight: '500px' }}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={isInView ? { opacity: 1 } : {}}
         transition={{ duration: 0.7 }}
         className="flex-none md:w-[45%] min-h-[280px] flex items-center justify-center"
-        style={{ background: 'linear-gradient(135deg, #1a2a1a, #2a3a2a, #3d5a3d)' }}
+        style={{ background: 'linear-gradient(135deg, #0a1120, #0F172A, #1a2640)' }}
       >
         {/* Fotoğraf eklendiğinde: <Image src="/images/dr-kebat.jpg" alt="Dr. Mustafa Kebat" fill className="object-cover" /> */}
         <span className="text-[80px] opacity-60">👨‍⚕️</span>
@@ -35,7 +35,7 @@ export default function DoctorSection() {
         className="flex-1 flex flex-col justify-center"
         style={{ padding: '60px 48px' }}
       >
-        <p className="font-sans uppercase mb-3" style={{ color: '#ccbb9e', fontSize: '10px', letterSpacing: '3px' }}>Hakkımda</p>
+        <p className="font-sans uppercase mb-3" style={{ color: '#C5A059', fontSize: '10px', letterSpacing: '3px' }}>Hakkımda</p>
         <h2 className="font-serif font-normal text-white mb-5" style={{ fontSize: '40px' }}>Dr. Mustafa Kebat</h2>
         <p className="font-sans mb-6 max-w-xl" style={{ color: '#aaa', fontSize: '14px', lineHeight: '1.8' }}>
           Tıp doktoru ve Longevity danışmanı. Bireysel sağlık optimizasyonundan kurumsal sağlık
@@ -48,9 +48,9 @@ export default function DoctorSection() {
               key={i}
               className="font-sans"
               style={{
-                background: 'rgba(204,187,158,0.1)',
-                border: '1px solid rgba(204,187,158,0.3)',
-                color: '#ccbb9e',
+                background: 'rgba(197,160,89,0.1)',
+                border: '1px solid rgba(197,160,89,0.3)',
+                color: '#C5A059',
                 fontSize: '10px',
                 letterSpacing: '1px',
                 padding: '6px 12px',
