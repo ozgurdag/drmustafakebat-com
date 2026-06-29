@@ -43,7 +43,7 @@ export default function Home() {
         ]}
         href="/longevity"
         ctaLabel="Longevity (Yaşlanma Yönetimi)"
-        gradientClass="bg-gradient-to-br from-[#1a3a28] via-[#2d5a3d] to-[#4a7c59]"
+        gradientClass="bg-gradient-to-br from-navy via-[#1e293b] to-[#334155]"
         icon="🌿"
         photo="/photo-longevity.jpg"
       />
@@ -63,7 +63,7 @@ export default function Home() {
         href="/systems"
         ctaLabel="Corporate Bio-Integrity"
         reversed
-        gradientClass="bg-gradient-to-br from-[#0d1f3a] via-[#1a3a6a] to-[#2d5a8a]"
+        gradientClass="bg-gradient-to-br from-[#020617] via-navy to-[#1e293b]"
         icon="⚙️"
         photo="/photo-systems.jpg"
       />
@@ -82,7 +82,7 @@ export default function Home() {
         ]}
         href="/neuroperformance"
         ctaLabel="NeuroPerformance"
-        gradientClass="bg-gradient-to-br from-[#1a1030] via-[#2d1a50] to-[#4a2d7a]"
+        gradientClass="bg-gradient-to-br from-[#170f2a] via-[#281b45] to-[#3f2a68]"
         icon="🧠"
         photo="/photo-neuro.jpg"
       />
