@@ -33,7 +33,7 @@ jobs:
           server-dir: /
           exclude: |
             **/.git*
-            **/images/articles/**
+            **/images/**
+            **/hero-bg.mp4
           log-level: verbose
-          timeout: 180000
-
+          timeout: 600000
