@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -23,17 +25,20 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: FTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Create cPanel deployment file
+        run: |
+          cat << 'EOF' > ./out/.cpanel.yml
+          ---
+          deployment:
+            tasks:
+              - export DEPLOYPATH=/home/drmust11/public_html/
+              - /bin/cp -R * $DEPLOYPATH
+          EOF
+
+      - name: Deploy to Production Branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
-          server-dir: /
-          exclude: |
-            **/.git*
-            **/images/**
-            **/hero-bg.mp4
-          log-level: verbose
-          timeout: 600000
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          publish_branch: production
+          force_orphan: true
