@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fdusunce_yazilarim\u002F[slug]","\u002Fgenel_tip\u002F[slug]","\u002Fis_sagligi\u002F[slug]","\u002Fkurumsal_saglik\u002F[slug]","\u002Flongevity\u002F[slug]","\u002Fneuroperformance\u002F[slug]","\u002Fspor\u002F[slug]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
