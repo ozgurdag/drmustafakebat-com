@@ -24,6 +24,22 @@ if (!is_string($token) || !hash_equals(DEPLOY_SECRET, $token)) {
     die('Yetkisiz erisim. - Unauthorized.');
 }
 
+// GitHub webhook'u her push'ta (main dahil) tetiklenir. Sadece asil site
+// icerigini tasiyan DEPLOY_BRANCH (production) push'landiginda calismali;
+// diger dallara push'ta hicbir sey yapmadan erken cikalim (200 dondururuz ki
+// GitHub bunu "basarisiz teslimat" olarak isaretlemesin). Manuel tarayici
+// testlerinde (govde/body yok) bu kontrol atlanir, script normal calisir.
+$rawBody = file_get_contents('php://input');
+$payload = json_decode($rawBody, true);
+if (is_array($payload) && isset($payload['ref'])) {
+    $expectedRef = 'refs/heads/' . DEPLOY_BRANCH;
+    if ($payload['ref'] !== $expectedRef) {
+        http_response_code(200);
+        echo "Ilgisiz dal push edildi ({$payload['ref']}), atlandi.\n";
+        exit;
+    }
+}
+
 $repo_path   = DEPLOY_REPO_PATH;
 $target_path = DEPLOY_TARGET_PATH;
 
