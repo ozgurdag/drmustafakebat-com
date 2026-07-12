@@ -1,32 +1,118 @@
 <?php
 // Custom GitHub Webhook for cPanel Git Version Control
-// This script allows GitHub to trigger a pull and deploy on Turhost
+//
+// NOT: Bu sunucuda shell_exec/escapeshellarg (ve exec, system, popen,
+// proc_open) disable_functions ile kapatılmış. Bu yüzden "uapi" komutunu
+// shell'e değil, cPanel'in HTTP tabanlı UAPI'sine curl ile çağırıyoruz;
+// dosya kopyalama için de cp -R yerine saf PHP fonksiyonları kullanıyoruz.
 
-$secret = 'drmustafa_deploy_secret_2026';
+header('Content-Type: text/plain; charset=utf-8');
+@set_time_limit(60);
 
-// Güvenlik kontrolü
-if (!isset($_GET['token']) || $_GET['token'] !== $secret) {
+$configFile = __DIR__ . '/deploy-config.php';
+if (!file_exists($configFile)) {
+    http_response_code(503);
+    echo "deploy-config.php bulunamadi. Once bu dosyayi sunucuya elle yukleyin.\n";
+    exit;
+}
+require_once $configFile;
+
+// Güvenlik kontrolü — timing-safe karşılaştırma
+$token = $_GET['token'] ?? '';
+if (!is_string($token) || !hash_equals(DEPLOY_SECRET, $token)) {
     http_response_code(403);
     die('Yetkisiz erisim. - Unauthorized.');
 }
 
-// cPanel ekranında yazan birebir Repository Path
-$repo_path = '/home/drmust11//home/drmust11/deploy_repo';
+$repo_path   = DEPLOY_REPO_PATH;
+$target_path = DEPLOY_TARGET_PATH;
 
-// 1. Depoyu Güncelle (GitHub'dan son dosyaları çek)
-$update_cmd = "uapi VersionControl update_repository repository_root='{$repo_path}' 2>&1";
-$update_result = shell_exec($update_cmd);
+/**
+ * cPanel UAPI'yi shell yerine HTTPS üzerinden (curl) çağırır.
+ * Belgeler: https://api.docs.cpanel.net/openapi/cpanel/ (UAPI over HTTP)
+ */
+function cpanelApi(string $module, string $function, array $params = []): array {
+    $url = 'https://' . DEPLOY_CPANEL_HOST . ':2083/execute/' . $module . '/' . $function;
+    if ($params) $url .= '?' . http_build_query($params);
 
-// 2. Deployment'ı Başlat (.cpanel.yml içindeki kopyalama talimatını çalıştır)
-$deploy_cmd = "uapi VersionControl start_deployment repository_root='{$repo_path}' 2>&1";
-$deploy_result = shell_exec($deploy_cmd);
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER     => ['Authorization: cpanel ' . DEPLOY_CPANEL_USER . ':' . DEPLOY_CPANEL_API_TOKEN],
+        CURLOPT_CONNECTTIMEOUT => 8,   // baglanti kurulamazsa hemen vazgec (asili kalmasin)
+        CURLOPT_TIMEOUT        => 15,
+    ]);
+    $body = curl_exec($ch);
+    $err  = curl_error($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
 
-// Yedek plan: Eğer .cpanel.yml çalışmazsa diye dosyaları elle kopyala
-shell_exec("cp -R {$repo_path}/* /home/drmust11/public_html/ 2>&1");
+    if ($body === false) {
+        return ['ok' => false, 'code' => 0, 'body' => "curl hatasi: $err"];
+    }
+    return ['ok' => $code >= 200 && $code < 300, 'code' => $code, 'body' => $body];
+}
+
+/**
+ * cp -R yerine: repo_path kökünü target_path'e saf PHP ile kopyalar.
+ * Gizli dosyaları (.git dahil, "." ile başlayan her şeyi) atlar — eskiden
+ * shell'deki "*" joker karakterinin yaptığı ile aynı davranış.
+ */
+function recursiveCopy(string $src, string $dst): array {
+    $errors = [];
+    if (!is_dir($dst) && !@mkdir($dst, 0755, true) && !is_dir($dst)) {
+        return ["HATA: hedef klasor olusturulamadi: $dst"];
+    }
+    $items = @scandir($src);
+    if ($items === false) {
+        return ["HATA: kaynak klasor okunamadi: $src"];
+    }
+    foreach ($items as $item) {
+        if ($item === '.' || $item === '..' || $item[0] === '.') continue; // gizli dosya/klasor atla
+        $srcPath = $src . '/' . $item;
+        $dstPath = $dst . '/' . $item;
+        if (is_dir($srcPath)) {
+            $errors = array_merge($errors, recursiveCopy($srcPath, $dstPath));
+        } elseif (!@copy($srcPath, $dstPath)) {
+            $errors[] = "Kopyalanamadi: $srcPath -> $dstPath";
+        }
+    }
+    return $errors;
+}
+
+// 1. Depoyu Güncelle (GitHub'dan son dosyaları çek) — doğru UAPI fonksiyonu
+// "VersionControl/update_repository" değil, "VersionControl/update" ve
+// "branch" parametresi zorunlu (bkz. pinkasey/cpanel-deploy-action kaynağı).
+$update = cpanelApi('VersionControl', 'update', [
+    'repository_root' => $repo_path,
+    'branch'          => DEPLOY_BRANCH,
+]);
+
+// 2. Deployment'ı Başlat — bu da "VersionControl" değil ayrı bir modül:
+// "VersionControlDeployment/create". Bir task_id döner, kısa süre pollarız.
+$deploy = cpanelApi('VersionControlDeployment', 'create', ['repository_root' => $repo_path]);
+
+// Not: Burada bilerek uzun bir polling döngüsü YOK — sunucunun PHP çalışma
+// süresi sınırını (max_execution_time) aşıp 500 vermesine neden oluyordu.
+// Sonucunu beklemiyoruz; asagidaki saf PHP kopyalama zaten kendi basina
+// dosyalari guncel tutmaya yetiyor.
+$deployData = json_decode($deploy['body'], true);
+$deployStatus = ($deployData['status'] ?? 0) == 1
+    ? "Deployment tetiklendi (status: basarili)."
+    : ("Deployment yaniti belirsiz/hata: " . $deploy['body']);
+
+// 3. Yedek plan: .cpanel.yml çalışmazsa diye dosyaları saf PHP ile kopyala.
+$fallback_result = '';
+if (is_dir($repo_path)) {
+    $copyErrors = recursiveCopy(rtrim($repo_path, '/'), rtrim($target_path, '/'));
+    $fallback_result = $copyErrors ? implode("\n", $copyErrors) : "OK - hatasiz kopyalandi.";
+} else {
+    $fallback_result = "UYARI: {$repo_path} bulunamadi, yedek kopyalama adimi atlandi.\n";
+}
 
 // GitHub'a yanıt dön
-header('Content-Type: text/plain');
 echo "Deployment Triggered Successfully!\n\n";
-echo "--- Update Phase ---\n$update_result\n\n";
-echo "--- Deploy Phase ---\n$deploy_result\n";
-?>
+echo "--- Update Phase (HTTP $update[code]) ---\n{$update['body']}\n\n";
+echo "--- Deploy Phase (HTTP $deploy[code]) ---\n{$deploy['body']}\n";
+echo "--- Deploy Status ---\n$deployStatus\n\n";
+echo "--- Fallback Copy ---\n$fallback_result\n";
